@@ -192,6 +192,12 @@ def month_range(end_period: str, count: int) -> list[str]:
     return result
 
 
+
+def next_month(period: str) -> str:
+    year, month = (int(part) for part in period.split("-", 1))
+    absolute = year * 12 + month
+    return f"{absolute // 12:04d}-{absolute % 12 + 1:02d}"
+
 def quarter_range(end_period: str, count: int) -> list[str]:
     match = re.fullmatch(r"(\d{4})Q([1-4])", end_period)
     if not match:
@@ -443,12 +449,32 @@ class DashboardService:
     def _refresh_mops_history(self, data: dict) -> None:
         code_map = {"2344": "winbond", "2408": "nanya", "2337": "macronix"}
         end_period = self._company(data, "winbond")["metrics"]["period"]
+        # TWSE 오픈API 집계(t187ap05_L)는 매월 중순에야 갱신되므로,
+        # MOPS 월보(t21sc03)에 더 최신 월 데이터가 있으면 기준 월을 확장한다.
+        prefetched: dict[str, dict[str, dict]] = {}
+        if re.fullmatch(r"\d{4}-\d{2}", str(end_period)):
+            current_month = datetime.now(KST).strftime("%Y-%m")
+            for _ in range(3):
+                candidate = next_month(end_period)
+                if candidate > current_month:
+                    break
+                try:
+                    _, rows = self._fetch_mops_period(candidate)
+                except Exception:
+                    break
+                if not rows:
+                    break
+                prefetched[candidate] = rows
+                end_period = candidate
         required_periods = month_range(end_period, 36)
         existing: dict[str, dict[str, dict]] = {code: {} for code in code_map}
         for code, company_id in code_map.items():
             for item in self._company(data, company_id).get("monthlyHistory", []):
                 if item.get("period") in required_periods:
                     existing[code][item["period"]] = item
+        for period, rows in prefetched.items():
+            for code, item in rows.items():
+                existing[code][period] = item
 
         missing = [period for period in required_periods if not all(period in existing[code] for code in code_map)]
         errors: list[str] = []
@@ -466,7 +492,28 @@ class DashboardService:
 
         for code, company_id in code_map.items():
             company = self._company(data, company_id)
-            company["monthlyHistory"] = [existing[code][period] for period in required_periods if period in existing[code]]
+            history = [existing[code][period] for period in required_periods if period in existing[code]]
+            company["monthlyHistory"] = history
+            if history:
+                latest = history[-1]
+                metrics = company["metrics"]
+                revenue = latest.get("revenue")
+                if str(latest.get("period", "")) > str(metrics.get("period", "")) and revenue is not None:
+                    metrics.update({
+                        "period": latest["period"],
+                        "periodType": "월매출",
+                        "revenue": revenue,
+                        "revenueDisplay": f"NT$ {revenue / 100:,.1f}억",
+                        "revenueYoY": latest.get("yoy"),
+                        "revenueQoQ": latest.get("mom"),
+                    })
+                    year, month = (int(part) for part in latest["period"].split("-", 1))
+                    company.update({
+                        "updatedAt": now_iso(),
+                        "verification": "official",
+                        "sourceLabel": "대만거래소 월매출(MOPS)",
+                        "sourceUrl": MOPS_HISTORY_URL.format(roc_year=year - 1911, month=month),
+                    })
 
         complete = min(len(existing[code]) for code in code_map)
         message = f"3개사 월매출·{complete}개월 이력 갱신 완료"
