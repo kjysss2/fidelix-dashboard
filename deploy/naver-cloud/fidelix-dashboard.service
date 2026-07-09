@@ -1,0 +1,17 @@
+[Unit]
+Description=Fidelix Memory Radar dashboard
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=fidelix
+Group=fidelix
+WorkingDirectory=/opt/fidelix-dashboard
+EnvironmentFile=/opt/fidelix-dashboard/.env
+ExecStart=/usr/bin/python3 -u /opt/fidelix-dashboard/server.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
