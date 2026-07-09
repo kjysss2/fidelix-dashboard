@@ -1,0 +1,264 @@
+{
+  "schemaVersion": 1,
+  "title": "Fidelix Memory Radar",
+  "subtitle": "메모리 업황과 피어 실적을 한 화면에서 추적합니다",
+  "system": {
+    "lastRefresh": "2026-07-06T09:00:00+09:00",
+    "lastRefreshReason": "seed",
+    "lastRefreshErrors": [],
+    "refreshing": false,
+    "dartConfigured": false
+  },
+  "companies": [
+    {
+      "id": "fidelix",
+      "name": "피델릭스",
+      "ticker": "032580",
+      "market": "KOSDAQ",
+      "country": "KR",
+      "role": "관심기업",
+      "focus": "모바일·IoT용 저전력 메모리",
+      "metrics": {
+        "period": "2026 1Q",
+        "periodType": "분기실적",
+        "revenue": 21500000000,
+        "revenueDisplay": "215억원",
+        "revenueYoY": null,
+        "revenueQoQ": null,
+        "operatingIncome": 4300000000,
+        "operatingIncomeDisplay": "43억원",
+        "netIncome": 5300000000,
+        "netIncomeDisplay": "53억원",
+        "currency": "KRW",
+        "basis": "연결, 분기"
+      },
+      "updatedAt": "2026-05-11T07:50:00+09:00",
+      "verification": "seed-verified",
+      "sourceLabel": "DART 분기보고서 요약값",
+      "sourceUrl": "https://dart.fss.or.kr/",
+      "note": "최근 4개 분기 만의 영업흑자 전환",
+      "questions": ["흑자 전환이 ASP 상승과 물량 증가 중 어디에서 왔는가?", "중국 주요 주주·고객과의 거래가 실적 변동성을 키우는가?"]
+    },
+    {
+      "id": "winbond",
+      "name": "Winbond",
+      "ticker": "2344",
+      "market": "TWSE",
+      "country": "TW",
+      "role": "Specialty DRAM",
+      "focus": "Specialty DRAM·NOR Flash",
+      "metrics": {
+        "period": "2026-05",
+        "periodType": "월매출",
+        "revenue": 20001.444,
+        "revenueDisplay": "NT$ 200.0억",
+        "revenueYoY": 181.97,
+        "revenueQoQ": 3.93,
+        "operatingIncome": null,
+        "operatingIncomeDisplay": "월매출 공시 미제공",
+        "netIncome": null,
+        "netIncomeDisplay": "월매출 공시 미제공",
+        "currency": "TWD",
+        "basis": "당월, NT$ million"
+      },
+      "updatedAt": "2026-06-17T09:00:00+08:00",
+      "verification": "official",
+      "sourceLabel": "대만거래소 월매출",
+      "sourceUrl": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
+      "note": "시장 수급 영향으로 매출 증가",
+      "questions": ["Specialty DRAM 가격 상승이 매출총이익률에 얼마나 반영됐는가?", "NOR Flash 재고 조정은 끝났는가?"]
+    },
+    {
+      "id": "nanya",
+      "name": "Nanya",
+      "ticker": "2408",
+      "market": "TWSE",
+      "country": "TW",
+      "role": "Commodity DRAM",
+      "focus": "범용 DRAM·DDR4/DDR5",
+      "metrics": {
+        "period": "2026-05",
+        "periodType": "월매출",
+        "revenue": 27669.563,
+        "revenueDisplay": "NT$ 276.7억",
+        "revenueYoY": 730.14,
+        "revenueQoQ": 8.55,
+        "operatingIncome": null,
+        "operatingIncomeDisplay": "월매출 공시 미제공",
+        "netIncome": null,
+        "netIncomeDisplay": "월매출 공시 미제공",
+        "currency": "TWD",
+        "basis": "당월, NT$ million"
+      },
+      "updatedAt": "2026-06-17T09:00:00+08:00",
+      "verification": "official",
+      "sourceLabel": "대만거래소 월매출",
+      "sourceUrl": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
+      "note": "DRAM 수요 회복의 고베타 비교지표",
+      "questions": ["DDR4 가격 급등의 지속 기간은?", "신공정 램프업 비용과 가동률 회복 속도는?"]
+    },
+    {
+      "id": "macronix",
+      "name": "Macronix",
+      "ticker": "2337",
+      "market": "TWSE",
+      "country": "TW",
+      "role": "NOR Flash",
+      "focus": "NOR Flash·ROM",
+      "metrics": {
+        "period": "2026-05",
+        "periodType": "월매출",
+        "revenue": 6255.653,
+        "revenueDisplay": "NT$ 62.6억",
+        "revenueYoY": 175.8,
+        "revenueQoQ": 5.8,
+        "operatingIncome": null,
+        "operatingIncomeDisplay": "월매출 공시 미제공",
+        "netIncome": null,
+        "netIncomeDisplay": "월매출 공시 미제공",
+        "currency": "TWD",
+        "basis": "당월, NT$ million"
+      },
+      "updatedAt": "2026-06-17T09:00:00+08:00",
+      "verification": "official",
+      "sourceLabel": "대만거래소 월매출",
+      "sourceUrl": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
+      "note": "수요 증가 영향",
+      "questions": ["자동차·산업용 NOR 주문 회복이 실제 출하로 이어지는가?", "ROM 계절성이 하반기 실적을 지지하는가?"]
+    },
+    {
+      "id": "dosilicon",
+      "name": "Dosilicon",
+      "ticker": "688110",
+      "market": "SSE STAR",
+      "country": "CN",
+      "role": "중국 피어",
+      "focus": "중소용량 DRAM·NAND·NOR",
+      "metrics": {
+        "period": "2026 1Q",
+        "periodType": "분기실적",
+        "revenue": 479.32,
+        "revenueDisplay": "CNY 4.79억",
+        "revenueYoY": 236.95,
+        "revenueQoQ": null,
+        "operatingIncome": null,
+        "operatingIncomeDisplay": "원문 확인 필요",
+        "netIncome": 138.28,
+        "netIncomeDisplay": "CNY 1.38억",
+        "currency": "CNY",
+        "basis": "분기, CNY million"
+      },
+      "updatedAt": "2026-04-29T18:00:00+08:00",
+      "verification": "seed-verified",
+      "sourceLabel": "2026년 1분기 보고서",
+      "sourceUrl": "https://www.sse.com.cn/",
+      "note": "매출 급증과 함께 순이익 흑자 전환",
+      "questions": ["실적 개선이 가격 효과인지 고객·제품 믹스 변화인지?", "피델릭스와의 공급·판매·지배구조 연결성이 강화되는가?"]
+    },
+    {
+      "id": "jeju",
+      "name": "제주반도체",
+      "ticker": "080220",
+      "market": "KOSDAQ",
+      "country": "KR",
+      "role": "국내 팹리스 피어",
+      "focus": "모바일·IoT 저전력 메모리",
+      "metrics": {
+        "period": "2026 1Q",
+        "periodType": "분기실적",
+        "revenue": 180500000000,
+        "revenueDisplay": "1,805억원",
+        "revenueYoY": 273.0,
+        "revenueQoQ": null,
+        "operatingIncome": 67100000000,
+        "operatingIncomeDisplay": "671억원",
+        "netIncome": null,
+        "netIncomeDisplay": "DART 연결 시 표시",
+        "currency": "KRW",
+        "basis": "연결, 분기"
+      },
+      "updatedAt": "2026-05-14T18:00:00+09:00",
+      "verification": "seed-verified",
+      "sourceLabel": "DART 분기보고서 요약값",
+      "sourceUrl": "https://dart.fss.or.kr/",
+      "note": "분기 최대 실적, 영업이익률 약 37.2%",
+      "questions": ["고객 집중도와 재고 리스크가 고마진을 훼손할 가능성은?", "LPDDR4X 공급 부족 효과는 언제 정상화되는가?"]
+    }
+  ],
+  "calendar": [
+    {"date": "2026-07-10", "company": "대만 3사", "event": "6월 월매출 공시 예상", "importance": "high"},
+    {"date": "2026-08-14", "company": "피델릭스·제주반도체", "event": "반기보고서 법정 제출기한", "importance": "high"},
+    {"date": "2026-08-21", "company": "Dosilicon", "event": "반기 실적 발표 예상", "importance": "medium"},
+    {"date": "2026-10-10", "company": "대만 3사", "event": "9월 월매출 공시 예상", "importance": "medium"}
+  ],
+  "thesisChecks": [
+    {"id": "price", "label": "메모리 가격", "value": "상승", "tone": "positive", "detail": "대만 3사 5월 매출이 전년 대비 큰 폭 증가"},
+    {"id": "profit", "label": "이익 레버리지", "value": "확인", "tone": "positive", "detail": "피델릭스·제주반도체·Dosilicon 1Q 흑자/증익"},
+    {"id": "inventory", "label": "재고 정상화", "value": "추적", "tone": "warning", "detail": "2Q 보고서의 재고자산·매입채무 확인 필요"},
+    {"id": "concentration", "label": "고객 집중", "value": "주의", "tone": "negative", "detail": "국내 팹리스의 특정 고객 의존도 점검"}
+  ],
+  "feed": [
+    {"id": "seed-fidelix-q1", "companyId": "fidelix", "company": "피델릭스", "date": "2026-05-11", "title": "분기보고서 (2026.03)", "type": "실적", "url": "https://dart.fss.or.kr/", "source": "DART 요약", "isNew": false},
+    {"id": "seed-jeju-q1", "companyId": "jeju", "company": "제주반도체", "date": "2026-05-14", "title": "분기보고서 (2026.03)", "type": "실적", "url": "https://dart.fss.or.kr/", "source": "DART 요약", "isNew": false},
+    {"id": "seed-dosilicon-q1", "companyId": "dosilicon", "company": "Dosilicon", "date": "2026-04-29", "title": "2026년 제1분기 보고서", "type": "실적", "url": "https://www.sse.com.cn/", "source": "SSE", "isNew": false}
+  ],
+  "sources": [
+    {"id": "twse", "name": "대만거래소 OpenAPI", "status": "live", "message": "월매출 자동 갱신", "checkedAt": "2026-06-17T09:00:00+08:00", "url": "https://openapi.twse.com.tw/"},
+    {"id": "dart", "name": "OpenDART", "status": "setup", "message": "API 키 연결 필요", "checkedAt": null, "url": "https://opendart.fss.or.kr/"},
+    {"id": "sse", "name": "상하이거래소", "status": "live", "message": "Dosilicon 공시 감시", "checkedAt": null, "url": "https://www.sse.com.cn/"},
+    {"id": "gds_ir", "name": "GDS 공식 IR", "status": "live", "message": "중국 IDC 신규수주·백로그 확인", "checkedAt": null, "url": "https://investors.gds-services.com/financial-information/quarterly-results/"},
+    {"id": "vnet_ir", "name": "VNET 공식 IR", "status": "live", "message": "중국 IDC 신규수주·확약용량 확인", "checkedAt": null, "url": "https://ir.vnet.com/financial-information/quarterly-results/"}
+  ],
+  "chinaServerOrders": {
+    "updatedAt": "2026-05-20T09:00:00+09:00",
+    "note": "공식 IR 원문에서 확인되는 중국 IDC 신규수주와 백로그만 표시합니다. 이미지의 'new order wins'는 백로그가 아니라 신규수주 지표입니다.",
+    "companies": [
+      {
+        "id": "gds",
+        "name": "GDS",
+        "sourceLabel": "GDS 공식 IR 발표자료",
+        "sourceUrl": "https://investors.gds-services.com/financial-information/quarterly-results/",
+        "updatedAt": "2026-05-20T09:00:00+09:00",
+        "latest": {"label": "2Q26TD 신규수주", "value": 138, "unit": "MW", "basis": "Hyperscale orders to date"},
+        "series": [
+          {"period": "FY22", "value": 119, "unit": "MW", "category": "연간 확약전력", "basis": "Gross Additional Power Committed By Year"},
+          {"period": "FY23", "value": 97, "unit": "MW", "category": "연간 확약전력", "basis": "Gross Additional Power Committed By Year"},
+          {"period": "FY24", "value": 99, "unit": "MW", "category": "연간 확약전력", "basis": "Gross Additional Power Committed By Year"},
+          {"period": "FY25", "value": 317, "unit": "MW", "category": "연간 확약전력", "basis": "Gross Additional Power Committed By Year"},
+          {"period": "YTD26", "value": 346, "unit": "MW", "category": "연간 확약전력", "basis": "Gross Additional Power Committed By Year"},
+          {"period": "1Q26", "value": 196, "unit": "MW", "category": "분기 신규수주", "basis": "Hyperscale orders in 1Q26"},
+          {"period": "2Q26TD", "value": 138, "unit": "MW", "category": "분기 신규수주", "basis": "Hyperscale orders to date"}
+        ],
+        "backlog": [
+          {"label": "Total backlog", "value": 204556, "unit": "sqm", "basis": "GDS IR"},
+          {"label": "Effective backlog", "value": 168281, "unit": "sqm", "basis": "GDS IR"},
+          {"label": "2Q-4Q26 delivery", "value": 35, "unit": "%", "basis": "Backlog delivery split"},
+          {"label": "FY27 delivery", "value": 40, "unit": "%", "basis": "Backlog delivery split"},
+          {"label": "Thereafter", "value": 25, "unit": "%", "basis": "Backlog delivery split"}
+        ],
+        "note": "중국 IDC 신규수주는 MW, 백로그는 sqm 기준으로 구분 표시합니다."
+      },
+      {
+        "id": "vnet",
+        "name": "VNET",
+        "sourceLabel": "VNET 공식 IR 발표자료",
+        "sourceUrl": "https://ir.vnet.com/financial-information/quarterly-results/",
+        "updatedAt": "2026-05-28T09:00:00+09:00",
+        "latest": {"label": "1Q26 YTD 신규수주", "value": 517, "unit": "MW", "basis": "Wholesale IDC orders"},
+        "series": [
+          {"period": "3Q25", "value": 63, "unit": "MW", "category": "분기 신규수주", "basis": "Wholesale orders"},
+          {"period": "4Q25TD", "value": 32, "unit": "MW", "category": "분기 신규수주", "basis": "Entered 4Q order"},
+          {"period": "1Q26 YTD", "value": 517, "unit": "MW", "category": "YTD 신규수주", "basis": "Wholesale IDC orders"}
+        ],
+        "backlog": [
+          {"label": "Committed capacity", "value": 869, "unit": "MW", "basis": "VNET operating metrics"},
+          {"label": "Utilized capacity", "value": 687, "unit": "MW", "basis": "VNET operating metrics"},
+          {"label": "Unutilized committed", "value": 182, "unit": "MW", "basis": "Committed - utilized", "derived": true},
+          {"label": "Under construction", "value": 516, "unit": "MW", "basis": "VNET operating metrics"},
+          {"label": "Held for future development", "value": 1056, "unit": "MW", "basis": "VNET operating metrics"}
+        ],
+        "note": "Wholesale IDC 신규수주와 확약·활용 용량을 구분 표시합니다."
+      }
+    ]
+  }
+}
