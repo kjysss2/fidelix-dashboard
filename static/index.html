@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="피델릭스와 메모리 반도체 피어그룹 실적 팔로업 대시보드">
+  <title>Fidelix Memory Radar</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <a class="brand" href="#top" aria-label="Fidelix Memory Radar 홈">
+        <span class="brand-mark"><i></i><i></i><i></i></span>
+        <span><strong>FIDELIX</strong><small>MEMORY RADAR</small></span>
+      </a>
+      <nav class="nav" aria-label="대시보드 메뉴">
+        <a class="active" href="#overview"><span>⌂</span>Overview</a>
+        <a href="#peers"><span>◎</span>Peer Tracker</a>
+        <a href="#calendar"><span>□</span>Calendar</a>
+        <a href="#feed"><span>↗</span>Disclosures</a>
+        <a href="#china-orders"><span>▥</span>China IDC</a>
+        <a href="#sources"><span>⋮</span>Data Sources</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="pulse-card">
+          <div class="pulse-title"><span class="live-dot"></span> Auto tracking</div>
+          <strong>매일 08:00</strong>
+          <small>공식 원문을 우선 확인합니다</small>
+        </div>
+        <p>정보 제공용 · 투자 권유 아님</p>
+      </div>
+    </aside>
+
+    <main id="top">
+      <header class="topbar">
+        <button class="menu-button" id="menuButton" aria-label="메뉴 열기">☰</button>
+        <div class="status-line"><span class="live-dot"></span><span id="topStatus">데이터 연결 확인 중</span></div>
+        <div class="top-actions">
+          <span class="updated" id="lastUpdated">—</span>
+          <button class="refresh-button" id="refreshButton"><span>↻</span> 새로고침</button>
+        </div>
+      </header>
+
+      <div class="content">
+        <section class="hero" id="overview">
+          <div>
+            <p class="eyebrow">MEMORY SEMICONDUCTOR FOLLOW-UP</p>
+            <h1>피델릭스 투자 가설을<br><em>실적으로 검증합니다.</em></h1>
+            <p class="hero-copy">동일한 업황을 먼저 보여주는 5개 피어의 매출과 이익, 공시 일정을 한곳에서 추적합니다.</p>
+          </div>
+          <div class="hero-aside">
+            <span>다음 중요 일정</span>
+            <strong id="nextEventDate">—</strong>
+            <p id="nextEventTitle">일정 계산 중</p>
+          </div>
+        </section>
+
+        <section class="thesis-grid" id="thesisGrid" aria-label="투자 가설 상태"></section>
+
+        <section class="section" id="peers">
+          <div class="section-heading">
+            <div><p class="eyebrow">PEER PULSE</p><h2>실적 온도판</h2></div>
+            <div class="segmented" role="group" aria-label="기업 필터">
+              <button class="active" data-filter="all">전체</button>
+              <button data-filter="KR">한국</button>
+              <button data-filter="TW">대만</button>
+              <button data-filter="CN">중국</button>
+            </div>
+          </div>
+          <div class="peer-feature" id="fidelixFeature"></div>
+          <div class="peer-grid" id="peerGrid"></div>
+        </section>
+
+        <section class="section" id="monthly-trends">
+          <div class="section-heading">
+            <div><p class="eyebrow">36-MONTH REVENUE</p><h2>최근 3년 월매출 추이</h2></div>
+            <p class="section-note">MOPS 공식 공시 · 단위 NT$ 억 · Dosilicon은 월매출 미공시로 제외</p>
+          </div>
+          <div class="chart-grid" id="monthlyChartGrid"></div>
+        </section>
+
+        <section class="section" id="quarterly-trends">
+          <div class="section-heading">
+            <div><p class="eyebrow">12-QUARTER FUNDAMENTALS</p><h2>최근 12개 분기 실적·수익성</h2></div>
+            <p class="section-note">막대: 매출·영업이익·순이익 · 점선: 영업이익률·순이익률 · 회사별 현지 통화</p>
+          </div>
+          <div class="quarter-chart-grid" id="quarterlyChartGrid"></div>
+        </section>
+
+        <section class="section" id="china-orders">
+          <div class="section-heading">
+            <div><p class="eyebrow">CHINA IDC DEMAND</p><h2>중국 서버 신규수주·백로그</h2></div>
+            <p class="section-note">GDS·VNET 공식 IR 기준 · 신규수주(MW)와 백로그/확약용량은 구분 표시</p>
+          </div>
+          <div class="china-order-grid" id="chinaOrderGrid"></div>
+        </section>
+
+        <section class="split-layout">
+          <div class="section calendar-panel" id="calendar">
+            <div class="section-heading compact">
+              <div><p class="eyebrow">CATALYSTS</p><h2>팔로업 캘린더</h2></div>
+              <span class="chip">향후 일정</span>
+            </div>
+            <div class="timeline" id="timeline"></div>
+          </div>
+
+          <div class="section questions-panel">
+            <div class="section-heading compact">
+              <div><p class="eyebrow">RESEARCH QUEUE</p><h2>이번 분기 확인할 것</h2></div>
+              <span class="question-count" id="questionCount">0</span>
+            </div>
+            <div class="question-list" id="questionList"></div>
+          </div>
+        </section>
+
+        <section class="section" id="feed">
+          <div class="section-heading">
+            <div><p class="eyebrow">FILING STREAM</p><h2>최근 공시·실적</h2></div>
+            <p class="section-note">원문을 새 탭에서 확인할 수 있습니다.</p>
+          </div>
+          <div class="feed-list" id="feedList"></div>
+        </section>
+
+        <section class="section source-section" id="sources">
+          <div class="section-heading">
+            <div><p class="eyebrow">DATA HEALTH</p><h2>데이터 연결 상태</h2></div>
+            <button class="text-button" id="setupButton">OpenDART 설정 보기</button>
+          </div>
+          <div class="source-grid" id="sourceGrid"></div>
+          <div class="setup-guide" id="setupGuide" hidden>
+            <button class="setup-close" id="setupClose" aria-label="닫기">×</button>
+            <span class="guide-number">01</span>
+            <div><strong>OpenDART 인증키를 무료로 발급</strong><p>opendart.fss.or.kr에서 인증키를 신청합니다.</p></div>
+            <span class="guide-number">02</span>
+            <div><strong><code>.env.example</code>을 <code>.env</code>로 복사</strong><p><code>DART_API_KEY=발급키</code>를 입력합니다.</p></div>
+            <span class="guide-number">03</span>
+            <div><strong>서비스 다시 시작</strong><p>피델릭스·제주반도체 실적과 공시가 자동 갱신됩니다.</p></div>
+          </div>
+        </section>
+
+        <footer>
+          <span>Fidelix Memory Radar</span>
+          <p>공개 자료를 자동 정리한 정보 제공용 화면입니다. 최종 판단 전 원문 공시를 확인하세요.</p>
+        </footer>
+      </div>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js" defer></script>
+</body>
+</html>
