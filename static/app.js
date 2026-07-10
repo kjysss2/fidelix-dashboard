@@ -239,7 +239,7 @@ function renderSpotPrices(payload) {
     return `<article class="spot-card">
       <div class="spot-head">
         <div><span>${esc(product.name)}</span><small>${esc(product.label)}</small></div>
-        <a href="${esc(payload.sourceUrl || "https://www.dramexchange.com/")}" target="_blank" rel="noreferrer">DRAMeXchange ↗</a>
+        <a href="${esc(payload.sourceUrl || "https://www.dramexchange.com/")}" target="_blank" rel="noreferrer">${esc(payload.sourceLabel || "DRAMeXchange")} ↗</a>
       </div>
       <div class="spot-kpis">
         <div><label>Session Average</label><strong>${esc(spotNumber(latest.average))}</strong></div>

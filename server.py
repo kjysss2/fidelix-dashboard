@@ -32,6 +32,7 @@ CACHE_FILE = DATA_DIR / "cache.json"
 SPOT_HISTORY_FILE = DATA_DIR / "spot_history.json"
 KST = timezone(timedelta(hours=9))
 DRAMEXCHANGE_URL = "https://www.dramexchange.com/"
+STOCKEASY_MEMORY_URL = "https://stockeasy.intellio.kr/market-analysis?tab=memory-prices"
 TWSE_URL = "https://openapi.twse.com.tw/v1/opendata/t187ap05_L"
 MOPS_HISTORY_URL = "https://mopsov.twse.com.tw/nas/t21/sii/t21sc03_{roc_year}_{month}_0.html"
 MOPS_FINANCIAL_URL = "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID={code}&SYEAR={year}&SSEASON={quarter}&REPORT_ID=C"
@@ -294,6 +295,11 @@ class DashboardService:
             "note": "공개 홈의 Session Average를 매일 저장해 자체 추이를 만듭니다.",
             "products": [],
         })
+        legacy_ids = {"ddr4_16gb_3200"}
+        spot["products"] = [
+            product for product in spot.setdefault("products", [])
+            if product.get("id") not in legacy_ids
+        ]
         return {product.get("id"): product for product in spot.setdefault("products", [])}
 
     def _merge_spot_history_file(self, data: dict) -> None:
@@ -308,13 +314,23 @@ class DashboardService:
         for product_id, stored_product in stored_products.items():
             current = products.get(product_id)
             if not current:
-                continue
+                current = copy.deepcopy(stored_product)
+                current.setdefault("unit", "USD")
+                current.setdefault("color", {
+                    "ddr5_16gb_4800_5600": "#2e7a8f",
+                    "ddr4_8gb_3200": "#9a6f2e",
+                }.get(product_id, "#6b6258"))
+                data["spotPrices"].setdefault("products", []).append(current)
+                products[product_id] = current
             history = sorted(stored_product.get("history", []), key=lambda item: item.get("date", ""))
             if history:
                 current["history"] = history
                 current["latest"] = history[-1]
         if stored.get("updatedAt"):
             data["spotPrices"]["updatedAt"] = stored["updatedAt"]
+        for key in ("sourceLabel", "sourceUrl", "note"):
+            if stored.get(key):
+                data["spotPrices"][key] = stored[key]
 
     @staticmethod
     def _write_spot_history_file(data: dict) -> None:
@@ -328,6 +344,8 @@ class DashboardService:
                     "id": product.get("id"),
                     "name": product.get("name"),
                     "label": product.get("label"),
+                    "unit": product.get("unit"),
+                    "color": product.get("color"),
                     "history": product.get("history", []),
                 }
                 for product in spot.get("products", [])
@@ -753,6 +771,9 @@ class DashboardService:
     @staticmethod
     def _append_spot_history(product: dict, item: dict) -> None:
         history = {entry.get("date"): entry for entry in product.get("history", []) if entry.get("date")}
+        existing = history.get(item["date"])
+        if existing and existing.get("source") == "StockEasy":
+            item = existing
         history[item["date"]] = item
         product["history"] = sorted(history.values(), key=lambda entry: entry.get("date", ""))[-730:]
         product["latest"] = product["history"][-1]
@@ -763,7 +784,7 @@ class DashboardService:
         date, source_time = self._dramexchange_date(text)
         targets = [
             ("ddr5_16gb_4800_5600", "DDR5", "DDR5 16Gb (2Gx8) 4800/5600", "#2e7a8f"),
-            ("ddr4_16gb_3200", "DDR4", "DDR4 16Gb (2Gx8) 3200", "#9a6f2e"),
+            ("ddr4_8gb_3200", "DDR4", "DDR4 8Gb (1Gx8) 3200", "#9a6f2e"),
         ]
         spot = data.setdefault("spotPrices", {
             "updatedAt": None,
@@ -789,14 +810,15 @@ class DashboardService:
                 "dailyLow": parsed["dailyLow"],
                 "sessionHigh": parsed["sessionHigh"],
                 "sessionLow": parsed["sessionLow"],
+                "source": "DRAMeXchange",
             }
             product.update({"name": name, "label": label, "unit": "USD", "color": color})
             self._append_spot_history(product, item)
         spot.update({
             "updatedAt": now_iso(),
-            "sourceLabel": "DRAMeXchange DRAM Spot Price",
-            "sourceUrl": DRAMEXCHANGE_URL,
-            "note": "공개 홈의 Session Average를 매일 저장해 추이를 만듭니다. 장기 과거 차트는 유료 회원 영역입니다.",
+            "sourceLabel": "StockEasy / DRAMeXchange",
+            "sourceUrl": STOCKEASY_MEMORY_URL,
+            "note": "과거 90일은 StockEasy 메모리 화면 툴팁에서 수집했고, 이후 같은 DDR4 8Gb·DDR5 16Gb 품목의 공개 DRAMeXchange Session Average를 자동 누적합니다.",
         })
         self._write_spot_history_file(data)
         self._source_status(data, "dramexchange", "live", f"DDR4/DDR5 현물가 {date} 갱신 완료")

@@ -1,59 +1,781 @@
 {
-  "updatedAt": "2026-07-10T16:03:21+09:00",
-  "sourceLabel": "DRAMeXchange DRAM Spot Price",
-  "sourceUrl": "https://www.dramexchange.com/",
+  "updatedAt": "2026-07-10T16:29:31+09:00",
+  "sourceLabel": "StockEasy / DRAMeXchange",
+  "sourceUrl": "https://stockeasy.intellio.kr/market-analysis?tab=memory-prices",
   "products": [
     {
       "id": "ddr5_16gb_4800_5600",
       "name": "DDR5",
       "label": "DDR5 16Gb (2Gx8) 4800/5600",
+      "unit": "USD",
+      "color": "#2e7a8f",
       "history": [
         {
+          "date": "2026-04-13",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 37.1,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-04-14",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 37.2,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-04-15",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 37.433,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-04-16",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 37.7,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-04-17",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 38.5,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-04-20",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 38.667,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-04-21",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 38.833,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-04-22",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 38.833,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-04-23",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 38.667,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-04-24",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 38.5,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-04-27",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 38.433,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-04-28",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 38.5,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-04-29",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 38.867,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-04-30",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 39.0,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-04",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 38.833,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-05",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 38.833,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-06",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 38.833,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-07",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 39.0,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-08",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 39.833,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-11",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 40.2,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-12",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 40.267,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-13",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 40.367,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-14",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 40.7,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-15",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 41.167,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-18",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 41.267,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-19",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 41.1,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-20",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 41.167,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-21",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 41.333,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-22",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 41.5,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-25",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 41.667,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-26",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 41.667,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-27",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 41.667,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-28",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 41.833,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-29",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 41.9,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-01",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 42.267,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-02",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 42.567,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-03",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 42.833,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-04",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 43.233,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-05",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 43.4,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-08",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 43.567,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-09",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 44.0,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-10",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 44.5,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-11",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 44.667,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-12",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 44.833,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-15",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 45.0,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-16",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 45.233,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-17",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 45.4,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-18",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 46.0,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-22",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 46.167,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-23",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 46.5,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-24",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 46.667,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-25",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 46.733,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-26",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 46.733,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-29",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 46.733,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-30",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 46.833,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-07-01",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 46.833,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-07-02",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 46.633,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-07-03",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 46.667,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-07-06",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 47.0,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-07-07",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 47.067,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-07-08",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 47.067,
+          "source": "StockEasy"
+        },
+        {
           "date": "2026-07-09",
-          "sourceTime": "2026-07-09 18:10 GMT+8",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
           "average": 47.767,
-          "change": 1.49,
-          "dailyHigh": 62.0,
-          "dailyLow": 31.5,
-          "sessionHigh": 62.0,
-          "sessionLow": 31.5
+          "source": "StockEasy"
         },
         {
           "date": "2026-07-10",
-          "sourceTime": "2026-07-10 14:40 GMT+8",
-          "average": 47.8,
-          "change": 0.07,
-          "dailyHigh": 62.0,
-          "dailyLow": 31.5,
-          "sessionHigh": 62.0,
-          "sessionLow": 31.5
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 47.833,
+          "source": "StockEasy",
+          "change": 0.14
         }
       ]
     },
     {
-      "id": "ddr4_16gb_3200",
+      "id": "ddr4_8gb_3200",
       "name": "DDR4",
-      "label": "DDR4 16Gb (2Gx8) 3200",
+      "label": "DDR4 8Gb (1Gx8) 3200",
+      "unit": "USD",
+      "color": "#9a6f2e",
       "history": [
         {
+          "date": "2026-04-13",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 33.4,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-04-14",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 33.4,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-04-15",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 33.2,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-04-16",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 33.1,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-04-17",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 33.0,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-04-20",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 33.0,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-04-21",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 33.0,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-04-22",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 32.8,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-04-23",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 32.6,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-04-24",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 32.5,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-04-27",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 32.5,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-04-28",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 32.5,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-04-29",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 32.48,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-04-30",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 32.48,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-04",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 32.4,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-05",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 32.4,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-06",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 32.0,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-07",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 32.0,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-08",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 32.1,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-11",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 32.3,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-12",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 32.3,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-13",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 32.2,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-14",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 32.0,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-15",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 32.0,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-18",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 32.0,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-19",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 32.0,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-20",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 32.4,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-21",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 32.9,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-22",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 33.3,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-25",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 33.5,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-26",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 33.6,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-27",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 33.6,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-28",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 33.8,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-05-29",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 34.1,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-01",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 34.5,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-02",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 34.8,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-03",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 35.12,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-04",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 35.42,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-05",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 35.5,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-08",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 35.7,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-09",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 35.9,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-10",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 35.9,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-11",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 36.1,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-12",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 35.9,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-15",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 35.8,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-16",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 35.8,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-17",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 35.8,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-18",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 35.9,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-22",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 35.9,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-23",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 35.9,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-24",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 35.9,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-25",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 36.0,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-26",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 36.0,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-29",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 36.0,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-06-30",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 36.0,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-07-01",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 36.1,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-07-02",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 36.34,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-07-03",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 36.54,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-07-06",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 36.74,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-07-07",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 37.14,
+          "source": "StockEasy"
+        },
+        {
+          "date": "2026-07-08",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 37.34,
+          "source": "StockEasy"
+        },
+        {
           "date": "2026-07-09",
-          "sourceTime": "2026-07-09 18:10 GMT+8",
-          "average": 77.125,
-          "change": 0.26,
-          "dailyHigh": 95.0,
-          "dailyLow": 39.3,
-          "sessionHigh": 95.0,
-          "sessionLow": 39.3
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 37.4,
+          "source": "StockEasy"
         },
         {
           "date": "2026-07-10",
-          "sourceTime": "2026-07-10 14:40 GMT+8",
-          "average": 77.625,
-          "change": 0.65,
-          "dailyHigh": 96.0,
-          "dailyLow": 39.3,
-          "sessionHigh": 96.0,
-          "sessionLow": 39.3
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 37.8,
+          "source": "StockEasy",
+          "change": 1.07
         }
       ]
     }
