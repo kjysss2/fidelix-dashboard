@@ -29,7 +29,9 @@ STATIC_DIR = BASE_DIR / "static"
 DATA_DIR = BASE_DIR / "data"
 SEED_FILE = DATA_DIR / "seed.json"
 CACHE_FILE = DATA_DIR / "cache.json"
+SPOT_HISTORY_FILE = DATA_DIR / "spot_history.json"
 KST = timezone(timedelta(hours=9))
+DRAMEXCHANGE_URL = "https://www.dramexchange.com/"
 TWSE_URL = "https://openapi.twse.com.tw/v1/opendata/t187ap05_L"
 MOPS_HISTORY_URL = "https://mopsov.twse.com.tw/nas/t21/sii/t21sc03_{roc_year}_{month}_0.html"
 MOPS_FINANCIAL_URL = "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID={code}&SYEAR={year}&SSEASON={quarter}&REPORT_ID=C"
@@ -192,12 +194,6 @@ def month_range(end_period: str, count: int) -> list[str]:
     return result
 
 
-
-def next_month(period: str) -> str:
-    year, month = (int(part) for part in period.split("-", 1))
-    absolute = year * 12 + month
-    return f"{absolute // 12:04d}-{absolute % 12 + 1:02d}"
-
 def quarter_range(end_period: str, count: int) -> list[str]:
     match = re.fullmatch(r"(\d{4})Q([1-4])", end_period)
     if not match:
@@ -258,6 +254,7 @@ class DashboardService:
             except Exception:
                 pass
         self._ensure_defaults(self.dashboard)
+        self._merge_spot_history_file(self.dashboard)
 
     def _ensure_defaults(self, data: dict) -> None:
         """Add new dashboard sections to older cache files without discarding live data."""
@@ -278,6 +275,65 @@ class DashboardService:
                 "note": "공식 IR 원문에서 확인되는 중국 IDC 신규수주와 백로그만 표시합니다.",
                 "companies": [],
             }))
+
+        if "spotPrices" not in data:
+            data["spotPrices"] = copy.deepcopy(self.seed.get("spotPrices", {
+                "updatedAt": None,
+                "sourceLabel": "DRAMeXchange 공개 현물가",
+                "sourceUrl": DRAMEXCHANGE_URL,
+                "note": "공개 홈의 Session Average를 매일 저장해 자체 추이를 만듭니다.",
+                "products": [],
+            }))
+
+    @staticmethod
+    def _spot_products(data: dict) -> dict[str, dict]:
+        spot = data.setdefault("spotPrices", {
+            "updatedAt": None,
+            "sourceLabel": "DRAMeXchange 공개 현물가",
+            "sourceUrl": DRAMEXCHANGE_URL,
+            "note": "공개 홈의 Session Average를 매일 저장해 자체 추이를 만듭니다.",
+            "products": [],
+        })
+        return {product.get("id"): product for product in spot.setdefault("products", [])}
+
+    def _merge_spot_history_file(self, data: dict) -> None:
+        if not SPOT_HISTORY_FILE.exists():
+            return
+        try:
+            stored = read_json(SPOT_HISTORY_FILE)
+        except Exception:
+            return
+        stored_products = {product.get("id"): product for product in stored.get("products", [])}
+        products = self._spot_products(data)
+        for product_id, stored_product in stored_products.items():
+            current = products.get(product_id)
+            if not current:
+                continue
+            history = sorted(stored_product.get("history", []), key=lambda item: item.get("date", ""))
+            if history:
+                current["history"] = history
+                current["latest"] = history[-1]
+        if stored.get("updatedAt"):
+            data["spotPrices"]["updatedAt"] = stored["updatedAt"]
+
+    @staticmethod
+    def _write_spot_history_file(data: dict) -> None:
+        spot = data.get("spotPrices", {})
+        payload = {
+            "updatedAt": spot.get("updatedAt"),
+            "sourceLabel": spot.get("sourceLabel"),
+            "sourceUrl": spot.get("sourceUrl"),
+            "products": [
+                {
+                    "id": product.get("id"),
+                    "name": product.get("name"),
+                    "label": product.get("label"),
+                    "history": product.get("history", []),
+                }
+                for product in spot.get("products", [])
+            ],
+        }
+        atomic_write_json(SPOT_HISTORY_FILE, payload)
 
     def snapshot(self) -> dict:
         with self.lock:
@@ -315,6 +371,13 @@ class DashboardService:
             except Exception as exc:
                 errors.append(f"SSE: {exc}")
                 self._source_error(working, "sse", str(exc))
+
+            try:
+                self._refresh_dramexchange_spot(working)
+                updated_sources.append("DRAMeXchange")
+            except Exception as exc:
+                errors.append(f"DRAMeXchange: {exc}")
+                self._source_error(working, "dramexchange", str(exc))
 
             if os.getenv("ENABLE_CHINA_IDC", "0").strip().lower() in {"1", "true", "yes", "y"}:
                 try:
@@ -449,32 +512,12 @@ class DashboardService:
     def _refresh_mops_history(self, data: dict) -> None:
         code_map = {"2344": "winbond", "2408": "nanya", "2337": "macronix"}
         end_period = self._company(data, "winbond")["metrics"]["period"]
-        # TWSE 오픈API 집계(t187ap05_L)는 매월 중순에야 갱신되므로,
-        # MOPS 월보(t21sc03)에 더 최신 월 데이터가 있으면 기준 월을 확장한다.
-        prefetched: dict[str, dict[str, dict]] = {}
-        if re.fullmatch(r"\d{4}-\d{2}", str(end_period)):
-            current_month = datetime.now(KST).strftime("%Y-%m")
-            for _ in range(3):
-                candidate = next_month(end_period)
-                if candidate > current_month:
-                    break
-                try:
-                    _, rows = self._fetch_mops_period(candidate)
-                except Exception:
-                    break
-                if not rows:
-                    break
-                prefetched[candidate] = rows
-                end_period = candidate
         required_periods = month_range(end_period, 36)
         existing: dict[str, dict[str, dict]] = {code: {} for code in code_map}
         for code, company_id in code_map.items():
             for item in self._company(data, company_id).get("monthlyHistory", []):
                 if item.get("period") in required_periods:
                     existing[code][item["period"]] = item
-        for period, rows in prefetched.items():
-            for code, item in rows.items():
-                existing[code][period] = item
 
         missing = [period for period in required_periods if not all(period in existing[code] for code in code_map)]
         errors: list[str] = []
@@ -492,28 +535,7 @@ class DashboardService:
 
         for code, company_id in code_map.items():
             company = self._company(data, company_id)
-            history = [existing[code][period] for period in required_periods if period in existing[code]]
-            company["monthlyHistory"] = history
-            if history:
-                latest = history[-1]
-                metrics = company["metrics"]
-                revenue = latest.get("revenue")
-                if str(latest.get("period", "")) > str(metrics.get("period", "")) and revenue is not None:
-                    metrics.update({
-                        "period": latest["period"],
-                        "periodType": "월매출",
-                        "revenue": revenue,
-                        "revenueDisplay": f"NT$ {revenue / 100:,.1f}억",
-                        "revenueYoY": latest.get("yoy"),
-                        "revenueQoQ": latest.get("mom"),
-                    })
-                    year, month = (int(part) for part in latest["period"].split("-", 1))
-                    company.update({
-                        "updatedAt": now_iso(),
-                        "verification": "official",
-                        "sourceLabel": "대만거래소 월매출(MOPS)",
-                        "sourceUrl": MOPS_HISTORY_URL.format(roc_year=year - 1911, month=month),
-                    })
+            company["monthlyHistory"] = [existing[code][period] for period in required_periods if period in existing[code]]
 
         complete = min(len(existing[code]) for code in code_map)
         message = f"3개사 월매출·{complete}개월 이력 갱신 완료"
@@ -688,6 +710,96 @@ class DashboardService:
             standalone[period] = with_margins(item)
         periods = sorted(standalone)[-12:]
         self._company(data, "dosilicon")["quarterlyHistory"] = [standalone[period] for period in periods]
+
+    @staticmethod
+    def _dramexchange_date(text: str) -> tuple[str, str]:
+        match = re.search(
+            r"DRAM\s+Spot\s+Price\s+Last\s+Update:\s*([A-Za-z]{3})\.?\s*(\d{1,2})\s+(\d{4})\s+(\d{1,2}:\d{2})\s*\(GMT\+8\)",
+            text,
+            flags=re.I,
+        )
+        if not match:
+            today = datetime.now(KST).strftime("%Y-%m-%d")
+            return today, f"{today} (KST)"
+        months = {
+            "jan": 1, "feb": 2, "mar": 3, "apr": 4, "may": 5, "jun": 6,
+            "jul": 7, "aug": 8, "sep": 9, "oct": 10, "nov": 11, "dec": 12,
+        }
+        month = months.get(match.group(1).lower()[:3], datetime.now(KST).month)
+        day = int(match.group(2))
+        year = int(match.group(3))
+        time_label = match.group(4)
+        return f"{year:04d}-{month:02d}-{day:02d}", f"{year:04d}-{month:02d}-{day:02d} {time_label} GMT+8"
+
+    @staticmethod
+    def _dramexchange_product(text: str, label: str) -> dict:
+        pattern = (
+            re.escape(label)
+            + r"\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)\s+([+-]?\d+(?:\.\d+)?)\s*%"
+        )
+        match = re.search(pattern, text, flags=re.I)
+        if not match:
+            raise RuntimeError(f"{label} 가격 행을 찾지 못함")
+        daily_high, daily_low, session_high, session_low, average, change = (clean_number(value) for value in match.groups())
+        return {
+            "dailyHigh": daily_high,
+            "dailyLow": daily_low,
+            "sessionHigh": session_high,
+            "sessionLow": session_low,
+            "average": average,
+            "change": change,
+        }
+
+    @staticmethod
+    def _append_spot_history(product: dict, item: dict) -> None:
+        history = {entry.get("date"): entry for entry in product.get("history", []) if entry.get("date")}
+        history[item["date"]] = item
+        product["history"] = sorted(history.values(), key=lambda entry: entry.get("date", ""))[-730:]
+        product["latest"] = product["history"][-1]
+
+    def _refresh_dramexchange_spot(self, data: dict) -> None:
+        payload = fetch_bytes(DRAMEXCHANGE_URL, timeout=25, attempts=2)
+        text = plain_text_from_html(payload.decode("utf-8", "replace"))
+        date, source_time = self._dramexchange_date(text)
+        targets = [
+            ("ddr5_16gb_4800_5600", "DDR5", "DDR5 16Gb (2Gx8) 4800/5600", "#2e7a8f"),
+            ("ddr4_16gb_3200", "DDR4", "DDR4 16Gb (2Gx8) 3200", "#9a6f2e"),
+        ]
+        spot = data.setdefault("spotPrices", {
+            "updatedAt": None,
+            "sourceLabel": "DRAMeXchange 공개 현물가",
+            "sourceUrl": DRAMEXCHANGE_URL,
+            "note": "공개 홈의 Session Average를 매일 저장해 자체 추이를 만듭니다.",
+            "products": [],
+        })
+        products = self._spot_products(data)
+        for product_id, name, label, color in targets:
+            product = products.get(product_id)
+            if not product:
+                product = {"id": product_id, "name": name, "label": label, "unit": "USD", "color": color, "history": []}
+                spot["products"].append(product)
+                products[product_id] = product
+            parsed = self._dramexchange_product(text, label)
+            item = {
+                "date": date,
+                "sourceTime": source_time,
+                "average": parsed["average"],
+                "change": parsed["change"],
+                "dailyHigh": parsed["dailyHigh"],
+                "dailyLow": parsed["dailyLow"],
+                "sessionHigh": parsed["sessionHigh"],
+                "sessionLow": parsed["sessionLow"],
+            }
+            product.update({"name": name, "label": label, "unit": "USD", "color": color})
+            self._append_spot_history(product, item)
+        spot.update({
+            "updatedAt": now_iso(),
+            "sourceLabel": "DRAMeXchange DRAM Spot Price",
+            "sourceUrl": DRAMEXCHANGE_URL,
+            "note": "공개 홈의 Session Average를 매일 저장해 추이를 만듭니다. 장기 과거 차트는 유료 회원 영역입니다.",
+        })
+        self._write_spot_history_file(data)
+        self._source_status(data, "dramexchange", "live", f"DDR4/DDR5 현물가 {date} 갱신 완료")
 
     @staticmethod
     def _latest_ir_link(page_url: str, predicate) -> tuple[str, str]:
