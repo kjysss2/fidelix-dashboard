@@ -895,6 +895,12 @@ class DashboardService:
         return DashboardService._sum_mw(section, fallback=fallback, max_items=max_items)
 
     @staticmethod
+    def _text_from_ir_payload(payload: bytes) -> str:
+        if payload[:5] == b"%PDF-" or payload.lstrip().startswith(b"%PDF-"):
+            return normalize_spaces(extract_pdf_text(payload))
+        return normalize_spaces(plain_text_from_html(payload.decode("utf-8", "replace")))
+
+    @staticmethod
     def _china_order_company(data: dict, company_id: str) -> dict:
         orders = data.setdefault("chinaServerOrders", {
             "updatedAt": None,
@@ -1016,12 +1022,31 @@ class DashboardService:
                 VNET_IR_URL,
                 lambda text, href: text.strip().lower() == "press release" or "financial results" in text.lower(),
             )
-            if "static-files" in release_url or "press-releases" in release_url:
-                release_url, release_label = VNET_FALLBACK_RELEASE_URL, "VNET Reports Unaudited First Quarter 2026 Financial Results"
         except Exception:
             release_url, release_label = VNET_FALLBACK_RELEASE_URL, "VNET Reports Unaudited First Quarter 2026 Financial Results"
-        release_payload = fetch_bytes(release_url, timeout=20, attempts=1).decode("utf-8", "replace")
-        combined_text = plain_text_from_html(release_payload)
+        try:
+            presentation_url, presentation_label = self._latest_ir_link(
+                VNET_IR_URL,
+                lambda text, href: "earnings presentation" in text.lower() and "english" in text.lower(),
+            )
+        except Exception:
+            presentation_url, presentation_label = VNET_FALLBACK_PRESENTATION_URL, "VNET 1Q26 Earnings Presentation"
+
+        release_text = ""
+        presentation_text = ""
+        try:
+            release_text = self._text_from_ir_payload(fetch_bytes(release_url, timeout=25, attempts=1))
+        except Exception:
+            if release_url != VNET_FALLBACK_RELEASE_URL:
+                release_text = self._text_from_ir_payload(fetch_bytes(VNET_FALLBACK_RELEASE_URL, timeout=25, attempts=1))
+                release_url, release_label = VNET_FALLBACK_RELEASE_URL, "VNET Reports Unaudited First Quarter 2026 Financial Results"
+            else:
+                raise
+        try:
+            presentation_text = self._text_from_ir_payload(fetch_bytes(presentation_url, timeout=25, attempts=1))
+        except Exception:
+            presentation_text = ""
+        combined_text = normalize_spaces(f"{release_text} {presentation_text}")
 
         latest_period = self._quarter_short_label(combined_text) or self._quarter_short_label(release_label)
         ytd_orders = first_int([
@@ -1029,20 +1054,24 @@ class DashboardService:
             r"new\s+orders\s+year-to-date\s+20\d{2}.*?([\d,]+)\s*MW",
             r"totaling\s+([\d,]+)\s*MW\s+year-to-date",
             r"total\s+of\s+([\d,]+)\s*MW\s+of\s+new\s+orders",
+            r"secured.*?total(?:ing)?\s+(?:of\s+)?([\d,]+)\s*MW",
         ], combined_text)
         committed = first_int([
             r"total capacity committed\s+(?:was\s+)?([\d,]+)\s*MW",
             r"Total capacity committed\s+([\d,]+)\s*MW",
         ], combined_text)
         utilized = first_int([
+            r"capacity utilized by customers reached\s+([\d,]+)\s*MW",
             r"capacity utilized\s+(?:was\s+)?([\d,]+)\s*MW",
             r"Capacity utilized\s+([\d,]+)\s*MW",
         ], combined_text)
         construction = first_int([
+            r"Wholesale Capacity under Construction\s*\(?([\d,]+)\s*MW\)?",
             r"capacity under construction\s+(?:was\s+)?([\d,]+)\s*MW",
             r"under construction\s+([\d,]+)\s*MW",
         ], combined_text)
         held = first_int([
+            r"Wholesale Capacity Held for Future Development\s*\(?([\d,]+)\s*MW\)?",
             r"held for future development\s+(?:was\s+)?([\d,]+)\s*MW",
             r"Held for future development\s+([\d,]+)\s*MW",
         ], combined_text)

@@ -38,8 +38,8 @@ jobs:
           PORT: 8765
           REFRESH_AT: "12:30"
           REFRESH_ON_STARTUP: "0"
-          ENABLE_CHINA_IDC: "0"
-        run: python build_pages.py --spot-only
+          ENABLE_CHINA_IDC: "1"
+        run: python build_pages.py --spot-china-only
 
       - name: Persist DRAM spot price history
         run: |

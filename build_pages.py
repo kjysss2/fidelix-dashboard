@@ -76,6 +76,41 @@ def refresh_spot_prices_only(service) -> dict:
     return {"ok": bool(updated_sources), "updatedSources": updated_sources, "errors": errors}
 
 
+def refresh_spot_and_china_only(service) -> dict:
+    """Refresh DRAM spot prices plus China IDC order/backlog data for Pages builds."""
+    from server import CACHE_FILE, atomic_write_json, now_iso
+
+    with service.lock:
+        working = copy.deepcopy(service.dashboard)
+
+    errors: list[str] = []
+    updated_sources: list[str] = []
+    refreshers = [
+        ("DRAMeXchange", lambda: service._refresh_dramexchange_spot(working), "dramexchange"),
+        ("GDS IR", lambda: service._refresh_gds_orders(working), "gds_ir"),
+        ("VNET IR", lambda: service._refresh_vnet_orders(working), "vnet_ir"),
+    ]
+    for label, refresh, source_id in refreshers:
+        try:
+            refresh()
+            updated_sources.append(label)
+        except Exception as exc:
+            errors.append(f"{label}: {exc}")
+            service._source_error(working, source_id, str(exc))
+
+    working["system"].update({
+        "lastRefresh": now_iso(),
+        "lastRefreshReason": "github-pages-spot-china-only",
+        "lastRefreshErrors": errors,
+    })
+
+    with service.lock:
+        service.dashboard = working
+        atomic_write_json(CACHE_FILE, working)
+
+    return {"ok": bool(updated_sources), "updatedSources": updated_sources, "errors": errors}
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--no-refresh", action="store_true", help="Build from existing seed/cache only.")
@@ -84,18 +119,25 @@ def main() -> None:
         action="store_true",
         help="Refresh only public DRAMeXchange spot prices before building.",
     )
+    parser.add_argument(
+        "--spot-china-only",
+        action="store_true",
+        help="Refresh DRAM spot prices plus GDS/VNET China IDC data before building.",
+    )
     args = parser.parse_args()
 
     os.environ.setdefault("HOST", "127.0.0.1")
     os.environ.setdefault("PORT", "8765")
-    os.environ.setdefault("REFRESH_AT", "08:00")
+    os.environ.setdefault("REFRESH_AT", "12:30")
     os.environ.setdefault("REFRESH_ON_STARTUP", "0")
     os.environ.setdefault("ENABLE_CHINA_IDC", "0")
 
     from server import SERVICE
 
     if not args.no_refresh:
-        if args.spot_only:
+        if args.spot_china_only:
+            result = refresh_spot_and_china_only(SERVICE)
+        elif args.spot_only:
             result = refresh_spot_prices_only(SERVICE)
         else:
             result = SERVICE.refresh("github-pages")
