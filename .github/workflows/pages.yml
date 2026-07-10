@@ -39,7 +39,7 @@ jobs:
           REFRESH_AT: "08:00"
           REFRESH_ON_STARTUP: "0"
           ENABLE_CHINA_IDC: "0"
-        run: python build_pages.py
+        run: python build_pages.py --spot-only
 
       - name: Persist DRAM spot price history
         run: |
