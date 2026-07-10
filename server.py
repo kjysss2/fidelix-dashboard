@@ -975,6 +975,7 @@ class DashboardService:
             }
 
         total_backlog = first_int([
+            r"Total\s+Backlog(?:\s+of)?\s+([\d,]+)(?:\s*sqm)?",
             r"Total Backlog of\s+([\d,]+)\s*sqm",
             r"Total Backlog\s+([\d,]+)\s*sqm",
         ], presentation_text)
@@ -1058,6 +1059,8 @@ class DashboardService:
             r"new\s+orders\s+year-to-date\s+20\d{2}.*?([\d,]+)\s*MW",
         ], combined_text)
         committed = first_int([
+            r"Wholesale Capacity Committed\s*\(?([\d,]+)\s*MW\)?",
+            r"Committed Wholesale Capacity\s*\(?([\d,]+)\s*MW\)?",
             r"total capacity committed(?:\[\d+\])?\s+(?:was\s+)?([\d,]+)\s*MW",
             r"Total capacity committed\s+([\d,]+)\s*MW",
         ], combined_text)
@@ -1076,6 +1079,10 @@ class DashboardService:
             r"Wholesale Capacity Held for Future Development\s*\(?([\d,]+)\s*MW\)?",
             r"held for future development\s+(?:was\s+)?([\d,]+)\s*MW",
             r"Held for future development\s+([\d,]+)\s*MW",
+        ], combined_text)
+        unutilized_direct = first_int([
+            r"Unutilized(?:\s+Wholesale)?\s+Capacity\s*\(?([\d,]+)\s*MW\)?",
+            r"Unutilized\s+committed\s+capacity\s*\(?([\d,]+)\s*MW\)?",
         ], combined_text)
 
         existing_series = {
@@ -1107,7 +1114,9 @@ class DashboardService:
             backlog.append({"label": "Committed capacity", "value": committed, "unit": "MW", "basis": "VNET operating metrics"})
         if utilized is not None:
             backlog.append({"label": "Utilized capacity", "value": utilized, "unit": "MW", "basis": "VNET operating metrics"})
-        if committed is not None and utilized is not None:
+        if unutilized_direct is not None:
+            backlog.append({"label": "Unutilized committed", "value": unutilized_direct, "unit": "MW", "basis": "VNET operating metrics"})
+        elif committed is not None and utilized is not None:
             backlog.append({"label": "Unutilized committed", "value": committed - utilized, "unit": "MW", "basis": "Committed - utilized", "derived": True})
         if construction is not None:
             backlog.append({"label": "Under construction", "value": construction, "unit": "MW", "basis": "VNET operating metrics"})

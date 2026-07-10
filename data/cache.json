@@ -1954,7 +1954,7 @@
       "id": "gds_ir",
       "name": "GDS 공식 IR",
       "status": "live",
-      "message": "GDS ???????? ?? ??",
+      "message": "GDS 신규수주·백로그 갱신 완료",
       "checkedAt": "2026-07-10T16:59:53+09:00",
       "url": "https://investors.gds-services.com/financial-information/quarterly-results/"
     },
@@ -1962,23 +1962,23 @@
       "id": "vnet_ir",
       "name": "VNET 공식 IR",
       "status": "live",
-      "message": "VNET ????????? ?? ??",
+      "message": "VNET 신규수주·확약용량 갱신 완료",
       "checkedAt": "2026-07-10T16:59:53+09:00",
       "url": "https://ir.vnet.com/financial-information/quarterly-results/"
     }
   ],
   "chinaServerOrders": {
     "updatedAt": "2026-07-10T16:59:53+09:00",
-    "note": "?? IR ???? ???? ?? IDC ????? ???? ?????. ???? 'new order wins'? ???? ??? ???? ?????.",
+    "note": "공식 IR 원문에서 확인되는 중국 IDC 신규수주와 백로그만 표시합니다.",
     "companies": [
       {
         "id": "gds",
         "name": "GDS",
-        "sourceLabel": "GDS ?? IR ? GDS 1Q26 Earnings Presentation",
+        "sourceLabel": "GDS 공식 IR · GDS 1Q26 Earnings Presentation",
         "sourceUrl": "https://investors.gds-services.com/system/files-encrypted/nasdaq_kms/assets/2026/05/20/6-54-39/GDS%201Q26%20Earnings%20Presentation%200520%201700.pdf",
         "updatedAt": "2026-07-10T16:59:53+09:00",
         "latest": {
-          "label": "2Q26TD ????",
+          "label": "2Q26TD 신규수주",
           "value": 138,
           "unit": "MW",
           "basis": "Hyperscale orders to date"
@@ -1988,49 +1988,49 @@
             "period": "FY22",
             "value": 119,
             "unit": "MW",
-            "category": "?? ????",
+            "category": "연간 확약전력",
             "basis": "Gross Additional Power Committed By Year"
           },
           {
             "period": "FY23",
             "value": 97,
             "unit": "MW",
-            "category": "?? ????",
+            "category": "연간 확약전력",
             "basis": "Gross Additional Power Committed By Year"
           },
           {
             "period": "FY24",
             "value": 99,
             "unit": "MW",
-            "category": "?? ????",
+            "category": "연간 확약전력",
             "basis": "Gross Additional Power Committed By Year"
           },
           {
             "period": "FY25",
             "value": 317,
             "unit": "MW",
-            "category": "?? ????",
+            "category": "연간 확약전력",
             "basis": "Gross Additional Power Committed By Year"
           },
           {
             "period": "YTD26",
             "value": 346,
             "unit": "MW",
-            "category": "?? ????",
+            "category": "연간 확약전력",
             "basis": "Gross Additional Power Committed By Year"
           },
           {
             "period": "1Q26",
             "value": 196,
             "unit": "MW",
-            "category": "?? ????",
+            "category": "분기 신규수주",
             "basis": "Hyperscale orders in 1Q26"
           },
           {
             "period": "2Q26TD",
             "value": 138,
             "unit": "MW",
-            "category": "?? ????",
+            "category": "분기 신규수주",
             "basis": "Hyperscale orders to date"
           }
         ],
@@ -2066,16 +2066,16 @@
             "basis": "Backlog delivery split"
           }
         ],
-        "note": "?? IDC ????? MW, ???? sqm ???? ?? ?????."
+        "note": "중국 IDC 신규수주는 MW, 백로그는 sqm 기준으로 구분 표시합니다."
       },
       {
         "id": "vnet",
         "name": "VNET",
-        "sourceLabel": "VNET ?? IR ? VNET Reports Unaudited First Quarter 2026 Financial Results",
+        "sourceLabel": "VNET 공식 IR · VNET Reports Unaudited First Quarter 2026 Financial Results",
         "sourceUrl": "https://ir.vnet.com/news-releases/news-release-details/vnet-reports-unaudited-first-quarter-2026-financial-results",
         "updatedAt": "2026-07-10T16:59:53+09:00",
         "latest": {
-          "label": "1Q26 YTD ????",
+          "label": "1Q26 YTD 신규수주",
           "value": 517,
           "unit": "MW",
           "basis": "Wholesale IDC orders"
@@ -2085,21 +2085,21 @@
             "period": "3Q25",
             "value": 63,
             "unit": "MW",
-            "category": "?? ????",
+            "category": "분기 신규수주",
             "basis": "Wholesale orders"
           },
           {
             "period": "4Q25TD",
             "value": 32,
             "unit": "MW",
-            "category": "?? ????",
+            "category": "분기 신규수주",
             "basis": "Entered 4Q order"
           },
           {
             "period": "1Q26 YTD",
             "value": 517,
             "unit": "MW",
-            "category": "YTD ????",
+            "category": "YTD 신규수주",
             "basis": "Wholesale IDC orders"
           }
         ],
@@ -2136,7 +2136,7 @@
             "basis": "VNET operating metrics"
           }
         ],
-        "note": "Wholesale IDC ????? ????? ??? ?? ?????."
+        "note": "Wholesale IDC 신규수주와 확약·활용 용량을 구분 표시합니다."
       }
     ]
   },
