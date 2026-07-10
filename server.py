@@ -1051,23 +1051,25 @@ class DashboardService:
         latest_period = self._quarter_short_label(combined_text) or self._quarter_short_label(release_label)
         ytd_orders = first_int([
             r"secured\s+\d+\s+wholesale\s+orders\s+totaling\s+([\d,]+)\s*MW",
-            r"new\s+orders\s+year-to-date\s+20\d{2}.*?([\d,]+)\s*MW",
-            r"totaling\s+([\d,]+)\s*MW\s+year-to-date",
             r"total\s+of\s+([\d,]+)\s*MW\s+of\s+new\s+orders",
+            r"securing\s+a\s+total\s+of\s+([\d,]+)\s*MW",
+            r"totaling\s+([\d,]+)\s*MW\s+year-to-date",
             r"secured.*?total(?:ing)?\s+(?:of\s+)?([\d,]+)\s*MW",
+            r"new\s+orders\s+year-to-date\s+20\d{2}.*?([\d,]+)\s*MW",
         ], combined_text)
         committed = first_int([
-            r"total capacity committed\s+(?:was\s+)?([\d,]+)\s*MW",
+            r"total capacity committed(?:\[\d+\])?\s+(?:was\s+)?([\d,]+)\s*MW",
             r"Total capacity committed\s+([\d,]+)\s*MW",
         ], combined_text)
         utilized = first_int([
+            r"capacity utilized by customers(?:\s+reached|\s+was)?\s+([\d,]+)\s*MW",
             r"capacity utilized by customers reached\s+([\d,]+)\s*MW",
             r"capacity utilized\s+(?:was\s+)?([\d,]+)\s*MW",
             r"Capacity utilized\s+([\d,]+)\s*MW",
         ], combined_text)
         construction = first_int([
             r"Wholesale Capacity under Construction\s*\(?([\d,]+)\s*MW\)?",
-            r"capacity under construction\s+(?:was\s+)?([\d,]+)\s*MW",
+            r"capacity under construction(?:\[\d+\])?\s+(?:was\s+)?([\d,]+)\s*MW",
             r"under construction\s+([\d,]+)\s*MW",
         ], combined_text)
         held = first_int([
@@ -1081,6 +1083,9 @@ class DashboardService:
             for item in company.get("series", [])
             if item.get("period") not in {f"{latest_period} YTD", latest_period}
         }
+        for period, item in existing_series.items():
+            if period in {"3Q25", "4Q25TD"}:
+                item["category"] = "분기 신규수주"
         if ytd_orders:
             existing_series[f"{latest_period} YTD"] = {
                 "period": f"{latest_period} YTD",
@@ -1089,7 +1094,13 @@ class DashboardService:
                 "category": "YTD 신규수주",
                 "basis": "Wholesale IDC orders",
             }
-        series = sorted(existing_series.values(), key=lambda item: str(item.get("period", "")))
+        ordered_periods = ["3Q25", "4Q25TD", f"{latest_period} YTD", latest_period]
+        series = [existing_series[period] for period in ordered_periods if period in existing_series]
+        series.extend(
+            item
+            for period, item in sorted(existing_series.items(), key=lambda entry: str(entry[0]))
+            if period not in ordered_periods
+        )
 
         backlog = []
         if committed is not None:
