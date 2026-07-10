@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import json
 import os
 import shutil
@@ -46,9 +47,43 @@ def write_dashboard_data(snapshot: dict) -> None:
     )
 
 
+def refresh_spot_prices_only(service) -> dict:
+    """Refresh only the DRAMeXchange spot price slice for GitHub Pages builds."""
+    from server import CACHE_FILE, atomic_write_json, now_iso
+
+    with service.lock:
+        working = copy.deepcopy(service.dashboard)
+
+    errors: list[str] = []
+    updated_sources: list[str] = []
+    try:
+        service._refresh_dramexchange_spot(working)
+        updated_sources.append("DRAMeXchange")
+    except Exception as exc:
+        errors.append(f"DRAMeXchange: {exc}")
+        service._source_error(working, "dramexchange", str(exc))
+
+    working["system"].update({
+        "lastRefresh": now_iso(),
+        "lastRefreshReason": "github-pages-spot-only",
+        "lastRefreshErrors": errors,
+    })
+
+    with service.lock:
+        service.dashboard = working
+        atomic_write_json(CACHE_FILE, working)
+
+    return {"ok": bool(updated_sources), "updatedSources": updated_sources, "errors": errors}
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--no-refresh", action="store_true", help="Build from existing seed/cache only.")
+    parser.add_argument(
+        "--spot-only",
+        action="store_true",
+        help="Refresh only public DRAMeXchange spot prices before building.",
+    )
     args = parser.parse_args()
 
     os.environ.setdefault("HOST", "127.0.0.1")
@@ -60,7 +95,10 @@ def main() -> None:
     from server import SERVICE
 
     if not args.no_refresh:
-        result = SERVICE.refresh("github-pages")
+        if args.spot_only:
+            result = refresh_spot_prices_only(SERVICE)
+        else:
+            result = SERVICE.refresh("github-pages")
         print(json.dumps({
             "ok": result.get("ok"),
             "updatedSources": result.get("updatedSources", []),
