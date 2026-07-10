@@ -3,8 +3,8 @@ name: Build and deploy GitHub Pages
 on:
   workflow_dispatch:
   schedule:
-    # 08:05 KST = 23:05 UTC on the previous day
-    - cron: "5 23 * * *"
+    # 12:30 KST = 03:30 UTC
+    - cron: "30 3 * * *"
   push:
     branches:
       - main
@@ -36,7 +36,7 @@ jobs:
           DART_API_KEY: ${{ secrets.DART_API_KEY }}
           HOST: 127.0.0.1
           PORT: 8765
-          REFRESH_AT: "08:00"
+          REFRESH_AT: "12:30"
           REFRESH_ON_STARTUP: "0"
           ENABLE_CHINA_IDC: "0"
         run: python build_pages.py --spot-only
