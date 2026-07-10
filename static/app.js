@@ -39,6 +39,7 @@ function render(data) {
   renderThesis(data.thesisChecks);
   renderCompanies(data.companies);
   renderMonthlyCharts(data.companies);
+  renderSpotPrices(data.spotPrices);
   renderQuarterlyCharts(data.companies);
   renderChinaOrders(data.chinaServerOrders);
   renderCalendar(data.calendar);
@@ -180,6 +181,78 @@ function bindChartTooltips() {
       bar.addEventListener("click", () => show(bar));
     });
   });
+}
+
+function spotNumber(value) {
+  if (value === null || value === undefined) return "—";
+  return `$${Number(value).toLocaleString("ko-KR", {minimumFractionDigits: 3, maximumFractionDigits: 3})}`;
+}
+
+function spotChartMarkup(product) {
+  const history = [...(product.history || [])].filter(item => item.average != null).sort((a,b) => String(a.date).localeCompare(String(b.date)));
+  if (!history.length) return "";
+  const width = 520, height = 210;
+  const pad = {left: 38, right: 16, top: 22, bottom: 33};
+  const plotWidth = width - pad.left - pad.right;
+  const plotHeight = height - pad.top - pad.bottom;
+  const values = history.map(item => Number(item.average));
+  let min = Math.min(...values), max = Math.max(...values);
+  if (min === max) {
+    min = Math.max(0, min * .94);
+    max = max * 1.06 || 1;
+  } else {
+    const span = max - min;
+    min = Math.max(0, min - span * .12);
+    max = max + span * .12;
+  }
+  const x = index => history.length === 1 ? pad.left + plotWidth / 2 : pad.left + index * plotWidth / (history.length - 1);
+  const y = value => pad.top + (max - value) * plotHeight / (max - min);
+  const color = product.color || "#2e7a8f";
+  const points = history.map((item,index) => `${x(index).toFixed(1)},${y(Number(item.average)).toFixed(1)}`).join(" ");
+  const grid = [0,.5,1].map(ratio => {
+    const gy = pad.top + ratio * plotHeight;
+    const value = max - ratio * (max - min);
+    return `<line x1="${pad.left}" y1="${gy}" x2="${width-pad.right}" y2="${gy}" class="chart-gridline"/><text x="${pad.left-6}" y="${gy+3}" text-anchor="end" class="quarter-axis-label">${value.toFixed(1)}</text>`;
+  }).join("");
+  const labelIndexes = history.length === 1 ? [0] : [...new Set([0, Math.floor((history.length-1)/2), history.length-1])];
+  const labels = labelIndexes.map(index => `<text x="${x(index)}" y="${height-10}" text-anchor="middle" class="chart-xlabel">${String(history[index].date).slice(5).replace("-",".")}</text>`).join("");
+  const dots = history.map((item,index) => `<circle cx="${x(index).toFixed(1)}" cy="${y(Number(item.average)).toFixed(1)}" r="3.2" fill="#fff" stroke="${color}" stroke-width="2"><title>${item.date} · ${spotNumber(item.average)} · ${item.change == null ? "—" : `${Number(item.change).toFixed(2)}%`}</title></circle>`).join("");
+  const polyline = history.length > 1 ? `<polyline points="${points}" class="spot-line" style="stroke:${color}"></polyline>` : "";
+  return `<svg class="spot-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="${esc(product.name)} 현물가 추이">
+    ${grid}${polyline}${dots}${labels}
+  </svg>`;
+}
+
+function renderSpotPrices(payload) {
+  const container = $("#spotPriceGrid");
+  if (!container) return;
+  const products = payload?.products || [];
+  if (!products.length) {
+    container.innerHTML = `<div class="chart-empty">DRAMeXchange 현물가 데이터를 수집 중입니다.</div>`;
+    return;
+  }
+  container.innerHTML = products.map(product => {
+    const history = [...(product.history || [])].filter(item => item.average != null).sort((a,b) => String(a.date).localeCompare(String(b.date)));
+    const latest = product.latest || history[history.length - 1] || {};
+    const change = latest.change == null ? "—" : `${Number(latest.change) >= 0 ? "+" : ""}${Number(latest.change).toFixed(2)}%`;
+    const tone = Number(latest.change) >= 0 ? "positive-text" : "negative-text";
+    return `<article class="spot-card">
+      <div class="spot-head">
+        <div><span>${esc(product.name)}</span><small>${esc(product.label)}</small></div>
+        <a href="${esc(payload.sourceUrl || "https://www.dramexchange.com/")}" target="_blank" rel="noreferrer">DRAMeXchange ↗</a>
+      </div>
+      <div class="spot-kpis">
+        <div><label>Session Average</label><strong>${esc(spotNumber(latest.average))}</strong></div>
+        <div><label>Session Change</label><strong class="${tone}">${esc(change)}</strong></div>
+        <div><label>최근 기준</label><strong>${esc(latest.date || "—")}</strong></div>
+      </div>
+      ${spotChartMarkup(product)}
+      <div class="spot-foot">
+        <span>${history.length ? `${history[0].date}–${history[history.length-1].date}` : "이력 수집 전"}</span>
+        <span>${esc(latest.sourceTime || payload.updatedAt || "")}</span>
+      </div>
+    </article>`;
+  }).join("");
 }
 
 function quarterValue(value, currency) {
