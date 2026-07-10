@@ -1,0 +1,41 @@
+{
+  "updatedAt": "2026-07-10T10:22:36+09:00",
+  "sourceLabel": "DRAMeXchange DRAM Spot Price",
+  "sourceUrl": "https://www.dramexchange.com/",
+  "products": [
+    {
+      "id": "ddr5_16gb_4800_5600",
+      "name": "DDR5",
+      "label": "DDR5 16Gb (2Gx8) 4800/5600",
+      "history": [
+        {
+          "date": "2026-07-09",
+          "sourceTime": "2026-07-09 18:10 GMT+8",
+          "average": 47.767,
+          "change": 1.49,
+          "dailyHigh": 62.0,
+          "dailyLow": 31.5,
+          "sessionHigh": 62.0,
+          "sessionLow": 31.5
+        }
+      ]
+    },
+    {
+      "id": "ddr4_16gb_3200",
+      "name": "DDR4",
+      "label": "DDR4 16Gb (2Gx8) 3200",
+      "history": [
+        {
+          "date": "2026-07-09",
+          "sourceTime": "2026-07-09 18:10 GMT+8",
+          "average": 77.125,
+          "change": 0.26,
+          "dailyHigh": 95.0,
+          "dailyLow": 39.3,
+          "sessionHigh": 95.0,
+          "sessionLow": 39.3
+        }
+      ]
+    }
+  ]
+}
