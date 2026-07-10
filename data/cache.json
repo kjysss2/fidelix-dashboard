@@ -1,0 +1,2916 @@
+{
+  "schemaVersion": 1,
+  "title": "Fidelix Memory Radar",
+  "subtitle": "메모리 업황과 피어 실적을 한 화면에서 추적합니다",
+  "system": {
+    "lastRefresh": "2026-07-10T16:29:31+09:00",
+    "lastRefreshReason": "github-pages-spot-only",
+    "lastRefreshErrors": [],
+    "refreshing": false,
+    "dartConfigured": false
+  },
+  "companies": [
+    {
+      "id": "fidelix",
+      "name": "피델릭스",
+      "ticker": "032580",
+      "market": "KOSDAQ",
+      "country": "KR",
+      "role": "관심기업",
+      "focus": "모바일·IoT용 저전력 메모리",
+      "metrics": {
+        "period": "2026 1Q",
+        "periodType": "정기보고서",
+        "revenue": 21489395543.0,
+        "revenueDisplay": "214.9억원",
+        "revenueYoY": null,
+        "revenueQoQ": null,
+        "operatingIncome": 4331943526.0,
+        "operatingIncomeDisplay": "43.3억원",
+        "netIncome": 5254231977.0,
+        "netIncomeDisplay": "52.5억원",
+        "currency": "KRW",
+        "basis": "별도, 누적 기준일 수 있음"
+      },
+      "updatedAt": "2026-07-10T10:22:39+09:00",
+      "verification": "official",
+      "sourceLabel": "OpenDART 연결재무제표",
+      "sourceUrl": "https://opendart.fss.or.kr/",
+      "note": "OpenDART 원문 기준 자동 갱신",
+      "questions": [
+        "흑자 전환이 ASP 상승과 물량 증가 중 어디에서 왔는가?",
+        "중국 주요 주주·고객과의 거래가 실적 변동성을 키우는가?"
+      ],
+      "quarterlyHistory": [
+        {
+          "period": "2023Q2",
+          "revenue": 13165.327075,
+          "operatingIncome": 42.969348,
+          "netIncome": 713.963842,
+          "currency": "KRW",
+          "basis": "별도 단일분기",
+          "source": "OpenDART",
+          "operatingMargin": 0.3263826850272157,
+          "netMargin": 5.423061940905103
+        },
+        {
+          "period": "2023Q3",
+          "revenue": 13352.746349,
+          "operatingIncome": 59.578135,
+          "netIncome": 540.739088,
+          "currency": "KRW",
+          "basis": "별도 단일분기",
+          "source": "OpenDART",
+          "operatingMargin": 0.44618637576727327,
+          "netMargin": 4.0496469704938
+        },
+        {
+          "period": "2023Q4",
+          "revenue": 12826.108076999997,
+          "operatingIncome": 1011.063872,
+          "netIncome": -420.59376699999984,
+          "currency": "KRW",
+          "basis": "별도 단일분기(연간-1~3Q)",
+          "source": "OpenDART",
+          "operatingMargin": 7.882857885885568,
+          "netMargin": -3.279200241219049
+        },
+        {
+          "period": "2024Q1",
+          "revenue": 9665.37282,
+          "operatingIncome": -1572.190993,
+          "netIncome": -955.551781,
+          "currency": "KRW",
+          "basis": "별도 단일분기",
+          "source": "OpenDART",
+          "operatingMargin": -16.266221927277915,
+          "netMargin": -9.886341673471009
+        },
+        {
+          "period": "2024Q2",
+          "revenue": 10021.470349,
+          "operatingIncome": -472.716815,
+          "netIncome": 194.02722,
+          "currency": "KRW",
+          "basis": "별도 단일분기",
+          "source": "OpenDART",
+          "operatingMargin": -4.717040499423026,
+          "netMargin": 1.9361152928957293
+        },
+        {
+          "period": "2024Q3",
+          "revenue": 12360.09307,
+          "operatingIncome": -677.720481,
+          "netIncome": -1422.074706,
+          "currency": "KRW",
+          "basis": "별도 단일분기",
+          "source": "OpenDART",
+          "operatingMargin": -5.483134124976293,
+          "netMargin": -11.505372151700149
+        },
+        {
+          "period": "2024Q4",
+          "revenue": 12763.395144999995,
+          "operatingIncome": -1805.837046,
+          "netIncome": -22.708356000000094,
+          "currency": "KRW",
+          "basis": "별도 단일분기(연간-1~3Q)",
+          "source": "OpenDART",
+          "operatingMargin": -14.14856333667166,
+          "netMargin": -0.17791783253608656
+        },
+        {
+          "period": "2025Q1",
+          "revenue": 10879.557541,
+          "operatingIncome": -624.412172,
+          "netIncome": -767.150078,
+          "currency": "KRW",
+          "basis": "별도 단일분기",
+          "source": "OpenDART",
+          "operatingMargin": -5.739315865069701,
+          "netMargin": -7.0512985028018615
+        },
+        {
+          "period": "2025Q2",
+          "revenue": 11948.325874,
+          "operatingIncome": -1586.627034,
+          "netIncome": -2870.000607,
+          "currency": "KRW",
+          "basis": "별도 단일분기",
+          "source": "OpenDART",
+          "operatingMargin": -13.279073995232748,
+          "netMargin": -24.02010655940702
+        },
+        {
+          "period": "2025Q3",
+          "revenue": 12540.490283,
+          "operatingIncome": -894.471353,
+          "netIncome": -580.515519,
+          "currency": "KRW",
+          "basis": "별도 단일분기",
+          "source": "OpenDART",
+          "operatingMargin": -7.132666529095384,
+          "netMargin": -4.6291293713368775
+        },
+        {
+          "period": "2025Q4",
+          "revenue": 18247.144514000007,
+          "operatingIncome": 1039.5017700000003,
+          "netIncome": 1254.277733,
+          "currency": "KRW",
+          "basis": "별도 단일분기(연간-1~3Q)",
+          "source": "OpenDART",
+          "operatingMargin": 5.6967914579864765,
+          "netMargin": 6.873830215120306
+        },
+        {
+          "period": "2026Q1",
+          "revenue": 21489.395543,
+          "operatingIncome": 4331.943526,
+          "netIncome": 5254.231977,
+          "currency": "KRW",
+          "basis": "별도 단일분기",
+          "source": "OpenDART",
+          "operatingMargin": 20.15851733629193,
+          "netMargin": 24.45034792386948
+        }
+      ]
+    },
+    {
+      "id": "winbond",
+      "name": "Winbond",
+      "ticker": "2344",
+      "market": "TWSE",
+      "country": "TW",
+      "role": "Specialty DRAM",
+      "focus": "Specialty DRAM·NOR Flash",
+      "metrics": {
+        "period": "2026-05",
+        "periodType": "월매출",
+        "revenue": 20001.444,
+        "revenueDisplay": "NT$ 200.0억",
+        "revenueYoY": 181.967983155321,
+        "revenueQoQ": 3.9304813473323126,
+        "operatingIncome": null,
+        "operatingIncomeDisplay": "월매출 공시 미제공",
+        "netIncome": null,
+        "netIncomeDisplay": "월매출 공시 미제공",
+        "currency": "TWD",
+        "basis": "당월, NT$ million"
+      },
+      "updatedAt": "2026-07-10T10:22:34+09:00",
+      "verification": "official",
+      "sourceLabel": "대만거래소 월매출",
+      "sourceUrl": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
+      "note": "受市場供需影響。",
+      "questions": [
+        "Specialty DRAM 가격 상승이 매출총이익률에 얼마나 반영됐는가?",
+        "NOR Flash 재고 조정은 끝났는가?"
+      ],
+      "monthlyHistory": [
+        {
+          "period": "2023-06",
+          "revenue": 6988.905,
+          "mom": 13.86,
+          "yoy": -21.5
+        },
+        {
+          "period": "2023-07",
+          "revenue": 6314.838,
+          "mom": -9.64,
+          "yoy": -14.55
+        },
+        {
+          "period": "2023-08",
+          "revenue": 6424.643,
+          "mom": 1.73,
+          "yoy": -13.21
+        },
+        {
+          "period": "2023-09",
+          "revenue": 6766.334,
+          "mom": 5.31,
+          "yoy": -7.96
+        },
+        {
+          "period": "2023-10",
+          "revenue": 6297.972,
+          "mom": -6.92,
+          "yoy": 1.15
+        },
+        {
+          "period": "2023-11",
+          "revenue": 6368.389,
+          "mom": 1.11,
+          "yoy": -2.32
+        },
+        {
+          "period": "2023-12",
+          "revenue": 6507.308,
+          "mom": 2.18,
+          "yoy": 0.45
+        },
+        {
+          "period": "2024-01",
+          "revenue": 6402.586,
+          "mom": -1.6,
+          "yoy": 31.05
+        },
+        {
+          "period": "2024-02",
+          "revenue": 6207.435,
+          "mom": -3.04,
+          "yoy": 8.03
+        },
+        {
+          "period": "2024-03",
+          "revenue": 7511.33,
+          "mom": 21.0,
+          "yoy": 9.11
+        },
+        {
+          "period": "2024-04",
+          "revenue": 6981.267,
+          "mom": -7.05,
+          "yoy": 22.82
+        },
+        {
+          "period": "2024-05",
+          "revenue": 7125.163,
+          "mom": 2.06,
+          "yoy": 16.08
+        },
+        {
+          "period": "2024-06",
+          "revenue": 7377.553,
+          "mom": 3.54,
+          "yoy": 5.56
+        },
+        {
+          "period": "2024-07",
+          "revenue": 7083.403,
+          "mom": -3.98,
+          "yoy": 12.17
+        },
+        {
+          "period": "2024-08",
+          "revenue": 6997.545,
+          "mom": -1.21,
+          "yoy": 8.91
+        },
+        {
+          "period": "2024-09",
+          "revenue": 7231.483,
+          "mom": 3.34,
+          "yoy": 6.87
+        },
+        {
+          "period": "2024-10",
+          "revenue": 6097.945,
+          "mom": -15.67,
+          "yoy": -3.17
+        },
+        {
+          "period": "2024-11",
+          "revenue": 6221.805,
+          "mom": 2.03,
+          "yoy": -2.3
+        },
+        {
+          "period": "2024-12",
+          "revenue": 6372.253,
+          "mom": 2.41,
+          "yoy": -2.07
+        },
+        {
+          "period": "2025-01",
+          "revenue": 6066.312,
+          "mom": -4.8,
+          "yoy": -5.25
+        },
+        {
+          "period": "2025-02",
+          "revenue": 6353.503,
+          "mom": 4.73,
+          "yoy": 2.35
+        },
+        {
+          "period": "2025-03",
+          "revenue": 7572.802,
+          "mom": 19.19,
+          "yoy": 0.81
+        },
+        {
+          "period": "2025-04",
+          "revenue": 6819.077,
+          "mom": -9.95,
+          "yoy": -2.32
+        },
+        {
+          "period": "2025-05",
+          "revenue": 7093.516,
+          "mom": 4.02,
+          "yoy": -0.44
+        },
+        {
+          "period": "2025-06",
+          "revenue": 7105.364,
+          "mom": 0.16,
+          "yoy": -3.68
+        },
+        {
+          "period": "2025-07",
+          "revenue": 6837.785,
+          "mom": -3.76,
+          "yoy": -3.46
+        },
+        {
+          "period": "2025-08",
+          "revenue": 7012.528,
+          "mom": 2.55,
+          "yoy": 0.21
+        },
+        {
+          "period": "2025-09",
+          "revenue": 7920.21,
+          "mom": 12.94,
+          "yoy": 9.52
+        },
+        {
+          "period": "2025-10",
+          "revenue": 8225.204,
+          "mom": 3.85,
+          "yoy": 34.88
+        },
+        {
+          "period": "2025-11",
+          "revenue": 8629.567,
+          "mom": 4.91,
+          "yoy": 38.69
+        },
+        {
+          "period": "2025-12",
+          "revenue": 9770.303,
+          "mom": 13.21,
+          "yoy": 53.32
+        },
+        {
+          "period": "2026-01",
+          "revenue": 11778.411,
+          "mom": 20.55,
+          "yoy": 94.16
+        },
+        {
+          "period": "2026-02",
+          "revenue": 11973.254,
+          "mom": 1.65,
+          "yoy": 88.45
+        },
+        {
+          "period": "2026-03",
+          "revenue": 14501.399,
+          "mom": 21.11,
+          "yoy": 91.49
+        },
+        {
+          "period": "2026-04",
+          "revenue": 19245.022,
+          "mom": 32.71,
+          "yoy": 182.22
+        },
+        {
+          "period": "2026-05",
+          "revenue": 20001.444,
+          "mom": 3.93,
+          "yoy": 181.96
+        }
+      ],
+      "quarterlyHistory": [
+        {
+          "period": "2023Q2",
+          "revenue": 18810.867,
+          "operatingIncome": -309.879,
+          "netIncome": 569.681,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": -1.647340337901491,
+          "netMargin": 3.028467534218386
+        },
+        {
+          "period": "2023Q3",
+          "revenue": 19505.815,
+          "operatingIncome": 206.835,
+          "netIncome": 178.227,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": 1.0603760981020276,
+          "netMargin": 0.9137121417382458
+        },
+        {
+          "period": "2023Q4",
+          "revenue": 19173.668999999994,
+          "operatingIncome": -425.9309999999998,
+          "netIncome": -29.97800000000005,
+          "currency": "TWD",
+          "basis": "연결 단일분기(연간-1~3Q)",
+          "source": "MOPS",
+          "operatingMargin": -2.2214371177472603,
+          "netMargin": -0.15634983580868148
+        },
+        {
+          "period": "2024Q1",
+          "revenue": 20121.351,
+          "operatingIncome": -186.637,
+          "netIncome": -264.761,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": -0.927557001515455,
+          "netMargin": -1.3158211891438107
+        },
+        {
+          "period": "2024Q2",
+          "revenue": 21483.983,
+          "operatingIncome": 1162.474,
+          "netIncome": 1712.611,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": 5.410886798784005,
+          "netMargin": 7.971571193293162
+        },
+        {
+          "period": "2024Q3",
+          "revenue": 21312.431,
+          "operatingIncome": 272.322,
+          "netIncome": -60.074,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": 1.2777613215498504,
+          "netMargin": -0.28187305333680607
+        },
+        {
+          "period": "2024Q4",
+          "revenue": 18692.002999999997,
+          "operatingIncome": -740.6759999999999,
+          "netIncome": -678.1550000000001,
+          "currency": "TWD",
+          "basis": "연결 단일분기(연간-1~3Q)",
+          "source": "MOPS",
+          "operatingMargin": -3.9625287883807854,
+          "netMargin": -3.628048850623447
+        },
+        {
+          "period": "2025Q1",
+          "revenue": 19992.617,
+          "operatingIncome": -965.367,
+          "netIncome": -986.917,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": -4.828617484144273,
+          "netMargin": -4.936407274745473
+        },
+        {
+          "period": "2025Q2",
+          "revenue": 21017.957,
+          "operatingIncome": -1295.022,
+          "netIncome": -1630.984,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": -6.161502756904489,
+          "netMargin": -7.75995497564297
+        },
+        {
+          "period": "2025Q3",
+          "revenue": 21770.523,
+          "operatingIncome": 3702.985,
+          "netIncome": 2700.693,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": 17.009168773758905,
+          "netMargin": 12.40527386503301
+        },
+        {
+          "period": "2025Q4",
+          "revenue": 26625.074000000008,
+          "operatingIncome": 4091.8599999999997,
+          "netIncome": 3094.6559999999995,
+          "currency": "TWD",
+          "basis": "연결 단일분기(연간-1~3Q)",
+          "source": "MOPS",
+          "operatingMargin": 15.368445548733492,
+          "netMargin": 11.623088822213221
+        },
+        {
+          "period": "2026Q1",
+          "revenue": 38253.064,
+          "operatingIncome": 12550.494,
+          "netIncome": 10117.678,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": 32.80912085891996,
+          "netMargin": 26.449327039528132
+        }
+      ]
+    },
+    {
+      "id": "nanya",
+      "name": "Nanya",
+      "ticker": "2408",
+      "market": "TWSE",
+      "country": "TW",
+      "role": "Commodity DRAM",
+      "focus": "범용 DRAM·DDR4/DDR5",
+      "metrics": {
+        "period": "2026-05",
+        "periodType": "월매출",
+        "revenue": 27669.563,
+        "revenueDisplay": "NT$ 276.7억",
+        "revenueYoY": 730.1397699033429,
+        "revenueQoQ": 8.54554479406443,
+        "operatingIncome": null,
+        "operatingIncomeDisplay": "월매출 공시 미제공",
+        "netIncome": null,
+        "netIncomeDisplay": "월매출 공시 미제공",
+        "currency": "TWD",
+        "basis": "당월, NT$ million"
+      },
+      "updatedAt": "2026-07-10T10:22:34+09:00",
+      "verification": "official",
+      "sourceLabel": "대만거래소 월매출",
+      "sourceUrl": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
+      "note": "受市場需求成長影響。",
+      "questions": [
+        "DDR4 가격 급등의 지속 기간은?",
+        "신공정 램프업 비용과 가동률 회복 속도는?"
+      ],
+      "monthlyHistory": [
+        {
+          "period": "2023-06",
+          "revenue": 2458.014,
+          "mom": 6.45,
+          "yoy": -53.04
+        },
+        {
+          "period": "2023-07",
+          "revenue": 2437.193,
+          "mom": -0.84,
+          "yoy": -44.56
+        },
+        {
+          "period": "2023-08",
+          "revenue": 2574.894,
+          "mom": 5.64,
+          "yoy": -24.69
+        },
+        {
+          "period": "2023-09",
+          "revenue": 2724.287,
+          "mom": 5.8,
+          "yoy": -15.03
+        },
+        {
+          "period": "2023-10",
+          "revenue": 2668.03,
+          "mom": -2.06,
+          "yoy": -4.1
+        },
+        {
+          "period": "2023-11",
+          "revenue": 2874.0,
+          "mom": 7.71,
+          "yoy": 3.71
+        },
+        {
+          "period": "2023-12",
+          "revenue": 3161.948,
+          "mom": 10.01,
+          "yoy": 31.73
+        },
+        {
+          "period": "2024-01",
+          "revenue": 3060.645,
+          "mom": -3.2,
+          "yoy": 35.94
+        },
+        {
+          "period": "2024-02",
+          "revenue": 3050.934,
+          "mom": -0.31,
+          "yoy": 50.55
+        },
+        {
+          "period": "2024-03",
+          "revenue": 3391.358,
+          "mom": 11.15,
+          "yoy": 57.95
+        },
+        {
+          "period": "2024-04",
+          "revenue": 3206.471,
+          "mom": -5.45,
+          "yoy": 41.87
+        },
+        {
+          "period": "2024-05",
+          "revenue": 3351.375,
+          "mom": 4.51,
+          "yoy": 45.14
+        },
+        {
+          "period": "2024-06",
+          "revenue": 3363.197,
+          "mom": 0.35,
+          "yoy": 36.82
+        },
+        {
+          "period": "2024-07",
+          "revenue": 2745.416,
+          "mom": -18.36,
+          "yoy": 12.64
+        },
+        {
+          "period": "2024-08",
+          "revenue": 2802.25,
+          "mom": 2.07,
+          "yoy": 8.82
+        },
+        {
+          "period": "2024-09",
+          "revenue": 2584.927,
+          "mom": -7.75,
+          "yoy": -5.11
+        },
+        {
+          "period": "2024-10",
+          "revenue": 2182.24,
+          "mom": -15.57,
+          "yoy": -18.2
+        },
+        {
+          "period": "2024-11",
+          "revenue": 2187.326,
+          "mom": 0.23,
+          "yoy": -23.89
+        },
+        {
+          "period": "2024-12",
+          "revenue": 2205.531,
+          "mom": 0.83,
+          "yoy": -30.24
+        },
+        {
+          "period": "2025-01",
+          "revenue": 2162.373,
+          "mom": -1.95,
+          "yoy": -29.34
+        },
+        {
+          "period": "2025-02",
+          "revenue": 2272.734,
+          "mom": 5.1,
+          "yoy": -25.5
+        },
+        {
+          "period": "2025-03",
+          "revenue": 2752.833,
+          "mom": 21.12,
+          "yoy": -18.82
+        },
+        {
+          "period": "2025-04",
+          "revenue": 3118.82,
+          "mom": 13.29,
+          "yoy": -2.73
+        },
+        {
+          "period": "2025-05",
+          "revenue": 3333.121,
+          "mom": 6.87,
+          "yoy": -0.54
+        },
+        {
+          "period": "2025-06",
+          "revenue": 4074.153,
+          "mom": 22.23,
+          "yoy": 21.13
+        },
+        {
+          "period": "2025-07",
+          "revenue": 5352.227,
+          "mom": 31.37,
+          "yoy": 94.95
+        },
+        {
+          "period": "2025-08",
+          "revenue": 6762.501,
+          "mom": 26.34,
+          "yoy": 141.32
+        },
+        {
+          "period": "2025-09",
+          "revenue": 6664.14,
+          "mom": -1.45,
+          "yoy": 157.8
+        },
+        {
+          "period": "2025-10",
+          "revenue": 7907.729,
+          "mom": 18.66,
+          "yoy": 262.36
+        },
+        {
+          "period": "2025-11",
+          "revenue": 10168.737,
+          "mom": 28.59,
+          "yoy": 364.89
+        },
+        {
+          "period": "2025-12",
+          "revenue": 12017.152,
+          "mom": 18.17,
+          "yoy": 444.86
+        },
+        {
+          "period": "2026-01",
+          "revenue": 15309.988,
+          "mom": 27.4,
+          "yoy": 608.01
+        },
+        {
+          "period": "2026-02",
+          "revenue": 15607.184,
+          "mom": 1.94,
+          "yoy": 586.71
+        },
+        {
+          "period": "2026-03",
+          "revenue": 18169.76,
+          "mom": 16.41,
+          "yoy": 560.03
+        },
+        {
+          "period": "2026-04",
+          "revenue": 25491.201,
+          "mom": 40.29,
+          "yoy": 717.33
+        },
+        {
+          "period": "2026-05",
+          "revenue": 27669.563,
+          "mom": 8.54,
+          "yoy": 730.13
+        }
+      ],
+      "quarterlyHistory": [
+        {
+          "period": "2023Q2",
+          "revenue": 7027.071,
+          "operatingIncome": -3184.531,
+          "netIncome": -770.874,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": -45.318042182866805,
+          "netMargin": -10.970061352731458
+        },
+        {
+          "period": "2023Q3",
+          "revenue": 7736.374,
+          "operatingIncome": -4340.041,
+          "netIncome": -2504.571,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": -56.09916221733852,
+          "netMargin": -32.37396485743838
+        },
+        {
+          "period": "2023Q4",
+          "revenue": 8703.978,
+          "operatingIncome": -4050.256000000001,
+          "netIncome": -2479.5020000000004,
+          "currency": "TWD",
+          "basis": "연결 단일분기(연간-1~3Q)",
+          "source": "MOPS",
+          "operatingMargin": -46.533389675387525,
+          "netMargin": -28.48699755445155
+        },
+        {
+          "period": "2024Q1",
+          "revenue": 9502.937,
+          "operatingIncome": -2918.268,
+          "netIncome": -1208.488,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": -30.709116560490717,
+          "netMargin": -12.716994756463187
+        },
+        {
+          "period": "2024Q2",
+          "revenue": 9921.043,
+          "operatingIncome": -2319.178,
+          "netIncome": -814.485,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": -23.376352667758823,
+          "netMargin": -8.209671100105101
+        },
+        {
+          "period": "2024Q3",
+          "revenue": 8132.593,
+          "operatingIncome": -2505.37,
+          "netIncome": -1486.69,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": -30.806533660297518,
+          "netMargin": -18.280639397545162
+        },
+        {
+          "period": "2024Q4",
+          "revenue": 6575.094000000001,
+          "operatingIncome": -2811.812000000001,
+          "netIncome": -1573.6870000000004,
+          "currency": "TWD",
+          "basis": "연결 단일분기(연간-1~3Q)",
+          "source": "MOPS",
+          "operatingMargin": -42.764590133616345,
+          "netMargin": -23.934060866658335
+        },
+        {
+          "period": "2025Q1",
+          "revenue": 7187.94,
+          "operatingIncome": -3155.337,
+          "netIncome": -1940.639,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": -43.8976535697293,
+          "netMargin": -26.998542002298294
+        },
+        {
+          "period": "2025Q2",
+          "revenue": 10526.094,
+          "operatingIncome": -4501.185,
+          "netIncome": -4102.113,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": -42.762158498679575,
+          "netMargin": -38.97089461674958
+        },
+        {
+          "period": "2025Q3",
+          "revenue": 18778.868,
+          "operatingIncome": 1119.158,
+          "netIncome": 1563.334,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": 5.959667004422204,
+          "netMargin": 8.324963996764875
+        },
+        {
+          "period": "2025Q4",
+          "revenue": 30093.61800000001,
+          "operatingIncome": 11780.652,
+          "netIncome": 11092.173999999999,
+          "currency": "TWD",
+          "basis": "연결 단일분기(연간-1~3Q)",
+          "source": "MOPS",
+          "operatingMargin": 39.146678873906076,
+          "netMargin": 36.85889147659147
+        },
+        {
+          "period": "2026Q1",
+          "revenue": 49086.932,
+          "operatingIncome": 30111.283,
+          "netIncome": 26058.254,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": 61.34276837672397,
+          "netMargin": 53.08592926524721
+        }
+      ]
+    },
+    {
+      "id": "macronix",
+      "name": "Macronix",
+      "ticker": "2337",
+      "market": "TWSE",
+      "country": "TW",
+      "role": "NOR Flash",
+      "focus": "NOR Flash·ROM",
+      "metrics": {
+        "period": "2026-05",
+        "periodType": "월매출",
+        "revenue": 6255.653,
+        "revenueDisplay": "NT$ 62.6억",
+        "revenueYoY": 175.7952036483169,
+        "revenueQoQ": 5.803426759874463,
+        "operatingIncome": null,
+        "operatingIncomeDisplay": "월매출 공시 미제공",
+        "netIncome": null,
+        "netIncomeDisplay": "월매출 공시 미제공",
+        "currency": "TWD",
+        "basis": "당월, NT$ million"
+      },
+      "updatedAt": "2026-07-10T10:22:34+09:00",
+      "verification": "official",
+      "sourceLabel": "대만거래소 월매출",
+      "sourceUrl": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
+      "note": "受市場需求增加影響。",
+      "questions": [
+        "자동차·산업용 NOR 주문 회복이 실제 출하로 이어지는가?",
+        "ROM 계절성이 하반기 실적을 지지하는가?"
+      ],
+      "monthlyHistory": [
+        {
+          "period": "2023-06",
+          "revenue": 2139.645,
+          "mom": -6.19,
+          "yoy": -45.31
+        },
+        {
+          "period": "2023-07",
+          "revenue": 2181.288,
+          "mom": 1.94,
+          "yoy": -39.47
+        },
+        {
+          "period": "2023-08",
+          "revenue": 2600.799,
+          "mom": 19.23,
+          "yoy": -30.23
+        },
+        {
+          "period": "2023-09",
+          "revenue": 2501.015,
+          "mom": -3.83,
+          "yoy": -39.58
+        },
+        {
+          "period": "2023-10",
+          "revenue": 2166.105,
+          "mom": -13.39,
+          "yoy": -41.93
+        },
+        {
+          "period": "2023-11",
+          "revenue": 1808.91,
+          "mom": -16.49,
+          "yoy": -34.58
+        },
+        {
+          "period": "2023-12",
+          "revenue": 1832.76,
+          "mom": 1.31,
+          "yoy": -29.02
+        },
+        {
+          "period": "2024-01",
+          "revenue": 1914.156,
+          "mom": 4.44,
+          "yoy": -13.45
+        },
+        {
+          "period": "2024-02",
+          "revenue": 1733.064,
+          "mom": -9.46,
+          "yoy": -16.22
+        },
+        {
+          "period": "2024-03",
+          "revenue": 2113.241,
+          "mom": 21.93,
+          "yoy": -25.15
+        },
+        {
+          "period": "2024-04",
+          "revenue": 2117.888,
+          "mom": 0.21,
+          "yoy": -29.59
+        },
+        {
+          "period": "2024-05",
+          "revenue": 2160.107,
+          "mom": 1.99,
+          "yoy": -5.29
+        },
+        {
+          "period": "2024-06",
+          "revenue": 2177.579,
+          "mom": 0.8,
+          "yoy": 1.77
+        },
+        {
+          "period": "2024-07",
+          "revenue": 2405.726,
+          "mom": 10.47,
+          "yoy": 10.28
+        },
+        {
+          "period": "2024-08",
+          "revenue": 2695.847,
+          "mom": 12.05,
+          "yoy": 3.65
+        },
+        {
+          "period": "2024-09",
+          "revenue": 2652.966,
+          "mom": -1.59,
+          "yoy": 6.07
+        },
+        {
+          "period": "2024-10",
+          "revenue": 2135.343,
+          "mom": -19.51,
+          "yoy": -1.42
+        },
+        {
+          "period": "2024-11",
+          "revenue": 1961.343,
+          "mom": -8.14,
+          "yoy": 8.42
+        },
+        {
+          "period": "2024-12",
+          "revenue": 1816.214,
+          "mom": -7.39,
+          "yoy": -0.9
+        },
+        {
+          "period": "2025-01",
+          "revenue": 1992.657,
+          "mom": 9.71,
+          "yoy": 4.1
+        },
+        {
+          "period": "2025-02",
+          "revenue": 1893.959,
+          "mom": -4.95,
+          "yoy": 9.28
+        },
+        {
+          "period": "2025-03",
+          "revenue": 2250.76,
+          "mom": 18.83,
+          "yoy": 6.5
+        },
+        {
+          "period": "2025-04",
+          "revenue": 2330.4,
+          "mom": 3.53,
+          "yoy": 10.03
+        },
+        {
+          "period": "2025-05",
+          "revenue": 2268.224,
+          "mom": -2.66,
+          "yoy": 5.0
+        },
+        {
+          "period": "2025-06",
+          "revenue": 2200.717,
+          "mom": -2.97,
+          "yoy": 1.06
+        },
+        {
+          "period": "2025-07",
+          "revenue": 2754.115,
+          "mom": 25.14,
+          "yoy": 14.48
+        },
+        {
+          "period": "2025-08",
+          "revenue": 2557.121,
+          "mom": -7.15,
+          "yoy": -5.14
+        },
+        {
+          "period": "2025-09",
+          "revenue": 2902.927,
+          "mom": 13.52,
+          "yoy": 9.42
+        },
+        {
+          "period": "2025-10",
+          "revenue": 2652.451,
+          "mom": -8.62,
+          "yoy": 24.21
+        },
+        {
+          "period": "2025-11",
+          "revenue": 2444.318,
+          "mom": -7.84,
+          "yoy": 24.62
+        },
+        {
+          "period": "2025-12",
+          "revenue": 2632.336,
+          "mom": 7.69,
+          "yoy": 44.93
+        },
+        {
+          "period": "2026-01",
+          "revenue": 3017.005,
+          "mom": 14.61,
+          "yoy": 51.4
+        },
+        {
+          "period": "2026-02",
+          "revenue": 3029.953,
+          "mom": 0.42,
+          "yoy": 59.97
+        },
+        {
+          "period": "2026-03",
+          "revenue": 4421.909,
+          "mom": 45.93,
+          "yoy": 96.46
+        },
+        {
+          "period": "2026-04",
+          "revenue": 5912.524,
+          "mom": 33.7,
+          "yoy": 153.71
+        },
+        {
+          "period": "2026-05",
+          "revenue": 6255.653,
+          "mom": 5.8,
+          "yoy": 175.79
+        }
+      ],
+      "quarterlyHistory": [
+        {
+          "period": "2023Q2",
+          "revenue": 7428.887,
+          "operatingIncome": -166.491,
+          "netIncome": 71.003,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": -2.241129795082359,
+          "netMargin": 0.9557690135817115
+        },
+        {
+          "period": "2023Q3",
+          "revenue": 7283.103,
+          "operatingIncome": -652.405,
+          "netIncome": -407.797,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": -8.95778900833889,
+          "netMargin": -5.5992205520092195
+        },
+        {
+          "period": "2023Q4",
+          "revenue": 5807.7750000000015,
+          "operatingIncome": -1149.151,
+          "netIncome": -1006.978,
+          "currency": "TWD",
+          "basis": "연결 단일분기(연간-1~3Q)",
+          "source": "MOPS",
+          "operatingMargin": -19.78642423303244,
+          "netMargin": -17.33844716780522
+        },
+        {
+          "period": "2024Q1",
+          "revenue": 5760.461,
+          "operatingIncome": -1301.646,
+          "netIncome": -1078.763,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": -22.596212351754485,
+          "netMargin": -18.72702549327215
+        },
+        {
+          "period": "2024Q2",
+          "revenue": 6455.575,
+          "operatingIncome": -511.853,
+          "netIncome": -286.068,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": -7.928852193646577,
+          "netMargin": -4.431332607862196
+        },
+        {
+          "period": "2024Q3",
+          "revenue": 7754.539,
+          "operatingIncome": -357.781,
+          "netIncome": -296.163,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": -4.613826818073905,
+          "netMargin": -3.8192212328805106
+        },
+        {
+          "period": "2024Q4",
+          "revenue": 5912.899999999998,
+          "operatingIncome": -1752.5980000000004,
+          "netIncome": -1551.2900000000002,
+          "currency": "TWD",
+          "basis": "연결 단일분기(연간-1~3Q)",
+          "source": "MOPS",
+          "operatingMargin": -29.6402442118081,
+          "netMargin": -26.235688071842933
+        },
+        {
+          "period": "2025Q1",
+          "revenue": 6137.377,
+          "operatingIncome": -1082.187,
+          "netIncome": -872.676,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": -17.632728118217276,
+          "netMargin": -14.219038524112174
+        },
+        {
+          "period": "2025Q2",
+          "revenue": 6799.341,
+          "operatingIncome": -1079.059,
+          "netIncome": -1275.831,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": -15.870052700695553,
+          "netMargin": -18.76403904437209
+        },
+        {
+          "period": "2025Q3",
+          "revenue": 8214.162,
+          "operatingIncome": -1144.041,
+          "netIncome": -862.406,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": -13.927665414926075,
+          "netMargin": -10.499013776450962
+        },
+        {
+          "period": "2025Q4",
+          "revenue": 7729.106,
+          "operatingIncome": -392.3000000000002,
+          "netIncome": -294.058,
+          "currency": "TWD",
+          "basis": "연결 단일분기(연간-1~3Q)",
+          "source": "MOPS",
+          "operatingMargin": -5.075619353648406,
+          "netMargin": -3.80455385137686
+        },
+        {
+          "period": "2026Q1",
+          "revenue": 10468.868,
+          "operatingIncome": 1932.572,
+          "netIncome": 1779.369,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": 18.460181177181713,
+          "netMargin": 16.996766030481993
+        }
+      ]
+    },
+    {
+      "id": "dosilicon",
+      "name": "Dosilicon",
+      "ticker": "688110",
+      "market": "SSE STAR",
+      "country": "CN",
+      "role": "중국 피어",
+      "focus": "중소용량 DRAM·NAND·NOR",
+      "metrics": {
+        "period": "2026 1Q",
+        "periodType": "분기실적",
+        "revenue": 479.32,
+        "revenueDisplay": "CNY 4.79억",
+        "revenueYoY": 236.95,
+        "revenueQoQ": null,
+        "operatingIncome": null,
+        "operatingIncomeDisplay": "원문 확인 필요",
+        "netIncome": 138.28,
+        "netIncomeDisplay": "CNY 1.38억",
+        "currency": "CNY",
+        "basis": "분기, CNY million"
+      },
+      "updatedAt": "2026-07-10T10:22:35+09:00",
+      "verification": "official-monitor",
+      "sourceLabel": "2026년 1분기 보고서",
+      "sourceUrl": "https://www.sse.com.cn/",
+      "note": "매출 급증과 함께 순이익 흑자 전환",
+      "questions": [
+        "실적 개선이 가격 효과인지 고객·제품 믹스 변화인지?",
+        "피델릭스와의 공급·판매·지배구조 연결성이 강화되는가?"
+      ],
+      "quarterlyHistory": [
+        {
+          "period": "2023Q2",
+          "revenue": 115.80601112000001,
+          "operatingIncome": -79.21558893,
+          "netIncome": -38.07143518999999,
+          "currency": "CNY",
+          "basis": "연결 단일분기(누적 차감)",
+          "source": "Eastmoney/SSE filing",
+          "operatingMargin": -68.4036935249549,
+          "netMargin": -32.87518050384256
+        },
+        {
+          "period": "2023Q3",
+          "revenue": 131.49081156999995,
+          "operatingIncome": -71.42978036,
+          "netIncome": -69.68511953999999,
+          "currency": "CNY",
+          "basis": "연결 단일분기(누적 차감)",
+          "source": "Eastmoney/SSE filing",
+          "operatingMargin": -54.32302037467759,
+          "netMargin": -52.996189397540284
+        },
+        {
+          "period": "2023Q4",
+          "revenue": 159.45551062000004,
+          "operatingIncome": -165.50439586,
+          "netIncome": -158.32760548999997,
+          "currency": "CNY",
+          "basis": "연결 단일분기(누적 차감)",
+          "source": "Eastmoney/SSE filing",
+          "operatingMargin": -103.79346265079236,
+          "netMargin": -99.29265214753975
+        },
+        {
+          "period": "2024Q1",
+          "revenue": 106.24224358,
+          "operatingIncome": -46.98796632,
+          "netIncome": -48.2497708,
+          "currency": "CNY",
+          "basis": "연결 단일분기",
+          "source": "Eastmoney/SSE filing",
+          "operatingMargin": -44.22719695731787,
+          "netMargin": -45.414864345996335
+        },
+        {
+          "period": "2024Q2",
+          "revenue": 160.04137453000004,
+          "operatingIncome": -46.18416676,
+          "netIncome": -44.86294494,
+          "currency": "CNY",
+          "basis": "연결 단일분기(누적 차감)",
+          "source": "Eastmoney/SSE filing",
+          "operatingMargin": -28.857641903933217,
+          "netMargin": -28.032091746119285
+        },
+        {
+          "period": "2024Q3",
+          "revenue": 180.71111643,
+          "operatingIncome": -43.117207420000014,
+          "netIncome": -43.391860019999996,
+          "currency": "CNY",
+          "basis": "연결 단일분기(누적 차감)",
+          "source": "Eastmoney/SSE filing",
+          "operatingMargin": -23.85974270525955,
+          "netMargin": -24.011727046580557
+        },
+        {
+          "period": "2024Q4",
+          "revenue": 193.95881253,
+          "operatingIncome": -32.70925377999998,
+          "netIncome": -38.71923627000001,
+          "currency": "CNY",
+          "basis": "연결 단일분기(누적 차감)",
+          "source": "Eastmoney/SSE filing",
+          "operatingMargin": -16.864020434720274,
+          "netMargin": -19.96260740357504
+        },
+        {
+          "period": "2025Q1",
+          "revenue": 142.25383961000003,
+          "operatingIncome": -65.77224371,
+          "netIncome": -63.38042292,
+          "currency": "CNY",
+          "basis": "연결 단일분기",
+          "source": "Eastmoney/SSE filing",
+          "operatingMargin": -46.23583018238364,
+          "netMargin": -44.554454975529914
+        },
+        {
+          "period": "2025Q2",
+          "revenue": 200.73782258999998,
+          "operatingIncome": -63.291061249999984,
+          "netIncome": -61.041591409999995,
+          "currency": "CNY",
+          "basis": "연결 단일분기(누적 차감)",
+          "source": "Eastmoney/SSE filing",
+          "operatingMargin": -31.529215786737797,
+          "netMargin": -30.40861489001767
+        },
+        {
+          "period": "2025Q3",
+          "revenue": 229.54985977000007,
+          "operatingIncome": -37.44911233000002,
+          "netIncome": -40.419257200000004,
+          "currency": "CNY",
+          "basis": "연결 단일분기(누적 차감)",
+          "source": "Eastmoney/SSE filing",
+          "operatingMargin": -16.314151691280735,
+          "netMargin": -17.608051357774084
+        },
+        {
+          "period": "2025Q4",
+          "revenue": 348.88376898,
+          "operatingIncome": -45.561275050000006,
+          "netIncome": -50.99981051,
+          "currency": "CNY",
+          "basis": "연결 단일분기(누적 차감)",
+          "source": "Eastmoney/SSE filing",
+          "operatingMargin": -13.059155828086642,
+          "netMargin": -14.617994600065101
+        },
+        {
+          "period": "2026Q1",
+          "revenue": 479.32372635,
+          "operatingIncome": 153.10611676,
+          "netIncome": 153.31244714,
+          "currency": "CNY",
+          "basis": "연결 단일분기",
+          "source": "Eastmoney/SSE filing",
+          "operatingMargin": 31.942111008333978,
+          "netMargin": 31.98515715202713
+        }
+      ]
+    },
+    {
+      "id": "jeju",
+      "name": "제주반도체",
+      "ticker": "080220",
+      "market": "KOSDAQ",
+      "country": "KR",
+      "role": "국내 팹리스 피어",
+      "focus": "모바일·IoT 저전력 메모리",
+      "metrics": {
+        "period": "2026 1Q",
+        "periodType": "정기보고서",
+        "revenue": 180471968353.0,
+        "revenueDisplay": "1,804.7억원",
+        "revenueYoY": null,
+        "revenueQoQ": null,
+        "operatingIncome": 67113446927.0,
+        "operatingIncomeDisplay": "671.1억원",
+        "netIncome": 78066247870.0,
+        "netIncomeDisplay": "780.7억원",
+        "currency": "KRW",
+        "basis": "연결, 누적 기준일 수 있음"
+      },
+      "updatedAt": "2026-07-10T10:22:40+09:00",
+      "verification": "official",
+      "sourceLabel": "OpenDART 연결재무제표",
+      "sourceUrl": "https://opendart.fss.or.kr/",
+      "note": "OpenDART 원문 기준 자동 갱신",
+      "questions": [
+        "고객 집중도와 재고 리스크가 고마진을 훼손할 가능성은?",
+        "LPDDR4X 공급 부족 효과는 언제 정상화되는가?"
+      ],
+      "quarterlyHistory": [
+        {
+          "period": "2023Q2",
+          "revenue": 37274.600164,
+          "operatingIncome": 5872.004055,
+          "netIncome": 3981.121365,
+          "currency": "KRW",
+          "basis": "연결 단일분기",
+          "source": "OpenDART",
+          "operatingMargin": 15.753365640850554,
+          "netMargin": 10.680520642700246
+        },
+        {
+          "period": "2023Q3",
+          "revenue": 39516.816967,
+          "operatingIncome": 4320.355428,
+          "netIncome": 6481.41033,
+          "currency": "KRW",
+          "basis": "연결 단일분기",
+          "source": "OpenDART",
+          "operatingMargin": 10.932954017040073,
+          "netMargin": 16.401650809609855
+        },
+        {
+          "period": "2023Q4",
+          "revenue": 34467.255854999996,
+          "operatingIncome": 4080.4286930000017,
+          "netIncome": 389.4052170000032,
+          "currency": "KRW",
+          "basis": "연결 단일분기(연간-1~3Q)",
+          "source": "OpenDART",
+          "operatingMargin": 11.838565594446864,
+          "netMargin": 1.12978305739856
+        },
+        {
+          "period": "2024Q1",
+          "revenue": 42589.798341,
+          "operatingIncome": 4767.118693,
+          "netIncome": 7352.011,
+          "currency": "KRW",
+          "basis": "연결 단일분기",
+          "source": "OpenDART",
+          "operatingMargin": 11.193099941050505,
+          "netMargin": 17.26237570118388
+        },
+        {
+          "period": "2024Q2",
+          "revenue": 43871.041093,
+          "operatingIncome": 2401.191378,
+          "netIncome": 2055.133164,
+          "currency": "KRW",
+          "basis": "연결 단일분기",
+          "source": "OpenDART",
+          "operatingMargin": 5.473294725123655,
+          "netMargin": 4.684486879724206
+        },
+        {
+          "period": "2024Q3",
+          "revenue": 39050.8911,
+          "operatingIncome": 1906.301022,
+          "netIncome": -1374.750383,
+          "currency": "KRW",
+          "basis": "연결 단일분기",
+          "source": "OpenDART",
+          "operatingMargin": 4.881581362941037,
+          "netMargin": -3.520407202692489
+        },
+        {
+          "period": "2024Q4",
+          "revenue": 36838.214921000006,
+          "operatingIncome": 506.74918100000104,
+          "netIncome": 11505.577529,
+          "currency": "KRW",
+          "basis": "연결 단일분기(연간-1~3Q)",
+          "source": "OpenDART",
+          "operatingMargin": 1.3756073199712058,
+          "netMargin": 31.232722740973873
+        },
+        {
+          "period": "2025Q1",
+          "revenue": 48440.247633,
+          "operatingIncome": 3699.508665,
+          "netIncome": 4330.048375,
+          "currency": "KRW",
+          "basis": "연결 단일분기",
+          "source": "OpenDART",
+          "operatingMargin": 7.6372620822022865,
+          "netMargin": 8.938947644954126
+        },
+        {
+          "period": "2025Q2",
+          "revenue": 51066.931074,
+          "operatingIncome": 4337.849902,
+          "netIncome": -2616.207433,
+          "currency": "KRW",
+          "basis": "연결 단일분기",
+          "source": "OpenDART",
+          "operatingMargin": 8.494440160725762,
+          "netMargin": -5.123095079296834
+        },
+        {
+          "period": "2025Q3",
+          "revenue": 110951.148841,
+          "operatingIncome": 13901.794568,
+          "netIncome": 22713.448683,
+          "currency": "KRW",
+          "basis": "연결 단일분기",
+          "source": "OpenDART",
+          "operatingMargin": 12.529653557641074,
+          "netMargin": 20.471575932530275
+        },
+        {
+          "period": "2025Q4",
+          "revenue": 91772.24363800001,
+          "operatingIncome": 13934.819176999998,
+          "netIncome": 15080.694736000005,
+          "currency": "KRW",
+          "basis": "연결 단일분기(연간-1~3Q)",
+          "source": "OpenDART",
+          "operatingMargin": 15.1841326141775,
+          "netMargin": 16.432740595823855
+        },
+        {
+          "period": "2026Q1",
+          "revenue": 180471.968353,
+          "operatingIncome": 67113.446927,
+          "netIncome": 78066.24787,
+          "currency": "KRW",
+          "basis": "연결 단일분기",
+          "source": "OpenDART",
+          "operatingMargin": 37.18774031196207,
+          "netMargin": 43.25671658731166
+        }
+      ]
+    }
+  ],
+  "calendar": [
+    {
+      "date": "2026-07-10",
+      "company": "대만 3사",
+      "event": "6월 월매출 공시 예상",
+      "importance": "high"
+    },
+    {
+      "date": "2026-08-14",
+      "company": "피델릭스·제주반도체",
+      "event": "반기보고서 법정 제출기한",
+      "importance": "high"
+    },
+    {
+      "date": "2026-08-21",
+      "company": "Dosilicon",
+      "event": "반기 실적 발표 예상",
+      "importance": "medium"
+    },
+    {
+      "date": "2026-10-10",
+      "company": "대만 3사",
+      "event": "9월 월매출 공시 예상",
+      "importance": "medium"
+    }
+  ],
+  "thesisChecks": [
+    {
+      "id": "price",
+      "label": "메모리 가격",
+      "value": "상승",
+      "tone": "positive",
+      "detail": "대만 3사 5월 매출이 전년 대비 큰 폭 증가"
+    },
+    {
+      "id": "profit",
+      "label": "이익 레버리지",
+      "value": "확인",
+      "tone": "positive",
+      "detail": "피델릭스·제주반도체·Dosilicon 1Q 흑자/증익"
+    },
+    {
+      "id": "inventory",
+      "label": "재고 정상화",
+      "value": "추적",
+      "tone": "warning",
+      "detail": "2Q 보고서의 재고자산·매입채무 확인 필요"
+    },
+    {
+      "id": "concentration",
+      "label": "고객 집중",
+      "value": "주의",
+      "tone": "negative",
+      "detail": "국내 팹리스의 특정 고객 의존도 점검"
+    }
+  ],
+  "feed": [
+    {
+      "id": "dart-20260707000399",
+      "companyId": "jeju",
+      "company": "제주반도체",
+      "date": "20260707",
+      "title": "[기재정정]의결권대리행사권유참고서류",
+      "type": "공시",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260707000399",
+      "source": "OpenDART",
+      "isNew": true
+    },
+    {
+      "id": "dart-20260707000392",
+      "companyId": "jeju",
+      "company": "제주반도체",
+      "date": "20260707",
+      "title": "[기재정정]주주총회소집공고",
+      "type": "공시",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260707000392",
+      "source": "OpenDART",
+      "isNew": true
+    },
+    {
+      "id": "dart-20260707900398",
+      "companyId": "jeju",
+      "company": "제주반도체",
+      "date": "20260707",
+      "title": "[기재정정]주주총회소집결의              (임시주주총회)",
+      "type": "공시",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260707900398",
+      "source": "OpenDART",
+      "isNew": true
+    },
+    {
+      "id": "sse-2026-07-01-642189693986590280",
+      "companyId": "dosilicon",
+      "company": "Dosilicon",
+      "date": "2026-07-01",
+      "title": "关于股票交易风险提示的公告",
+      "type": "공시",
+      "url": "https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-07-01/688110_20260701_BK2V.pdf",
+      "source": "SSE",
+      "isNew": true
+    },
+    {
+      "id": "sse-2026-07-01-4910156775926256951",
+      "companyId": "dosilicon",
+      "company": "Dosilicon",
+      "date": "2026-07-01",
+      "title": "2026年第三次临时股东会决议公告",
+      "type": "공시",
+      "url": "https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-07-01/688110_20260701_F19J.pdf",
+      "source": "SSE",
+      "isNew": true
+    },
+    {
+      "id": "sse-2026-07-01-7417545066964475550",
+      "companyId": "dosilicon",
+      "company": "Dosilicon",
+      "date": "2026-07-01",
+      "title": "北京德恒（深圳）律师事务所关于东芯半导体股份有限公司2026年第三次临时股东会的法律意见",
+      "type": "공시",
+      "url": "https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-07-01/688110_20260701_TEGC.pdf",
+      "source": "SSE",
+      "isNew": true
+    },
+    {
+      "id": "sse-2026-06-23-9121795106980820996",
+      "companyId": "dosilicon",
+      "company": "Dosilicon",
+      "date": "2026-06-23",
+      "title": "东芯半导体股份有限公司章程",
+      "type": "공시",
+      "url": "https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-06-23/688110_20260623_41N0.pdf",
+      "source": "SSE",
+      "isNew": true
+    },
+    {
+      "id": "sse-2026-06-23-429745374509240365",
+      "companyId": "dosilicon",
+      "company": "Dosilicon",
+      "date": "2026-06-23",
+      "title": "关于变更经营范围及注册资本并完成工商变更登记的公告",
+      "type": "공시",
+      "url": "https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-06-23/688110_20260623_YHIR.pdf",
+      "source": "SSE",
+      "isNew": true
+    },
+    {
+      "id": "sse-2026-06-19-6126907721120391468",
+      "companyId": "dosilicon",
+      "company": "Dosilicon",
+      "date": "2026-06-19",
+      "title": "2026年第三次临时股东会会议资料",
+      "type": "공시",
+      "url": "https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-06-19/688110_20260619_F3MO.pdf",
+      "source": "SSE",
+      "isNew": true
+    },
+    {
+      "id": "dart-20260605000184",
+      "companyId": "jeju",
+      "company": "제주반도체",
+      "date": "20260605",
+      "title": "[첨부정정]의결권대리행사권유참고서류",
+      "type": "공시",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260605000184",
+      "source": "OpenDART",
+      "isNew": true
+    },
+    {
+      "id": "dart-20260605000174",
+      "companyId": "jeju",
+      "company": "제주반도체",
+      "date": "20260605",
+      "title": "[기재정정]주주총회소집공고",
+      "type": "공시",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260605000174",
+      "source": "OpenDART",
+      "isNew": true
+    },
+    {
+      "id": "seed-jeju-q1",
+      "companyId": "jeju",
+      "company": "제주반도체",
+      "date": "2026-05-14",
+      "title": "분기보고서 (2026.03)",
+      "type": "실적",
+      "url": "https://dart.fss.or.kr/",
+      "source": "DART 요약",
+      "isNew": false
+    },
+    {
+      "id": "seed-fidelix-q1",
+      "companyId": "fidelix",
+      "company": "피델릭스",
+      "date": "2026-05-11",
+      "title": "분기보고서 (2026.03)",
+      "type": "실적",
+      "url": "https://dart.fss.or.kr/",
+      "source": "DART 요약",
+      "isNew": false
+    },
+    {
+      "id": "dart-20260511000006",
+      "companyId": "fidelix",
+      "company": "피델릭스",
+      "date": "20260511",
+      "title": "분기보고서 (2026.03)",
+      "type": "공시",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260511000006",
+      "source": "OpenDART",
+      "isNew": true
+    },
+    {
+      "id": "dart-20260430000463",
+      "companyId": "fidelix",
+      "company": "피델릭스",
+      "date": "20260430",
+      "title": "임원ㆍ주요주주특정증권등소유상황보고서",
+      "type": "공시",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260430000463",
+      "source": "OpenDART",
+      "isNew": true
+    },
+    {
+      "id": "dart-20260429000452",
+      "companyId": "fidelix",
+      "company": "피델릭스",
+      "date": "20260429",
+      "title": "주식매수선택권부여에관한신고",
+      "type": "공시",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260429000452",
+      "source": "OpenDART",
+      "isNew": true
+    },
+    {
+      "id": "dart-20260324000292",
+      "companyId": "fidelix",
+      "company": "피델릭스",
+      "date": "20260324",
+      "title": "임원ㆍ주요주주특정증권등소유상황보고서",
+      "type": "공시",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260324000292",
+      "source": "OpenDART",
+      "isNew": true
+    },
+    {
+      "id": "dart-20260324000283",
+      "companyId": "fidelix",
+      "company": "피델릭스",
+      "date": "20260324",
+      "title": "주식등의대량보유상황보고서(일반)",
+      "type": "공시",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260324000283",
+      "source": "OpenDART",
+      "isNew": true
+    }
+  ],
+  "sources": [
+    {
+      "id": "twse",
+      "name": "대만거래소 OpenAPI",
+      "status": "live",
+      "message": "3개사 월매출·36개월 이력 갱신 완료",
+      "checkedAt": "2026-07-10T10:22:34+09:00",
+      "url": "https://openapi.twse.com.tw/"
+    },
+    {
+      "id": "dart",
+      "name": "OpenDART",
+      "status": "live",
+      "message": "국내 2개사 재무·공시 갱신 완료",
+      "checkedAt": "2026-07-10T10:22:40+09:00",
+      "url": "https://opendart.fss.or.kr/"
+    },
+    {
+      "id": "sse",
+      "name": "상하이거래소",
+      "status": "live",
+      "message": "Dosilicon 최근 공시 6건 확인",
+      "checkedAt": "2026-07-10T10:22:35+09:00",
+      "url": "https://www.sse.com.cn/"
+    },
+    {
+      "id": "dramexchange",
+      "name": "DRAMeXchange",
+      "status": "live",
+      "message": "DDR4/DDR5 현물가 2026-07-10 갱신 완료",
+      "checkedAt": "2026-07-10T16:29:31+09:00",
+      "url": "https://www.dramexchange.com/"
+    },
+    {
+      "id": "gds_ir",
+      "name": "GDS 공식 IR",
+      "status": "setup",
+      "message": "나중에 연결 예정",
+      "checkedAt": "2026-07-10T10:22:36+09:00",
+      "url": "https://investors.gds-services.com/financial-information/quarterly-results/"
+    },
+    {
+      "id": "vnet_ir",
+      "name": "VNET 공식 IR",
+      "status": "setup",
+      "message": "나중에 연결 예정",
+      "checkedAt": "2026-07-10T10:22:36+09:00",
+      "url": "https://ir.vnet.com/financial-information/quarterly-results/"
+    }
+  ],
+  "chinaServerOrders": {
+    "updatedAt": "2026-07-09T08:44:07+09:00",
+    "note": "공식 IR 원문에서 확인되는 중국 IDC 신규수주와 백로그만 표시합니다. 이미지의 'new order wins'는 백로그가 아니라 신규수주 지표입니다.",
+    "companies": [
+      {
+        "id": "gds",
+        "name": "GDS",
+        "sourceLabel": "GDS 공식 IR · GDS 1Q26 Earnings Presentation",
+        "sourceUrl": "https://investors.gds-services.com/system/files-encrypted/nasdaq_kms/assets/2026/05/20/6-54-39/GDS%201Q26%20Earnings%20Presentation%200520%201700.pdf",
+        "updatedAt": "2026-07-09T08:28:54+09:00",
+        "latest": {
+          "label": "2Q26TD 신규수주",
+          "value": 138,
+          "unit": "MW",
+          "basis": "Hyperscale orders to date"
+        },
+        "series": [
+          {
+            "period": "FY22",
+            "value": 119,
+            "unit": "MW",
+            "category": "연간 확약전력",
+            "basis": "Gross Additional Power Committed By Year"
+          },
+          {
+            "period": "FY23",
+            "value": 97,
+            "unit": "MW",
+            "category": "연간 확약전력",
+            "basis": "Gross Additional Power Committed By Year"
+          },
+          {
+            "period": "FY24",
+            "value": 99,
+            "unit": "MW",
+            "category": "연간 확약전력",
+            "basis": "Gross Additional Power Committed By Year"
+          },
+          {
+            "period": "FY25",
+            "value": 317,
+            "unit": "MW",
+            "category": "연간 확약전력",
+            "basis": "Gross Additional Power Committed By Year"
+          },
+          {
+            "period": "YTD26",
+            "value": 346,
+            "unit": "MW",
+            "category": "연간 확약전력",
+            "basis": "Gross Additional Power Committed By Year"
+          },
+          {
+            "period": "1Q26",
+            "value": 196,
+            "unit": "MW",
+            "category": "분기 신규수주",
+            "basis": "Hyperscale orders in 1Q26"
+          },
+          {
+            "period": "2Q26TD",
+            "value": 138,
+            "unit": "MW",
+            "category": "분기 신규수주",
+            "basis": "Hyperscale orders to date"
+          }
+        ],
+        "backlog": [
+          {
+            "label": "Total backlog",
+            "value": 204556,
+            "unit": "sqm",
+            "basis": "GDS IR"
+          },
+          {
+            "label": "Effective backlog",
+            "value": 168281,
+            "unit": "sqm",
+            "basis": "GDS IR"
+          },
+          {
+            "label": "2Q-4Q26 delivery",
+            "value": 35,
+            "unit": "%",
+            "basis": "Backlog delivery split"
+          },
+          {
+            "label": "FY27 delivery",
+            "value": 40,
+            "unit": "%",
+            "basis": "Backlog delivery split"
+          },
+          {
+            "label": "Thereafter",
+            "value": 25,
+            "unit": "%",
+            "basis": "Backlog delivery split"
+          }
+        ],
+        "note": "중국 IDC 신규수주는 MW, 백로그는 sqm 기준으로 구분 표시합니다."
+      },
+      {
+        "id": "vnet",
+        "name": "VNET",
+        "sourceLabel": "VNET 공식 IR · VNET Reports Unaudited First Quarter 2026 Financial Results",
+        "sourceUrl": "https://ir.vnet.com/news-releases/news-release-details/vnet-reports-unaudited-first-quarter-2026-financial-results",
+        "updatedAt": "2026-07-09T08:44:07+09:00",
+        "latest": {
+          "label": "1Q26 YTD 신규수주",
+          "value": 510,
+          "unit": "MW",
+          "basis": "Wholesale IDC orders"
+        },
+        "series": [
+          {
+            "period": "1Q26 YTD",
+            "value": 510,
+            "unit": "MW",
+            "category": "YTD 신규수주",
+            "basis": "Wholesale IDC orders"
+          },
+          {
+            "period": "3Q25",
+            "value": 63,
+            "unit": "MW",
+            "category": "분기 신규수주",
+            "basis": "Wholesale orders"
+          },
+          {
+            "period": "4Q25TD",
+            "value": 32,
+            "unit": "MW",
+            "category": "분기 신규수주",
+            "basis": "Entered 4Q order"
+          }
+        ],
+        "backlog": [
+          {
+            "label": "Under construction",
+            "value": 516,
+            "unit": "MW",
+            "basis": "VNET operating metrics"
+          }
+        ],
+        "note": "Wholesale IDC 신규수주와 확약·활용 용량을 구분 표시합니다."
+      }
+    ]
+  },
+  "spotPrices": {
+    "updatedAt": "2026-07-10T16:29:31+09:00",
+    "sourceLabel": "StockEasy / DRAMeXchange",
+    "sourceUrl": "https://stockeasy.intellio.kr/market-analysis?tab=memory-prices",
+    "note": "과거 90일은 StockEasy 메모리 화면 툴팁에서 수집했고, 이후 같은 DDR4 8Gb·DDR5 16Gb 품목의 공개 DRAMeXchange Session Average를 자동 누적합니다.",
+    "products": [
+      {
+        "id": "ddr5_16gb_4800_5600",
+        "name": "DDR5",
+        "label": "DDR5 16Gb (2Gx8) 4800/5600",
+        "unit": "USD",
+        "color": "#2e7a8f",
+        "latest": {
+          "date": "2026-07-10",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 47.833,
+          "source": "StockEasy",
+          "change": 0.14
+        },
+        "history": [
+          {
+            "date": "2026-04-13",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 37.1,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-04-14",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 37.2,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-04-15",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 37.433,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-04-16",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 37.7,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-04-17",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 38.5,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-04-20",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 38.667,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-04-21",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 38.833,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-04-22",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 38.833,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-04-23",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 38.667,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-04-24",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 38.5,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-04-27",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 38.433,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-04-28",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 38.5,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-04-29",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 38.867,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-04-30",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 39.0,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-04",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 38.833,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-05",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 38.833,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-06",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 38.833,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-07",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 39.0,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-08",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 39.833,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-11",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 40.2,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-12",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 40.267,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-13",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 40.367,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-14",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 40.7,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-15",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 41.167,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-18",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 41.267,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-19",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 41.1,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-20",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 41.167,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-21",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 41.333,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-22",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 41.5,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-25",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 41.667,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-26",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 41.667,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-27",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 41.667,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-28",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 41.833,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-29",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 41.9,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-01",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 42.267,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-02",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 42.567,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-03",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 42.833,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-04",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 43.233,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-05",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 43.4,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-08",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 43.567,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-09",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 44.0,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-10",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 44.5,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-11",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 44.667,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-12",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 44.833,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-15",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 45.0,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-16",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 45.233,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-17",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 45.4,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-18",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 46.0,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-22",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 46.167,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-23",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 46.5,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-24",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 46.667,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-25",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 46.733,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-26",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 46.733,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-29",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 46.733,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-30",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 46.833,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-07-01",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 46.833,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-07-02",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 46.633,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-07-03",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 46.667,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-07-06",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 47.0,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-07-07",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 47.067,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-07-08",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 47.067,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-07-09",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 47.767,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-07-10",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 47.833,
+            "source": "StockEasy",
+            "change": 0.14
+          }
+        ]
+      },
+      {
+        "id": "ddr4_8gb_3200",
+        "name": "DDR4",
+        "label": "DDR4 8Gb (1Gx8) 3200",
+        "unit": "USD",
+        "color": "#9a6f2e",
+        "latest": {
+          "date": "2026-07-10",
+          "sourceTime": "StockEasy tooltip ? 2026-07-10",
+          "average": 37.8,
+          "source": "StockEasy",
+          "change": 1.07
+        },
+        "history": [
+          {
+            "date": "2026-04-13",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 33.4,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-04-14",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 33.4,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-04-15",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 33.2,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-04-16",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 33.1,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-04-17",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 33.0,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-04-20",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 33.0,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-04-21",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 33.0,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-04-22",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 32.8,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-04-23",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 32.6,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-04-24",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 32.5,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-04-27",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 32.5,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-04-28",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 32.5,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-04-29",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 32.48,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-04-30",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 32.48,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-04",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 32.4,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-05",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 32.4,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-06",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 32.0,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-07",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 32.0,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-08",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 32.1,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-11",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 32.3,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-12",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 32.3,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-13",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 32.2,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-14",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 32.0,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-15",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 32.0,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-18",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 32.0,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-19",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 32.0,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-20",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 32.4,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-21",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 32.9,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-22",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 33.3,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-25",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 33.5,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-26",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 33.6,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-27",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 33.6,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-28",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 33.8,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-05-29",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 34.1,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-01",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 34.5,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-02",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 34.8,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-03",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 35.12,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-04",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 35.42,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-05",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 35.5,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-08",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 35.7,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-09",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 35.9,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-10",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 35.9,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-11",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 36.1,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-12",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 35.9,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-15",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 35.8,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-16",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 35.8,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-17",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 35.8,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-18",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 35.9,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-22",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 35.9,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-23",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 35.9,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-24",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 35.9,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-25",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 36.0,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-26",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 36.0,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-29",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 36.0,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-06-30",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 36.0,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-07-01",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 36.1,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-07-02",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 36.34,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-07-03",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 36.54,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-07-06",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 36.74,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-07-07",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 37.14,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-07-08",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 37.34,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-07-09",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 37.4,
+            "source": "StockEasy"
+          },
+          {
+            "date": "2026-07-10",
+            "sourceTime": "StockEasy tooltip ? 2026-07-10",
+            "average": 37.8,
+            "source": "StockEasy",
+            "change": 1.07
+          }
+        ]
+      }
+    ]
+  }
+}
