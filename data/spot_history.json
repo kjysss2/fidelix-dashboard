@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-10T10:22:36+09:00",
+  "updatedAt": "2026-07-10T16:03:21+09:00",
   "sourceLabel": "DRAMeXchange DRAM Spot Price",
   "sourceUrl": "https://www.dramexchange.com/",
   "products": [
@@ -13,6 +13,16 @@
           "sourceTime": "2026-07-09 18:10 GMT+8",
           "average": 47.767,
           "change": 1.49,
+          "dailyHigh": 62.0,
+          "dailyLow": 31.5,
+          "sessionHigh": 62.0,
+          "sessionLow": 31.5
+        },
+        {
+          "date": "2026-07-10",
+          "sourceTime": "2026-07-10 14:40 GMT+8",
+          "average": 47.8,
+          "change": 0.07,
           "dailyHigh": 62.0,
           "dailyLow": 31.5,
           "sessionHigh": 62.0,
@@ -33,6 +43,16 @@
           "dailyHigh": 95.0,
           "dailyLow": 39.3,
           "sessionHigh": 95.0,
+          "sessionLow": 39.3
+        },
+        {
+          "date": "2026-07-10",
+          "sourceTime": "2026-07-10 14:40 GMT+8",
+          "average": 77.625,
+          "change": 0.65,
+          "dailyHigh": 96.0,
+          "dailyLow": 39.3,
+          "sessionHigh": 96.0,
           "sessionLow": 39.3
         }
       ]
