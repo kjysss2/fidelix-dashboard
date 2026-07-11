@@ -111,6 +111,104 @@ def refresh_spot_and_china_only(service) -> dict:
     return {"ok": bool(updated_sources), "updatedSources": updated_sources, "errors": errors}
 
 
+def latest_completed_quarter(now) -> tuple[int, int]:
+    """Return the most recently completed calendar quarter."""
+    current_quarter = (now.month - 1) // 3 + 1
+    if current_quarter == 1:
+        return now.year - 1, 4
+    return now.year, current_quarter - 1
+
+
+def refresh_latest_completed_twse_quarter(service) -> dict:
+    """Backfill the latest completed TWSE quarter directly from MOPS.
+
+    TWSE's aggregated income-statement OpenAPI can lag company announcements.
+    This check lets Nanya, Winbond, and Macronix appear as soon as their
+    individual MOPS financial statement becomes available.
+    """
+    from server import CACHE_FILE, KST, atomic_write_json, datetime, now_iso, with_margins
+
+    year, quarter = latest_completed_quarter(datetime.now(KST))
+    target_period = f"{year}Q{quarter}"
+    targets = {"2337": "macronix", "2344": "winbond", "2408": "nanya"}
+
+    with service.lock:
+        working = copy.deepcopy(service.dashboard)
+
+    errors: list[str] = []
+    updated_companies: list[str] = []
+
+    for code, company_id in targets.items():
+        company = service._company(working, company_id)
+        try:
+            period, item = service._fetch_mops_quarter(code, year, quarter)
+        except Exception as exc:
+            errors.append(f"{company.get('name', company_id)} {target_period}: {exc}")
+            continue
+
+        if period != target_period or item.get("revenue") is None:
+            errors.append(f"{company.get('name', company_id)} {target_period}: 재무자료 미공시")
+            continue
+
+        history = {
+            entry["period"]: entry
+            for entry in company.get("quarterlyHistory", [])
+            if entry.get("period")
+        }
+
+        if quarter == 4:
+            previous = [history.get(f"{year}Q{value}") for value in (1, 2, 3)]
+            if all(previous):
+                for key in ("revenue", "operatingIncome", "netIncome"):
+                    if (
+                        item.get(key) is not None
+                        and all(entry.get(key) is not None for entry in previous)
+                    ):
+                        item[key] -= sum(entry[key] for entry in previous)
+                item["basis"] = "연결 단일분기(연간-1~3Q)"
+                with_margins(item)
+
+        history[target_period] = item
+        periods = sorted(history)[-12:]
+        company["quarterlyHistory"] = [history[value] for value in periods]
+        company["updatedAt"] = now_iso()
+        updated_companies.append(company.get("name", company_id))
+
+    if updated_companies:
+        service._source_status(
+            working,
+            "twse",
+            "live",
+            f"대만 3사 월매출·분기실적 갱신 완료 ({target_period})",
+        )
+        with service.lock:
+            service.dashboard = working
+            atomic_write_json(CACHE_FILE, working)
+
+    return {
+        "ok": bool(updated_companies),
+        "updatedSources": [f"MOPS {target_period}"] if updated_companies else [],
+        "updatedCompanies": updated_companies,
+        "errors": errors,
+    }
+
+
+def merge_results(*results: dict) -> dict:
+    """Merge refresh results without failing the build on a single source."""
+    updated_sources: list[str] = []
+    errors: list[str] = []
+    for result in results:
+        for source in result.get("updatedSources", []):
+            if source not in updated_sources:
+                updated_sources.append(source)
+        errors.extend(result.get("errors", []))
+    return {
+        "ok": bool(updated_sources),
+        "updatedSources": updated_sources,
+        "errors": errors,
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--no-refresh", action="store_true", help="Build from existing seed/cache only.")
@@ -140,7 +238,10 @@ def main() -> None:
         elif args.spot_only:
             result = refresh_spot_prices_only(SERVICE)
         else:
-            result = SERVICE.refresh("github-pages")
+            full_result = SERVICE.refresh("github-pages")
+            twse_backfill_result = refresh_latest_completed_twse_quarter(SERVICE)
+            result = merge_results(full_result, twse_backfill_result)
+
         print(json.dumps({
             "ok": result.get("ok"),
             "updatedSources": result.get("updatedSources", []),
