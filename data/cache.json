@@ -3,8 +3,8 @@
   "title": "Fidelix Memory Radar",
   "subtitle": "메모리 업황과 피어 실적을 한 화면에서 추적합니다",
   "system": {
-    "lastRefresh": "2026-07-10T16:29:31+09:00",
-    "lastRefreshReason": "github-pages-spot-only",
+    "lastRefresh": "2026-07-12T07:17:07+09:00",
+    "lastRefreshReason": "github-pages",
     "lastRefreshErrors": [],
     "refreshing": false,
     "dartConfigured": false
@@ -32,7 +32,7 @@
         "currency": "KRW",
         "basis": "별도, 누적 기준일 수 있음"
       },
-      "updatedAt": "2026-07-10T10:22:39+09:00",
+      "updatedAt": "2026-07-12T07:10:55+09:00",
       "verification": "official",
       "sourceLabel": "OpenDART 연결재무제표",
       "sourceUrl": "https://opendart.fss.or.kr/",
@@ -185,12 +185,12 @@
       "role": "Specialty DRAM",
       "focus": "Specialty DRAM·NOR Flash",
       "metrics": {
-        "period": "2026-05",
+        "period": "2026-06",
         "periodType": "월매출",
-        "revenue": 20001.444,
-        "revenueDisplay": "NT$ 200.0억",
-        "revenueYoY": 181.967983155321,
-        "revenueQoQ": 3.9304813473323126,
+        "revenue": 20596.799,
+        "revenueDisplay": "NT$ 206.0억",
+        "revenueYoY": 189.87676071204797,
+        "revenueQoQ": 2.9765600923613316,
         "operatingIncome": null,
         "operatingIncomeDisplay": "월매출 공시 미제공",
         "netIncome": null,
@@ -198,7 +198,7 @@
         "currency": "TWD",
         "basis": "당월, NT$ million"
       },
-      "updatedAt": "2026-07-10T10:22:34+09:00",
+      "updatedAt": "2026-07-12T07:06:35+09:00",
       "verification": "official",
       "sourceLabel": "대만거래소 월매출",
       "sourceUrl": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
@@ -208,12 +208,6 @@
         "NOR Flash 재고 조정은 끝났는가?"
       ],
       "monthlyHistory": [
-        {
-          "period": "2023-06",
-          "revenue": 6988.905,
-          "mom": 13.86,
-          "yoy": -21.5
-        },
         {
           "period": "2023-07",
           "revenue": 6314.838,
@@ -423,6 +417,12 @@
           "revenue": 20001.444,
           "mom": 3.93,
           "yoy": 181.96
+        },
+        {
+          "period": "2026-06",
+          "revenue": 20596.799,
+          "mom": 2.97,
+          "yoy": 189.87
         }
       ],
       "quarterlyHistory": [
@@ -569,12 +569,12 @@
       "role": "Commodity DRAM",
       "focus": "범용 DRAM·DDR4/DDR5",
       "metrics": {
-        "period": "2026-05",
+        "period": "2026-06",
         "periodType": "월매출",
-        "revenue": 27669.563,
-        "revenueDisplay": "NT$ 276.7억",
-        "revenueYoY": 730.1397699033429,
-        "revenueQoQ": 8.54554479406443,
+        "revenue": 29388.309,
+        "revenueDisplay": "NT$ 293.9억",
+        "revenueYoY": 621.3354284927444,
+        "revenueQoQ": 6.211684658698802,
         "operatingIncome": null,
         "operatingIncomeDisplay": "월매출 공시 미제공",
         "netIncome": null,
@@ -582,7 +582,7 @@
         "currency": "TWD",
         "basis": "당월, NT$ million"
       },
-      "updatedAt": "2026-07-10T10:22:34+09:00",
+      "updatedAt": "2026-07-12T07:06:35+09:00",
       "verification": "official",
       "sourceLabel": "대만거래소 월매출",
       "sourceUrl": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
@@ -592,12 +592,6 @@
         "신공정 램프업 비용과 가동률 회복 속도는?"
       ],
       "monthlyHistory": [
-        {
-          "period": "2023-06",
-          "revenue": 2458.014,
-          "mom": 6.45,
-          "yoy": -53.04
-        },
         {
           "period": "2023-07",
           "revenue": 2437.193,
@@ -807,6 +801,12 @@
           "revenue": 27669.563,
           "mom": 8.54,
           "yoy": 730.13
+        },
+        {
+          "period": "2026-06",
+          "revenue": 29388.309,
+          "mom": 6.21,
+          "yoy": 621.33
         }
       ],
       "quarterlyHistory": [
@@ -953,12 +953,12 @@
       "role": "NOR Flash",
       "focus": "NOR Flash·ROM",
       "metrics": {
-        "period": "2026-05",
+        "period": "2026-06",
         "periodType": "월매출",
-        "revenue": 6255.653,
-        "revenueDisplay": "NT$ 62.6억",
-        "revenueYoY": 175.7952036483169,
-        "revenueQoQ": 5.803426759874463,
+        "revenue": 6956.348,
+        "revenueDisplay": "NT$ 69.6억",
+        "revenueYoY": 216.09461825395996,
+        "revenueQoQ": 11.200988929533017,
         "operatingIncome": null,
         "operatingIncomeDisplay": "월매출 공시 미제공",
         "netIncome": null,
@@ -966,7 +966,7 @@
         "currency": "TWD",
         "basis": "당월, NT$ million"
       },
-      "updatedAt": "2026-07-10T10:22:34+09:00",
+      "updatedAt": "2026-07-12T07:06:35+09:00",
       "verification": "official",
       "sourceLabel": "대만거래소 월매출",
       "sourceUrl": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
@@ -976,12 +976,6 @@
         "ROM 계절성이 하반기 실적을 지지하는가?"
       ],
       "monthlyHistory": [
-        {
-          "period": "2023-06",
-          "revenue": 2139.645,
-          "mom": -6.19,
-          "yoy": -45.31
-        },
         {
           "period": "2023-07",
           "revenue": 2181.288,
@@ -1191,6 +1185,12 @@
           "revenue": 6255.653,
           "mom": 5.8,
           "yoy": 175.79
+        },
+        {
+          "period": "2026-06",
+          "revenue": 6956.348,
+          "mom": 11.2,
+          "yoy": 216.09
         }
       ],
       "quarterlyHistory": [
@@ -1350,7 +1350,7 @@
         "currency": "CNY",
         "basis": "분기, CNY million"
       },
-      "updatedAt": "2026-07-10T10:22:35+09:00",
+      "updatedAt": "2026-07-12T07:06:41+09:00",
       "verification": "official-monitor",
       "sourceLabel": "2026년 1분기 보고서",
       "sourceUrl": "https://www.sse.com.cn/",
@@ -1516,7 +1516,7 @@
         "currency": "KRW",
         "basis": "연결, 누적 기준일 수 있음"
       },
-      "updatedAt": "2026-07-10T10:22:40+09:00",
+      "updatedAt": "2026-07-12T07:11:04+09:00",
       "verification": "official",
       "sourceLabel": "OpenDART 연결재무제표",
       "sourceUrl": "https://opendart.fss.or.kr/",
@@ -1752,7 +1752,7 @@
       "isNew": true
     },
     {
-      "id": "sse-2026-07-01-642189693986590280",
+      "id": "sse-2026-07-01-8005151095450058979",
       "companyId": "dosilicon",
       "company": "Dosilicon",
       "date": "2026-07-01",
@@ -1763,7 +1763,7 @@
       "isNew": true
     },
     {
-      "id": "sse-2026-07-01-4910156775926256951",
+      "id": "sse-2026-07-01-1056239615665963492",
       "companyId": "dosilicon",
       "company": "Dosilicon",
       "date": "2026-07-01",
@@ -1774,7 +1774,7 @@
       "isNew": true
     },
     {
-      "id": "sse-2026-07-01-7417545066964475550",
+      "id": "sse-2026-07-01-6459180123954635769",
       "companyId": "dosilicon",
       "company": "Dosilicon",
       "date": "2026-07-01",
@@ -1785,7 +1785,7 @@
       "isNew": true
     },
     {
-      "id": "sse-2026-06-23-9121795106980820996",
+      "id": "sse-2026-06-23-978092657686520991",
       "companyId": "dosilicon",
       "company": "Dosilicon",
       "date": "2026-06-23",
@@ -1796,7 +1796,7 @@
       "isNew": true
     },
     {
-      "id": "sse-2026-06-23-429745374509240365",
+      "id": "sse-2026-06-23-5087525127098504755",
       "companyId": "dosilicon",
       "company": "Dosilicon",
       "date": "2026-06-23",
@@ -1807,7 +1807,7 @@
       "isNew": true
     },
     {
-      "id": "sse-2026-06-19-6126907721120391468",
+      "id": "sse-2026-06-19-6463799972802930134",
       "companyId": "dosilicon",
       "company": "Dosilicon",
       "date": "2026-06-19",
@@ -1923,7 +1923,7 @@
       "name": "대만거래소 OpenAPI",
       "status": "live",
       "message": "3개사 월매출·36개월 이력 갱신 완료",
-      "checkedAt": "2026-07-10T10:22:34+09:00",
+      "checkedAt": "2026-07-12T07:06:37+09:00",
       "url": "https://openapi.twse.com.tw/"
     },
     {
@@ -1931,7 +1931,7 @@
       "name": "OpenDART",
       "status": "live",
       "message": "국내 2개사 재무·공시 갱신 완료",
-      "checkedAt": "2026-07-10T10:22:40+09:00",
+      "checkedAt": "2026-07-12T07:11:05+09:00",
       "url": "https://opendart.fss.or.kr/"
     },
     {
@@ -1939,7 +1939,7 @@
       "name": "상하이거래소",
       "status": "live",
       "message": "Dosilicon 최근 공시 6건 확인",
-      "checkedAt": "2026-07-10T10:22:35+09:00",
+      "checkedAt": "2026-07-12T07:06:41+09:00",
       "url": "https://www.sse.com.cn/"
     },
     {
@@ -1947,7 +1947,7 @@
       "name": "DRAMeXchange",
       "status": "live",
       "message": "DDR4/DDR5 현물가 2026-07-10 갱신 완료",
-      "checkedAt": "2026-07-10T16:29:31+09:00",
+      "checkedAt": "2026-07-12T07:06:46+09:00",
       "url": "https://www.dramexchange.com/"
     },
     {
@@ -1955,7 +1955,7 @@
       "name": "GDS 공식 IR",
       "status": "live",
       "message": "GDS 신규수주·백로그 갱신 완료",
-      "checkedAt": "2026-07-10T16:59:53+09:00",
+      "checkedAt": "2026-07-12T07:06:48+09:00",
       "url": "https://investors.gds-services.com/financial-information/quarterly-results/"
     },
     {
@@ -1963,20 +1963,20 @@
       "name": "VNET 공식 IR",
       "status": "live",
       "message": "VNET 신규수주·확약용량 갱신 완료",
-      "checkedAt": "2026-07-10T16:59:53+09:00",
+      "checkedAt": "2026-07-12T07:06:53+09:00",
       "url": "https://ir.vnet.com/financial-information/quarterly-results/"
     }
   ],
   "chinaServerOrders": {
-    "updatedAt": "2026-07-10T16:59:53+09:00",
+    "updatedAt": "2026-07-12T07:06:53+09:00",
     "note": "공식 IR 원문에서 확인되는 중국 IDC 신규수주와 백로그만 표시합니다.",
     "companies": [
       {
         "id": "gds",
         "name": "GDS",
         "sourceLabel": "GDS 공식 IR · GDS 1Q26 Earnings Presentation",
-        "sourceUrl": "https://investors.gds-services.com/system/files-encrypted/nasdaq_kms/assets/2026/05/20/6-54-39/GDS%201Q26%20Earnings%20Presentation%200520%201700.pdf",
-        "updatedAt": "2026-07-10T16:59:53+09:00",
+        "sourceUrl": "https://investors.gds-services.com/system/files-encrypted/nasdaq_kms/assets/2026/05/21/8-18-58/GDS%201Q26%20Earnings%20Presentation%200520%201700%20FINAL.pdf",
+        "updatedAt": "2026-07-12T07:06:48+09:00",
         "latest": {
           "label": "2Q26TD 신규수주",
           "value": 138,
@@ -2036,12 +2036,6 @@
         ],
         "backlog": [
           {
-            "label": "Total backlog",
-            "value": 204556,
-            "unit": "sqm",
-            "basis": "GDS IR"
-          },
-          {
             "label": "Effective backlog",
             "value": 168281,
             "unit": "sqm",
@@ -2071,9 +2065,9 @@
       {
         "id": "vnet",
         "name": "VNET",
-        "sourceLabel": "VNET 공식 IR · VNET Reports Unaudited First Quarter 2026 Financial Results",
-        "sourceUrl": "https://ir.vnet.com/news-releases/news-release-details/vnet-reports-unaudited-first-quarter-2026-financial-results",
-        "updatedAt": "2026-07-10T16:59:53+09:00",
+        "sourceLabel": "VNET 공식 IR · Press Release",
+        "sourceUrl": "https://ir.vnet.com/static-files/4e6384af-e95e-4838-9fa4-cad598c0dfef",
+        "updatedAt": "2026-07-12T07:06:53+09:00",
         "latest": {
           "label": "1Q26 YTD 신규수주",
           "value": 517,
@@ -2105,23 +2099,10 @@
         ],
         "backlog": [
           {
-            "label": "Committed capacity",
-            "value": 869,
-            "unit": "MW",
-            "basis": "VNET operating metrics"
-          },
-          {
             "label": "Utilized capacity",
             "value": 687,
             "unit": "MW",
             "basis": "VNET operating metrics"
-          },
-          {
-            "label": "Unutilized committed",
-            "value": 182,
-            "unit": "MW",
-            "basis": "Committed - utilized",
-            "derived": true
           },
           {
             "label": "Under construction",
@@ -2141,7 +2122,7 @@
     ]
   },
   "spotPrices": {
-    "updatedAt": "2026-07-10T16:29:31+09:00",
+    "updatedAt": "2026-07-12T07:06:46+09:00",
     "sourceLabel": "StockEasy / DRAMeXchange",
     "sourceUrl": "https://stockeasy.intellio.kr/market-analysis?tab=memory-prices",
     "note": "과거 90일은 StockEasy 메모리 화면 툴팁에서 수집했고, 이후 같은 DDR4 8Gb·DDR5 16Gb 품목의 공개 DRAMeXchange Session Average를 자동 누적합니다.",
