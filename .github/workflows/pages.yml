@@ -2,13 +2,19 @@ name: Build and deploy GitHub Pages
 
 on:
   workflow_dispatch:
+
   schedule:
-    # 12:30 KST = 03:30 UTC
-    - cron: "30 3 * * *"
+    # UTC 01:30, 03:30, 05:30 ... 23:30
+    # KST 10:30, 12:30, 14:30 ... 다음 날 08:30
+    - cron: "30 1-23/2 * * *"
+
   push:
     branches:
       - main
       - master
+    paths-ignore:
+      - "data/cache.json"
+      - "data/spot_history.json"
 
 permissions:
   contents: write
@@ -22,6 +28,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -34,7 +42,7 @@ jobs:
       - name: Install Python dependencies
         run: python -m pip install pypdf
 
-      - name: Build static dashboard
+      - name: Build and refresh complete dashboard
         env:
           DART_API_KEY: ${{ secrets.DART_API_KEY }}
           HOST: 127.0.0.1
@@ -42,15 +50,85 @@ jobs:
           REFRESH_AT: "12:30"
           REFRESH_ON_STARTUP: "0"
           ENABLE_CHINA_IDC: "1"
-        run: python build_pages.py --spot-china-only
+        run: python build_pages.py
 
-      - name: Persist DRAM spot price history
+      - name: Remove timestamp-only data changes
+        run: |
+          python - <<'PY'
+          import copy
+          import json
+          import subprocess
+          from pathlib import Path
+
+          def previous_bytes(path: str) -> bytes | None:
+              try:
+                  return subprocess.check_output(["git", "show", f"HEAD:{path}"])
+              except subprocess.CalledProcessError:
+                  return None
+
+          def normalize_cache(payload: dict) -> dict:
+              data = copy.deepcopy(payload)
+
+              system = data.get("system", {})
+              for key in (
+                  "lastRefresh",
+                  "lastRefreshReason",
+                  "lastRefreshErrors",
+                  "refreshing",
+                  "dartConfigured",
+              ):
+                  system.pop(key, None)
+
+              for source in data.get("sources", []):
+                  source.pop("checkedAt", None)
+
+              for company in data.get("companies", []):
+                  company.pop("updatedAt", None)
+
+              spot = data.get("spotPrices", {})
+              spot.pop("updatedAt", None)
+
+              china = data.get("chinaServerOrders", {})
+              china.pop("updatedAt", None)
+              for company in china.get("companies", []):
+                  company.pop("updatedAt", None)
+
+              return data
+
+          def normalize_spot(payload: dict) -> dict:
+              data = copy.deepcopy(payload)
+              data.pop("updatedAt", None)
+              return data
+
+          def restore_if_timestamp_only(path: str, normalizer) -> None:
+              file_path = Path(path)
+              old_raw = previous_bytes(path)
+              if old_raw is None or not file_path.exists():
+                  return
+
+              old_data = json.loads(old_raw.decode("utf-8"))
+              new_data = json.loads(file_path.read_text(encoding="utf-8"))
+
+              if normalizer(old_data) == normalizer(new_data):
+                  file_path.write_bytes(old_raw)
+
+          restore_if_timestamp_only("data/cache.json", normalize_cache)
+          restore_if_timestamp_only("data/spot_history.json", normalize_spot)
+          PY
+
+      - name: Persist material dashboard data changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/spot_history.json
-          git diff --cached --quiet || git commit -m "Update DRAM spot price history"
-          git push
+          git add data/cache.json data/spot_history.json
+
+          if git diff --cached --quiet; then
+            echo "No material data changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Update dashboard data [skip ci]"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
@@ -60,9 +138,11 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
