@@ -40,6 +40,14 @@ MOPS_FINANCIAL_URL = "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_
 TWSE_INCOME_URL = "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci"
 EASTMONEY_INCOME_URL = "https://datacenter.eastmoney.com/securities/api/data/v1/get"
 SSE_QUERY_URL = "https://query.sse.com.cn/security/stock/queryCompanyBulletin.do"
+DOSILICON_H1_2026_PRELIMINARY = {
+    "announcementDate": "2026-07-21",
+    "source": "SSE 2026H1 예비실적",
+    "sourceUrl": "https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-07-21/688110_20260721_8A63.pdf",
+    "h1RevenueRange": [1490.0, 1530.0],
+    "h1NetIncomeRange": [640.0, 680.0],
+    "q2NetIncomeQoQRange": [262.81, 291.74],
+}
 DART_BASE = "https://opendart.fss.or.kr/api"
 GDS_IR_URL = "https://investors.gds-services.com/financial-information/quarterly-results/"
 VNET_IR_URL = "https://ir.vnet.com/financial-information/quarterly-results/"
@@ -712,6 +720,48 @@ class DashboardService:
         data["feed"] = sorted(existing + sse_feed, key=disclosure_sort_key, reverse=True)[:18]
         self._source_status(data, "sse", "live", f"Dosilicon 최근 공시 {len(sse_feed)}건 확인")
 
+    @staticmethod
+    def _apply_dosilicon_preliminary(standalone: dict[str, dict]) -> None:
+        forecast = DOSILICON_H1_2026_PRELIMINARY
+        if "2026Q2" in standalone and not standalone["2026Q2"].get("isPreliminary"):
+            return
+
+        q1 = standalone.get("2026Q1")
+        if not q1 or q1.get("revenue") in (None, 0):
+            return
+
+        h1_net_low, h1_net_high = forecast["h1NetIncomeRange"]
+        q2_growth_low, q2_growth_high = forecast["q2NetIncomeQoQRange"]
+        q1_net_values = [
+            h1_net_low / (2 + q2_growth_low / 100),
+            h1_net_high / (2 + q2_growth_high / 100),
+        ]
+        q1_net = sum(q1_net_values) / len(q1_net_values)
+        q1["netIncome"] = q1_net
+        q1["netIncomeBasis"] = "SSE 2026H1 예비실적 역산 귀속순이익"
+        with_margins(q1)
+
+        h1_revenue_low, h1_revenue_high = forecast["h1RevenueRange"]
+        revenue_range = [h1_revenue_low - q1["revenue"], h1_revenue_high - q1["revenue"]]
+        net_income_range = [h1_net_low - q1_net, h1_net_high - q1_net]
+        q2 = {
+            "period": "2026Q2",
+            "revenue": sum(revenue_range) / len(revenue_range),
+            "operatingIncome": None,
+            "netIncome": sum(net_income_range) / len(net_income_range),
+            "currency": "CNY",
+            "basis": "2026H1 예비실적 중간값(누적-1Q)",
+            "source": forecast["source"],
+            "sourceUrl": forecast["sourceUrl"],
+            "isPreliminary": True,
+            "announcementDate": forecast["announcementDate"],
+            "revenueRange": revenue_range,
+            "netIncomeRange": net_income_range,
+            "h1RevenueRange": forecast["h1RevenueRange"],
+            "h1NetIncomeRange": forecast["h1NetIncomeRange"],
+        }
+        standalone["2026Q2"] = with_margins(q2)
+
     def _refresh_dosilicon_quarterly(self, data: dict) -> None:
         params = {
             "reportName": "RPT_F10_FINANCE_GINCOME",
@@ -756,6 +806,7 @@ class DashboardService:
             else:
                 item["basis"] = "연결 단일분기"
             standalone[period] = with_margins(item)
+        self._apply_dosilicon_preliminary(standalone)
         periods = sorted(standalone)[-12:]
         self._company(data, "dosilicon")["quarterlyHistory"] = [standalone[period] for period in periods]
 

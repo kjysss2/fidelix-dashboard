@@ -444,6 +444,11 @@ function quarterValue(value, currency) {
   return `${prefix}${amount.toLocaleString("ko-KR", {maximumFractionDigits: 1})}${suffix}`;
 }
 
+function quarterRangeValue(range, currency) {
+  if (!Array.isArray(range) || range.length < 2) return null;
+  return `${quarterValue(range[0], currency)}~${quarterValue(range[1], currency)}`;
+}
+
 function quarterlyChartMarkup(company) {
   const history = [...(company.quarterlyHistory || [])].sort((a,b) => a.period.localeCompare(b.period)).slice(-12);
   if (history.length < 2) return "";
@@ -491,11 +496,12 @@ function quarterlyChartMarkup(company) {
     return `<line x1="${pad.left}" y1="${gy}" x2="${width-pad.right}" y2="${gy}" class="chart-gridline"/><text x="${pad.left-5}" y="${gy+3}" text-anchor="end" class="quarter-axis-label">${value.toFixed(0)}</text>`;
   }).join("");
   const rightLabels = [marginMax,(marginMax+marginMin)/2,marginMin].map((value,index) => `<text x="${width-pad.right+5}" y="${pad.top + index*plotHeight/2 + 3}" class="quarter-axis-label">${value.toFixed(0)}%</text>`).join("");
-  const hits = history.map((item,index) => `<rect class="quarter-hit" x="${(pad.left+index*slot).toFixed(1)}" y="${pad.top}" width="${slot.toFixed(1)}" height="${plotHeight}" fill="transparent" tabindex="0" data-index="${index}" aria-label="${item.period} 실적"></rect>`).join("");
+  const hits = history.map((item,index) => `<rect class="quarter-hit" x="${(pad.left+index*slot).toFixed(1)}" y="${pad.top}" width="${slot.toFixed(1)}" height="${plotHeight}" fill="transparent" tabindex="0" data-index="${index}" aria-label="${item.period} 실적${item.isPreliminary ? " 예비" : ""}"></rect>`).join("");
   const latest = history[history.length-1];
+  const latestLabel = `${esc(latest.period)}${latest.isPreliminary ? " 예비" : ""}`;
   const currencyLabel = latest.currency === "KRW" ? "KRW 억원" : latest.currency === "TWD" ? "NT$ 억" : "CNY 억";
   return `<article class="quarter-card">
-    <div class="quarter-head"><div><span>${esc(company.name)}</span><small>${esc(company.market)} · ${esc(company.ticker)} · ${currencyLabel}</small></div><strong>${esc(latest.period)}</strong></div>
+    <div class="quarter-head"><div><span>${esc(company.name)}</span><small>${esc(company.market)} · ${esc(company.ticker)} · ${currencyLabel}</small></div><strong>${latestLabel}</strong></div>
     <div class="quarter-legend">
       ${barSeries.map(series => `<span><i style="background:${series.color}"></i>${series.label}</span>`).join("")}
       <span><i class="dash op"></i>영업이익률</span><span><i class="dash net"></i>순이익률</span>
@@ -510,7 +516,7 @@ function quarterlyChartMarkup(company) {
       </svg>
       <div class="quarter-tooltip"></div>
     </div>
-    <div class="quarter-source"><span>${history[0].period}–${latest.period}</span><span>${esc(latest.source || "공시")}</span></div>
+    <div class="quarter-source"><span>${history[0].period}–${latest.period}</span><span>${esc(latest.source || "공시")}${latest.isPreliminary ? " · 중간값" : ""}</span></div>
   </article>`;
 }
 
@@ -522,7 +528,10 @@ function bindQuarterTooltips(companies) {
     const show = hit => {
       const item = history[Number(hit.dataset.index)];
       if (!item) return;
-      tooltip.innerHTML = `<strong>${esc(item.period)}</strong><div><span>매출 ${quarterValue(item.revenue,item.currency)}</span><span>영업이익 ${quarterValue(item.operatingIncome,item.currency)}</span><span>순이익 ${quarterValue(item.netIncome,item.currency)}</span><span>OPM ${item.operatingMargin == null ? "—" : `${Number(item.operatingMargin).toFixed(1)}%`} · NPM ${item.netMargin == null ? "—" : `${Number(item.netMargin).toFixed(1)}%`}</span></div>`;
+      const revenueRange = quarterRangeValue(item.revenueRange, item.currency);
+      const netIncomeRange = quarterRangeValue(item.netIncomeRange, item.currency);
+      const preliminaryLines = item.isPreliminary ? `${revenueRange ? `<span>예비 매출 범위 ${esc(revenueRange)}</span>` : ""}${netIncomeRange ? `<span>예비 순이익 범위 ${esc(netIncomeRange)}</span>` : ""}` : "";
+      tooltip.innerHTML = `<strong>${esc(item.period)}${item.isPreliminary ? " 예비" : ""}</strong><div><span>매출 ${quarterValue(item.revenue,item.currency)}</span><span>영업이익 ${quarterValue(item.operatingIncome,item.currency)}</span><span>순이익 ${quarterValue(item.netIncome,item.currency)}</span><span>OPM ${item.operatingMargin == null ? "—" : `${Number(item.operatingMargin).toFixed(1)}%`} · NPM ${item.netMargin == null ? "—" : `${Number(item.netMargin).toFixed(1)}%`}</span>${preliminaryLines}</div>`;
       const index = Number(hit.dataset.index);
       tooltip.style.left = `${Math.max(18,Math.min(82,(index+.5)/history.length*100))}%`;
       tooltip.classList.add("show");
