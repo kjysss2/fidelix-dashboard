@@ -30,6 +30,7 @@ DATA_DIR = BASE_DIR / "data"
 SEED_FILE = DATA_DIR / "seed.json"
 CACHE_FILE = DATA_DIR / "cache.json"
 SPOT_HISTORY_FILE = DATA_DIR / "spot_history.json"
+JEJU_TRADE_FILE = DATA_DIR / "jeju_trade.json"
 KST = timezone(timedelta(hours=9))
 DRAMEXCHANGE_URL = "https://www.dramexchange.com/"
 STOCKEASY_MEMORY_URL = "https://stockeasy.intellio.kr/market-analysis?tab=memory-prices"
@@ -256,6 +257,7 @@ class DashboardService:
                 pass
         self._ensure_defaults(self.dashboard)
         self._merge_spot_history_file(self.dashboard)
+        self._merge_jeju_trade_file(self.dashboard)
 
     def _ensure_defaults(self, data: dict) -> None:
         """Add new dashboard sections to older cache files without discarding live data."""
@@ -285,6 +287,34 @@ class DashboardService:
                 "note": "공개 홈의 Session Average를 매일 저장해 자체 추이를 만듭니다.",
                 "products": [],
             }))
+
+        if "jejuTrade" not in data:
+            data["jejuTrade"] = copy.deepcopy(self.seed.get("jejuTrade", {
+                "updatedAt": None,
+                "sourceLabel": "User-provided trade table",
+                "basis": "Jeju Semiconductor trade data",
+                "monthlyColumns": [],
+                "monthly": [],
+                "quarterlyColumns": [],
+                "quarterly": [],
+            }))
+
+    @staticmethod
+    def _merge_jeju_trade_file(data: dict) -> None:
+        if not JEJU_TRADE_FILE.exists():
+            return
+        try:
+            data["jejuTrade"] = read_json(JEJU_TRADE_FILE)
+        except Exception:
+            data.setdefault("jejuTrade", {
+                "updatedAt": None,
+                "sourceLabel": "User-provided trade table",
+                "basis": "Jeju Semiconductor trade data",
+                "monthlyColumns": [],
+                "monthly": [],
+                "quarterlyColumns": [],
+                "quarterly": [],
+            })
 
     @staticmethod
     def _spot_products(data: dict) -> dict[str, dict]:

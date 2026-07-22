@@ -40,6 +40,7 @@ function render(data) {
   renderCompanies(data.companies);
   renderMonthlyCharts(data.companies);
   renderSpotPrices(data.spotPrices);
+  renderJejuTrade(data.jejuTrade);
   renderQuarterlyCharts(data.companies);
   renderChinaOrders(data.chinaServerOrders);
   renderCalendar(data.calendar);
@@ -253,6 +254,186 @@ function renderSpotPrices(payload) {
       </div>
     </article>`;
   }).join("");
+}
+
+
+function normalizeTradeRows(rows = [], columns = []) {
+  if (!Array.isArray(rows)) return [];
+  if (!rows.length || (!Array.isArray(rows[0]) && typeof rows[0] === "object")) return rows;
+  return rows.map(row => columns.reduce((item, key, index) => {
+    item[key] = row[index];
+    return item;
+  }, {}));
+}
+
+function tradeEok(value) {
+  if (value === null || value === undefined) return "—";
+  const amount = Number(value) / 100000;
+  return `${amount.toLocaleString("ko-KR", {minimumFractionDigits: amount < 10 ? 1 : 0, maximumFractionDigits: 1})}억원`;
+}
+
+function tradeUsd(value) {
+  if (value === null || value === undefined) return "—";
+  return `$${(Number(value) / 1000000).toLocaleString("ko-KR", {maximumFractionDigits: 1})}M`;
+}
+
+function tradeUnit(value) {
+  if (value === null || value === undefined) return "—";
+  return `$${Number(value).toLocaleString("ko-KR", {maximumFractionDigits: 0})}`;
+}
+
+function signedPercent(value) {
+  if (value === null || value === undefined) return "—";
+  return `${Number(value) >= 0 ? "+" : ""}${Number(value).toFixed(1)}%`;
+}
+
+function percentTone(value) {
+  return Number(value) >= 0 ? "positive-text" : "negative-text";
+}
+
+function tradeMonthLabel(period) {
+  const [year = "", month = ""] = String(period || "").split("-");
+  return year && month ? `${year.slice(2)}.${month}` : "—";
+}
+
+function tradeQuarterLabel(period) {
+  period = String(period || "");
+  return period.length >= 6 ? `${period.slice(2, 4)}Q${period.slice(-1)}` : period || "—";
+}
+
+function latestWith(rows, key) {
+  return [...rows].reverse().find(item => item?.[key] !== null && item?.[key] !== undefined) || rows[rows.length - 1] || {};
+}
+
+function jejuTradeMonthlyMarkup(payload) {
+  const monthly = normalizeTradeRows(payload?.monthly, payload?.monthlyColumns).sort((a,b) => String(a.period).localeCompare(String(b.period)));
+  const quarterly = normalizeTradeRows(payload?.quarterly, payload?.quarterlyColumns).sort((a,b) => String(a.period).localeCompare(String(b.period)));
+  if (monthly.length < 2) return `<div class="chart-empty">제주반도체 월별 수출입 데이터를 수집 중입니다.</div>`;
+
+  const latest = latestWith(monthly, "exportKrwThousand");
+  const latestQuarter = latestWith(quarterly, "exportKrwThousand");
+  const width = 940, height = 330;
+  const pad = {left: 58, right: 72, top: 28, bottom: 56};
+  const plotWidth = width - pad.left - pad.right;
+  const plotHeight = height - pad.top - pad.bottom;
+  const exports = monthly.map(item => Number(item.exportKrwThousand) / 100000);
+  const units = monthly.map(item => Number(item.unitUsd)).filter(value => Number.isFinite(value));
+  const exportMax = Math.max(1, ...exports) * 1.12;
+  const unitMax = Math.max(1, ...units) * 1.12;
+  const slot = plotWidth / monthly.length;
+  const barWidth = Math.max(3, slot * .66);
+  const x = index => pad.left + index * slot + slot / 2;
+  const barX = index => x(index) - barWidth / 2;
+  const exportY = value => pad.top + (exportMax - value) * plotHeight / exportMax;
+  const unitY = value => pad.top + (unitMax - value) * plotHeight / unitMax;
+  const baseline = pad.top + plotHeight;
+  const grid = [0, .25, .5, .75, 1].map(ratio => {
+    const gy = pad.top + ratio * plotHeight;
+    const value = exportMax - ratio * exportMax;
+    return `<line x1="${pad.left}" y1="${gy}" x2="${width-pad.right}" y2="${gy}" class="chart-gridline"/><text x="${pad.left-7}" y="${gy+3}" text-anchor="end" class="quarter-axis-label">${value.toFixed(0)}</text>`;
+  }).join("");
+  const rightLabels = [unitMax, unitMax / 2, 0].map((value,index) => `<text x="${width-pad.right+7}" y="${pad.top + index*plotHeight/2 + 3}" class="quarter-axis-label">$${value.toFixed(0)}</text>`).join("");
+  const labelIndexes = monthly.map((_, index) => index).filter(index => index % 6 === 0 || index === monthly.length - 1);
+  const labels = labelIndexes.map(index => `<text x="${x(index)}" y="${height-12}" text-anchor="middle" class="chart-xlabel">${tradeMonthLabel(monthly[index].period)}</text>`).join("");
+  const bars = monthly.map((item,index) => {
+    const value = Number(item.exportKrwThousand) / 100000;
+    const y = exportY(value);
+    const title = `${item.period} · 수출액 ${tradeEok(item.exportKrwThousand)} (${tradeUsd(item.exportUsd)}) · 단가 ${tradeUnit(item.unitUsd)} · YoY ${signedPercent(item.exportYoY)} · MoM ${signedPercent(item.exportMoM)}`;
+    const hot = Number(item.exportYoY) >= 100 ? " hot" : "";
+    return `<rect class="trade-bar export${hot}" x="${barX(index).toFixed(1)}" y="${y.toFixed(1)}" width="${barWidth.toFixed(1)}" height="${Math.max(1, baseline-y).toFixed(1)}" rx="1.5"><title>${esc(title)}</title></rect>`;
+  }).join("");
+  const unitPoints = monthly.map((item,index) => `${x(index).toFixed(1)},${unitY(Number(item.unitUsd)).toFixed(1)}`).join(" ");
+  const unitDots = monthly.map((item,index) => index % 3 === 0 || index === monthly.length - 1 ? `<circle cx="${x(index).toFixed(1)}" cy="${unitY(Number(item.unitUsd)).toFixed(1)}" r="2.2" class="trade-dot unit"><title>${esc(`${item.period} · 단가 ${tradeUnit(item.unitUsd)} · 단가 MoM ${signedPercent(item.unitMoM)}`)}</title></circle>` : "").join("");
+
+  return `<article class="trade-card">
+    <div class="trade-card-head">
+      <div><span>월별 수출입 데이터</span><small>${esc(payload?.basis || "제주반도체 수출입 데이터")}</small></div>
+      <strong>${tradeMonthLabel(latest.period)}</strong>
+    </div>
+    <div class="trade-kpis">
+      <div><label>최근 월 수출액</label><strong>${tradeEok(latest.exportKrwThousand)}</strong><span class="${percentTone(latest.exportYoY)}">YoY ${signedPercent(latest.exportYoY)}</span></div>
+      <div><label>월간 증감</label><strong class="${percentTone(latest.exportMoM)}">${signedPercent(latest.exportMoM)}</strong><span>수출금액 MoM</span></div>
+      <div><label>단가</label><strong>${tradeUnit(latest.unitUsd)}</strong><span class="${percentTone(latest.unitMoM)}">MoM ${signedPercent(latest.unitMoM)}</span></div>
+      <div><label>최근 분기합</label><strong>${tradeEok(latestQuarter.exportKrwThousand)}</strong><span class="${percentTone(latestQuarter.exportQoQ)}">QoQ ${signedPercent(latestQuarter.exportQoQ)}</span></div>
+    </div>
+    <div class="trade-legend"><span><i class="trade-swatch export"></i>수출액</span><span><i class="trade-swatch hot"></i>YoY +100% 이상</span><span><i class="trade-line unit"></i>단가</span></div>
+    <svg class="trade-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="제주반도체 월별 수출액과 단가 추이">
+      ${grid}${rightLabels}${bars}<polyline points="${unitPoints}" class="trade-unit-line"></polyline>${unitDots}${labels}
+    </svg>
+    <div class="trade-foot"><span>${tradeMonthLabel(monthly[0].period)}–${tradeMonthLabel(latest.period)}</span><span>${esc(payload?.note || "")}</span></div>
+  </article>`;
+}
+
+function jejuTradeQuarterMarkup(payload) {
+  const quarterly = normalizeTradeRows(payload?.quarterly, payload?.quarterlyColumns).sort((a,b) => String(a.period).localeCompare(String(b.period)));
+  if (quarterly.length < 2) return `<div class="chart-empty">제주반도체 분기 수출입 데이터를 수집 중입니다.</div>`;
+
+  const latestExport = latestWith(quarterly, "exportKrwThousand");
+  const latestRevenue = latestWith(quarterly, "revenueKrwThousand");
+  const latestOpm = latestWith(quarterly, "opm");
+  const width = 940, height = 344;
+  const pad = {left: 58, right: 64, top: 28, bottom: 56};
+  const plotWidth = width - pad.left - pad.right;
+  const plotHeight = height - pad.top - pad.bottom;
+  const moneyValues = quarterly.flatMap(item => [item.revenueKrwThousand, item.exportKrwThousand].filter(value => value !== null && value !== undefined).map(value => Number(value) / 100000));
+  const moneyMax = Math.max(1, ...moneyValues) * 1.12;
+  const opmValues = quarterly.map(item => item.opm).filter(value => value !== null && value !== undefined).map(Number);
+  let opmMin = Math.min(0, ...opmValues), opmMax = Math.max(0, ...opmValues);
+  const opmSpan = Math.max(opmMax - opmMin, 10);
+  opmMin -= opmSpan * .12;
+  opmMax += opmSpan * .12;
+  const slot = plotWidth / quarterly.length;
+  const barWidth = Math.max(3, slot * .27);
+  const x = index => pad.left + index * slot + slot / 2;
+  const moneyY = value => pad.top + (moneyMax - value) * plotHeight / moneyMax;
+  const opmY = value => pad.top + (opmMax - value) * plotHeight / (opmMax - opmMin);
+  const baseline = pad.top + plotHeight;
+  const grid = [0, .25, .5, .75, 1].map(ratio => {
+    const gy = pad.top + ratio * plotHeight;
+    const value = moneyMax - ratio * moneyMax;
+    return `<line x1="${pad.left}" y1="${gy}" x2="${width-pad.right}" y2="${gy}" class="chart-gridline"/><text x="${pad.left-7}" y="${gy+3}" text-anchor="end" class="quarter-axis-label">${value.toFixed(0)}</text>`;
+  }).join("");
+  const rightLabels = [opmMax, (opmMax+opmMin)/2, opmMin].map((value,index) => `<text x="${width-pad.right+7}" y="${pad.top + index*plotHeight/2 + 3}" class="quarter-axis-label">${value.toFixed(0)}%</text>`).join("");
+  const bars = quarterly.map((item,index) => {
+    const rendered = [];
+    [["revenueKrwThousand", "revenue", -0.58, "매출액"], ["exportKrwThousand", "export", 0.58, "수출액"]].forEach(([key, cls, offset, label]) => {
+      if (item[key] === null || item[key] === undefined) return;
+      const value = Number(item[key]) / 100000;
+      const y = moneyY(value);
+      const qoq = key === "exportKrwThousand" ? ` · QoQ ${signedPercent(item.exportQoQ)} · YoY ${signedPercent(item.exportYoY)}` : "";
+      rendered.push(`<rect class="trade-bar ${cls}" x="${(x(index) + offset * barWidth - barWidth / 2).toFixed(1)}" y="${y.toFixed(1)}" width="${barWidth.toFixed(1)}" height="${Math.max(1, baseline-y).toFixed(1)}" rx="1.5"><title>${esc(`${item.period} · ${label} ${tradeEok(item[key])}${qoq}`)}</title></rect>`);
+    });
+    return rendered.join("");
+  }).join("");
+  const opmPoints = quarterly.map((item,index) => item.opm == null ? null : `${x(index).toFixed(1)},${opmY(Number(item.opm)).toFixed(1)}`).filter(Boolean).join(" ");
+  const opmDots = quarterly.map((item,index) => item.opm == null ? "" : `<circle cx="${x(index).toFixed(1)}" cy="${opmY(Number(item.opm)).toFixed(1)}" r="2.7" class="trade-dot opm"><title>${esc(`${item.period} · OPM ${signedPercent(item.opm)}`)}</title></circle>`).join("");
+  const labels = quarterly.map((item,index) => index % 4 === 0 || index === quarterly.length - 1 ? `<text x="${x(index)}" y="${height-12}" text-anchor="middle" class="chart-xlabel">${tradeQuarterLabel(item.period)}</text>` : "").join("");
+
+  return `<article class="trade-card">
+    <div class="trade-card-head">
+      <div><span>분기합 + 매출액 + OPM</span><small>수출액과 제주반도체 분기 매출액을 같은 축으로 비교</small></div>
+      <strong>${tradeQuarterLabel(latestExport.period)}</strong>
+    </div>
+    <div class="trade-kpis">
+      <div><label>최근 수출액</label><strong>${tradeEok(latestExport.exportKrwThousand)}</strong><span class="${percentTone(latestExport.exportYoY)}">YoY ${signedPercent(latestExport.exportYoY)}</span></div>
+      <div><label>수출액 QoQ</label><strong class="${percentTone(latestExport.exportQoQ)}">${signedPercent(latestExport.exportQoQ)}</strong><span>${tradeQuarterLabel(latestExport.period)}</span></div>
+      <div><label>최근 매출액</label><strong>${tradeEok(latestRevenue.revenueKrwThousand)}</strong><span>${tradeQuarterLabel(latestRevenue.period)} · 수출비중 ${signedPercent(latestRevenue.exportToRevenuePct).replace("+", "")}</span></div>
+      <div><label>OPM</label><strong>${signedPercent(latestOpm.opm).replace("+", "")}</strong><span>${tradeQuarterLabel(latestOpm.period)}</span></div>
+    </div>
+    <div class="trade-legend"><span><i class="trade-swatch revenue"></i>매출액</span><span><i class="trade-swatch export"></i>수출액</span><span><i class="trade-line opm"></i>OPM</span></div>
+    <svg class="trade-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="제주반도체 분기 매출액 수출액 OPM 그래프">
+      ${grid}${rightLabels}${bars}${opmPoints ? `<polyline points="${opmPoints}" class="trade-opm-line"></polyline>${opmDots}` : ""}${labels}
+    </svg>
+    <div class="trade-foot"><span>${tradeQuarterLabel(quarterly[0].period)}–${tradeQuarterLabel(latestExport.period)}</span><span>단위: 억원, %</span></div>
+  </article>`;
+}
+
+function renderJejuTrade(payload) {
+  const monthly = $("#jejuTradeMonthly");
+  const quarterly = $("#jejuTradeQuarterly");
+  if (!monthly || !quarterly) return;
+  monthly.innerHTML = jejuTradeMonthlyMarkup(payload);
+  quarterly.innerHTML = jejuTradeQuarterMarkup(payload);
 }
 
 function quarterValue(value, currency) {
