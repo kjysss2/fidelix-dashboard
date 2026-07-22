@@ -42,7 +42,7 @@ jobs:
       - name: Install Python dependencies
         run: python -m pip install pypdf
 
-      - name: Build and refresh complete dashboard
+      - name: Build dashboard
         env:
           DART_API_KEY: ${{ secrets.DART_API_KEY }}
           HOST: 127.0.0.1
@@ -50,7 +50,12 @@ jobs:
           REFRESH_AT: "12:30"
           REFRESH_ON_STARTUP: "0"
           ENABLE_CHINA_IDC: "1"
-        run: python build_pages.py
+        run: |
+          if [ "${{ github.event_name }}" = "push" ]; then
+            python build_pages.py --no-refresh
+          else
+            python build_pages.py
+          fi
 
       - name: Remove timestamp-only data changes
         run: |
