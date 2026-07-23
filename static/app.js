@@ -306,7 +306,7 @@ function latestWith(rows, key) {
 }
 
 function jejuTradeMonthlyMarkup(payload) {
-  const monthly = normalizeTradeRows(payload?.monthly, payload?.monthlyColumns).sort((a,b) => String(a.period).localeCompare(String(b.period)));
+  const monthly = normalizeTradeRows(payload?.monthly, payload?.monthlyColumns).sort((a,b) => String(a.period).localeCompare(String(b.period))).slice(-24);
   const quarterly = normalizeTradeRows(payload?.quarterly, payload?.quarterlyColumns).sort((a,b) => String(a.period).localeCompare(String(b.period)));
   if (monthly.length < 2) return `<div class="chart-empty">\uc81c\uc8fc\ubc18\ub3c4\uccb4 \uc6d4\ubcc4 \uc218\ucd9c\uc785 \ub370\uc774\ud130\ub97c \uc218\uc9d1 \uc911\uc785\ub2c8\ub2e4.</div>`;
 
@@ -348,7 +348,7 @@ function jejuTradeMonthlyMarkup(payload) {
   return `<article class="trade-card">
     <div class="trade-card-head">
       <div><span>\uc6d4\ubcc4 \uc218\ucd9c\uc785 \ub370\uc774\ud130</span><small>${esc(payload?.basis || "\uc81c\uc8fc\ubc18\ub3c4\uccb4 \uc218\ucd9c\uc785 \ub370\uc774\ud130")}</small></div>
-      <strong>${tradeMonthLabel(latest.period)}</strong>
+      <strong>${tradeMonthLabel(latest.period)} ${latest.period === "2026-07" ? "(20D)" : ""}</strong>
     </div>
     <div class="trade-kpis">
       <div><label>\ucd5c\uadfc \uc6d4 \uc218\ucd9c\uc561</label><strong>${tradeEok(latest.exportKrwThousand)}</strong><span class="${percentTone(latest.exportYoY)}">YoY ${signedPercent(latest.exportYoY)}</span></div>
@@ -365,7 +365,7 @@ function jejuTradeMonthlyMarkup(payload) {
 }
 
 function jejuTradeQuarterMarkup(payload) {
-  const quarterly = normalizeTradeRows(payload?.quarterly, payload?.quarterlyColumns).sort((a,b) => String(a.period).localeCompare(String(b.period)));
+  const quarterly = normalizeTradeRows(payload?.quarterly, payload?.quarterlyColumns).sort((a,b) => String(a.period).localeCompare(String(b.period))).slice(-12);
   if (quarterly.length < 2) return `<div class="chart-empty">\uc81c\uc8fc\ubc18\ub3c4\uccb4 \ubd84\uae30 \uc218\ucd9c\uc785 \ub370\uc774\ud130\ub97c \uc218\uc9d1 \uc911\uc785\ub2c8\ub2e4.</div>`;
 
   const latestExport = latestWith(quarterly, "exportKrwThousand");
@@ -412,7 +412,7 @@ function jejuTradeQuarterMarkup(payload) {
   return `<article class="trade-card">
     <div class="trade-card-head">
       <div><span>\ubd84\uae30\ud569 + \ub9e4\ucd9c\uc561 + OPM</span><small>\uc218\ucd9c\uc561\uacfc \uc81c\uc8fc\ubc18\ub3c4\uccb4 \ubd84\uae30 \ub9e4\ucd9c\uc561\uc744 \uac19\uc740 \ucd95\uc73c\ub85c \ube44\uad50</small></div>
-      <strong>${tradeQuarterLabel(latestExport.period)}</strong>
+      <strong>${tradeQuarterLabel(latestExport.period)} ${latestExport.period === "2026Q3" ? "(20D)" : ""}</strong>
     </div>
     <div class="trade-kpis">
       <div><label>\ucd5c\uadfc \uc218\ucd9c\uc561</label><strong>${tradeEok(latestExport.exportKrwThousand)}</strong><span class="${percentTone(latestExport.exportYoY)}">YoY ${signedPercent(latestExport.exportYoY)}</span></div>
@@ -720,5 +720,4 @@ function bindEvents() {
 
 bindEvents();
 loadDashboard();
-
 
