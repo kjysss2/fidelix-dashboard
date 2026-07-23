@@ -44,6 +44,118 @@
       : "CNY " + amount.toLocaleString("ko-KR", {minimumFractionDigits: 2, maximumFractionDigits: 2}) + "\uc5b5";
   }
 
+  function tooltipMoney(value, id) {
+    if (!validNumber(value)) return "\u2014";
+    var amount = Number(value) / 100;
+    var digits = id === "d" ? 2 : 1;
+    var formatted = amount.toLocaleString("ko-KR", {
+      minimumFractionDigits: digits,
+      maximumFractionDigits: digits
+    });
+    return id === "f"
+      ? formatted + "\uc5b5\uc6d0"
+      : "CNY " + formatted + "\uc5b5";
+  }
+
+  function tooltipPercent(value) {
+    return validNumber(value) ? Number(value).toFixed(1) + "%" : "\u2014";
+  }
+
+  function tooltipCompanyMarkup(row, id, name) {
+    function item(label, value) {
+      return "<div><dt>" + label + "</dt><dd>" + value + "</dd></div>";
+    }
+
+    return '<section class="peer-tooltip-company ' + (id === "f" ? "fidelix" : "dosilicon") + '">' +
+      "<h4><i></i>" + name + "</h4>" +
+      "<dl>" +
+        item("\ub9e4\ucd9c\uc561", tooltipMoney(row.revenue, id)) +
+        item("\uc601\uc5c5\uc774\uc775", tooltipMoney(row.operatingIncome, id)) +
+        item("\uc601\uc5c5\uc774\uc775\ub960", tooltipPercent(row.operatingMargin)) +
+        item("\uc21c\uc774\uc775", tooltipMoney(row.netIncome, id)) +
+        item("\uc21c\uc774\uc775\ub960", tooltipPercent(row.netMargin)) +
+      "</dl>" +
+    "</section>";
+  }
+
+  function tooltipMarkup(period, left, right) {
+    return '<strong class="peer-tooltip-period">' + period + "</strong>" +
+      '<div class="peer-tooltip-companies">' +
+        tooltipCompanyMarkup(left, "f", "\ud53c\ub378\ub9ad\uc2a4") +
+        tooltipCompanyMarkup(right, "d", "Dosilicon \u00b7 \ub3d9\uc2e0\ubc18\ub3c4\uccb4") +
+      "</div>";
+  }
+
+  function attachHoverTooltip(root, periods, leftRows, rightRows, x, top, bottom) {
+    if (!root || typeof root.querySelector !== "function") return;
+
+    var stage = root.querySelector(".peer-chart-stage");
+    var tooltip = root.querySelector(".peer-hover-tooltip");
+    var guide = root.querySelector(".peer-hover-guide");
+    var zones = root.querySelectorAll(".peer-hover-zone");
+    if (!stage || !tooltip || !guide || !zones.length) return;
+
+    function positionTooltip(clientX) {
+      var stageRect = stage.getBoundingClientRect();
+      var preferred = clientX - stageRect.left;
+      tooltip.classList.add("show");
+
+      var half = Math.max(110, tooltip.offsetWidth / 2);
+      var minimum = half + 8;
+      var maximum = stageRect.width - half - 8;
+      tooltip.style.left = (maximum < minimum
+        ? stageRect.width / 2
+        : Math.max(minimum, Math.min(maximum, preferred))) + "px";
+    }
+
+    function show(period, clientX) {
+      var index = periods.indexOf(period);
+      if (index < 0) return;
+
+      tooltip.innerHTML = tooltipMarkup(
+        period,
+        at(leftRows, period),
+        at(rightRows, period)
+      );
+      positionTooltip(clientX);
+
+      var guideX = x(index).toFixed(1);
+      guide.setAttribute("x1", guideX);
+      guide.setAttribute("x2", guideX);
+      guide.setAttribute("y1", top);
+      guide.setAttribute("y2", bottom);
+      guide.classList.add("show");
+    }
+
+    function hide() {
+      tooltip.classList.remove("show");
+      guide.classList.remove("show");
+    }
+
+    Array.prototype.forEach.call(zones, function (zone) {
+      function centerX() {
+        var rect = zone.getBoundingClientRect();
+        return rect.left + rect.width / 2;
+      }
+
+      zone.addEventListener("pointerenter", function (event) {
+        show(zone.getAttribute("data-period"), event.clientX);
+      });
+      zone.addEventListener("pointermove", function (event) {
+        show(zone.getAttribute("data-period"), event.clientX);
+      });
+      zone.addEventListener("pointerdown", function (event) {
+        show(zone.getAttribute("data-period"), event.clientX || centerX());
+      });
+      zone.addEventListener("focus", function () {
+        show(zone.getAttribute("data-period"), centerX());
+      });
+      zone.addEventListener("blur", hide);
+    });
+
+    stage.addEventListener("pointerleave", hide);
+  }
+
   function pairedValues(leftRows, rightRows, key) {
     return leftRows.reduce(function (pairs, left) {
       var right = at(rightRows, left.period);
@@ -340,6 +452,13 @@
         '" text-anchor="middle" class="peer-axis">' +
         String(period).replace(/^20/, "") + '</text>';
     }).join("");
+    var hoverZones = periods.map(function (period, index) {
+      return '<rect class="peer-hover-zone" x="' + (L + index * S).toFixed(1) +
+        '" y="' + T + '" width="' + S.toFixed(1) +
+        '" height="' + PH.toFixed(1) +
+        '" fill="transparent" tabindex="0" role="button" data-period="' + period +
+        '" aria-label="' + period + ' \ud53c\ub378\ub9ad\uc2a4\uc640 Dosilicon \uc2e4\uc801"></rect>';
+    }).join("");
 
     root.innerHTML = '<article class="peer-compare-card">' +
       correlationMarkup(fr, dr) +
@@ -357,21 +476,29 @@
         '<span><i class="peer-line d-opm"></i>Dosilicon OPM</span>' +
         '<span><i class="peer-line d-npm"></i>Dosilicon NPM</span>' +
       '</div>' +
-      '<svg viewBox="0 0 ' + W + " " + H +
-        '" role="img" aria-label="Fidelix left axis and Dosilicon right axis financial comparison">' +
-        grid +
-        '<line x1="' + L + '" y1="' + zero + '" x2="' + (W - R) +
-          '" y2="' + zero + '" stroke="#aab1ad"/>' +
-        bars +
-        line(fr, "operatingMargin", "#064d38", "Fidelix", "OPM", "7 4") +
-        line(fr, "netMargin", "#397c70", "Fidelix", "NPM", "") +
-        line(dr, "operatingMargin", "#9a5d0b", "Dosilicon", "OPM", "7 4") +
-        line(dr, "netMargin", "#cf8f2f", "Dosilicon", "NPM", "") +
-        labels +
-      '</svg>' +
+      '<div class="peer-chart-stage">' +
+        '<svg viewBox="0 0 ' + W + " " + H +
+          '" role="img" aria-label="Fidelix left axis and Dosilicon right axis financial comparison">' +
+          grid +
+          '<line x1="' + L + '" y1="' + zero + '" x2="' + (W - R) +
+            '" y2="' + zero + '" stroke="#aab1ad"/>' +
+          bars +
+          line(fr, "operatingMargin", "#064d38", "Fidelix", "OPM", "7 4") +
+          line(fr, "netMargin", "#397c70", "Fidelix", "NPM", "") +
+          line(dr, "operatingMargin", "#9a5d0b", "Dosilicon", "OPM", "7 4") +
+          line(dr, "netMargin", "#cf8f2f", "Dosilicon", "NPM", "") +
+          '<line class="peer-hover-guide" x1="0" x2="0" y1="' + T +
+            '" y2="' + (T + PH) + '"></line>' +
+          hoverZones +
+          labels +
+        '</svg>' +
+        '<div class="peer-hover-tooltip" role="status" aria-live="polite"></div>' +
+      '</div>' +
       '<p>Money bars use separate company axes. Dashed lines are OPM; solid lines are NPM. Margin scale: ' +
         marginMin.toFixed(0) + "% to " + marginMax.toFixed(0) + '%.</p>' +
     '</article>';
+
+    attachHoverTooltip(root, periods, fr, dr, x, T, T + PH);
   }
 
   async function load() {
