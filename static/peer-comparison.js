@@ -36,6 +36,14 @@
       : amount.toLocaleString("ko-KR", {maximumFractionDigits: 2}) + " CNY 100M";
   }
 
+  function profitMoney(value, id) {
+    if (value == null) return "\u2014";
+    var amount = Number(value) / 100;
+    return id === "f"
+      ? amount.toLocaleString("ko-KR", {maximumFractionDigits: 1}) + "\uc5b5\uc6d0"
+      : "CNY " + amount.toLocaleString("ko-KR", {minimumFractionDigits: 2, maximumFractionDigits: 2}) + "\uc5b5";
+  }
+
   function pairedValues(leftRows, rightRows, key) {
     return leftRows.reduce(function (pairs, left) {
       var right = at(rightRows, left.period);
@@ -157,6 +165,28 @@
     '</section>';
   }
 
+  function latestProfitMarkup(leftRows, rightRows) {
+    function latest(rows) {
+      return rows.filter(function (row) {
+        return validNumber(row.netIncome) && validNumber(row.netMargin);
+      }).slice(-1)[0] || {};
+    }
+
+    function item(row, id, name) {
+      var preliminary = row.isPreliminary ? " \uc608\ube44" : "";
+      return '<div class="peer-profit-item ' + (id === "d" ? "dosi" : "fidelix") + '">' +
+        '<span>' + name + " \u00b7 " + (row.period || "\u2014") + preliminary + '</span>' +
+        '<strong>\uc21c\uc774\uc775 ' + profitMoney(row.netIncome, id) + '</strong>' +
+        '<small>NPM ' + (validNumber(row.netMargin) ? Number(row.netMargin).toFixed(1) + "%" : "\u2014") + '</small>' +
+      '</div>';
+    }
+
+    return '<div class="peer-profit-snapshot" aria-label="\uc591\uc0ac \ucd5c\uadfc \uc21c\uc774\uc775\uacfc \uc21c\uc774\uc775\ub960">' +
+      item(latest(leftRows), "f", "Fidelix") +
+      item(latest(rightRows), "d", "Dosilicon") +
+    '</div>';
+  }
+
   function render(data) {
     var root = document.getElementById("fidelixDosiliconChart");
     if (!root) return;
@@ -183,7 +213,7 @@
     var S = PW / periods.length;
 
     var fVals = fr.reduce(function (values, row) {
-      return values.concat([row.revenue, row.operatingIncome]
+      return values.concat([row.revenue, row.operatingIncome, row.netIncome]
         .filter(function (value) {
           return value != null;
         })
@@ -192,7 +222,7 @@
         }));
     }, []);
     var dVals = dr.reduce(function (values, row) {
-      return values.concat([row.revenue, row.operatingIncome]
+      return values.concat([row.revenue, row.operatingIncome, row.netIncome]
         .filter(function (value) {
           return value != null;
         })
@@ -231,23 +261,29 @@
     var dy = function (value) {
       return T + (D.hi - value) * PH / (D.hi - D.lo);
     };
-    var opmMin = -20;
-    var opmMax = 40;
-    var oy = function (value) {
-      return T + (opmMax - Math.max(opmMin, Math.min(opmMax, value))) * PH / (opmMax - opmMin);
+    var marginValues = fr.concat(dr).reduce(function (values, row) {
+      return values.concat([row.operatingMargin, row.netMargin].filter(validNumber).map(Number));
+    }, []);
+    var marginMin = Math.floor(Math.min.apply(null, [-20].concat(marginValues)) * 1.05 / 10) * 10;
+    var marginMax = Math.ceil(Math.max.apply(null, [40].concat(marginValues)) * 1.05 / 10) * 10;
+    var my = function (value) {
+      var clipped = Math.max(marginMin, Math.min(marginMax, value));
+      return T + (marginMax - clipped) * PH / (marginMax - marginMin);
     };
     var zero = fy(0);
-    var barWidth = Math.max(5, S * 0.18);
+    var barWidth = Math.max(4, S * 0.13);
 
     var bars = periods.map(function (period, index) {
       var f = at(fr, period);
       var d = at(dr, period);
       var output = "";
       [
-        [f, "revenue", "#0d6b4d", -1.5, fy, "f", "Revenue"],
-        [f, "operatingIncome", "#80b7b0", -0.5, fy, "f", "Operating income"],
+        [f, "revenue", "#0d6b4d", -2.5, fy, "f", "Revenue"],
+        [f, "operatingIncome", "#80b7b0", -1.5, fy, "f", "Operating income"],
+        [f, "netIncome", "#4f7f70", -0.5, fy, "f", "Net income"],
         [d, "revenue", "#b87419", 0.5, dy, "d", "Revenue"],
-        [d, "operatingIncome", "#e3b66a", 1.5, dy, "d", "Operating income"]
+        [d, "operatingIncome", "#e3b66a", 1.5, dy, "d", "Operating income"],
+        [d, "netIncome", "#c58f38", 2.5, dy, "d", "Net income"]
       ].forEach(function (series) {
         if (series[0][series[1]] == null) return;
         var raw = Number(series[0][series[1]]) / 100;
@@ -265,27 +301,27 @@
       return output;
     }).join("");
 
-    function line(rows, color, name) {
+    function line(rows, metric, color, name, label, dashArray) {
       var points = periods.map(function (period, index) {
         var row = at(rows, period);
-        return row.operatingMargin == null
+        return row[metric] == null
           ? null
-          : x(index).toFixed(1) + "," + oy(Number(row.operatingMargin)).toFixed(1);
+          : x(index).toFixed(1) + "," + my(Number(row[metric])).toFixed(1);
       }).filter(Boolean).join(" ");
       var dots = periods.map(function (period, index) {
         var row = at(rows, period);
-        return row.operatingMargin == null
+        return row[metric] == null
           ? ""
           : '<circle cx="' + x(index).toFixed(1) +
-            '" cy="' + oy(Number(row.operatingMargin)).toFixed(1) +
+            '" cy="' + my(Number(row[metric])).toFixed(1) +
             '" r="2.7" fill="#fff" stroke="' + color +
             '" stroke-width="1.8"><title>' + period + " / " + name +
-            " OPM / " + Number(row.operatingMargin).toFixed(1) +
+            " " + label + " / " + Number(row[metric]).toFixed(1) +
             '%</title></circle>';
       }).join("");
       return points
         ? '<polyline points="' + points + '" fill="none" stroke="' + color +
-          '" stroke-width="2.5" stroke-dasharray="7 4"/>' + dots
+          '" stroke-width="2.5"' + (dashArray ? ' stroke-dasharray="' + dashArray + '"' : "") + '/>' + dots
         : "";
     }
 
@@ -307,14 +343,19 @@
 
     root.innerHTML = '<article class="peer-compare-card">' +
       correlationMarkup(fr, dr) +
+      latestProfitMarkup(fr, dr) +
       '<div class="peer-axis-titles"><strong>LEFT - Fidelix (KRW 100M)</strong><strong>RIGHT - Dosilicon (CNY 100M)</strong></div>' +
       '<div class="peer-compare-legend">' +
         '<span><i style="background:#0d6b4d"></i>Fidelix Revenue</span>' +
         '<span><i style="background:#80b7b0"></i>Fidelix Operating income</span>' +
+        '<span><i style="background:#4f7f70"></i>Fidelix Net income</span>' +
         '<span><i style="background:#b87419"></i>Dosilicon Revenue</span>' +
         '<span><i style="background:#e3b66a"></i>Dosilicon Operating income</span>' +
-        '<span><i class="peer-dash f"></i>Fidelix OPM</span>' +
-        '<span><i class="peer-dash d"></i>Dosilicon OPM</span>' +
+        '<span><i style="background:#c58f38"></i>Dosilicon Net income</span>' +
+        '<span><i class="peer-line f-opm"></i>Fidelix OPM</span>' +
+        '<span><i class="peer-line f-npm"></i>Fidelix NPM</span>' +
+        '<span><i class="peer-line d-opm"></i>Dosilicon OPM</span>' +
+        '<span><i class="peer-line d-npm"></i>Dosilicon NPM</span>' +
       '</div>' +
       '<svg viewBox="0 0 ' + W + " " + H +
         '" role="img" aria-label="Fidelix left axis and Dosilicon right axis financial comparison">' +
@@ -322,11 +363,14 @@
         '<line x1="' + L + '" y1="' + zero + '" x2="' + (W - R) +
           '" y2="' + zero + '" stroke="#aab1ad"/>' +
         bars +
-        line(fr, "#064d38", "Fidelix") +
-        line(dr, "#9a5d0b", "Dosilicon") +
+        line(fr, "operatingMargin", "#064d38", "Fidelix", "OPM", "7 4") +
+        line(fr, "netMargin", "#397c70", "Fidelix", "NPM", "") +
+        line(dr, "operatingMargin", "#9a5d0b", "Dosilicon", "OPM", "7 4") +
+        line(dr, "netMargin", "#cf8f2f", "Dosilicon", "NPM", "") +
         labels +
       '</svg>' +
-      '<p>Money bars use separate company axes. Dashed OPM lines share a fixed -20% to 40% scale.</p>' +
+      '<p>Money bars use separate company axes. Dashed lines are OPM; solid lines are NPM. Margin scale: ' +
+        marginMin.toFixed(0) + "% to " + marginMax.toFixed(0) + '%.</p>' +
     '</article>';
   }
 
