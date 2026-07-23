@@ -1,768 +1,242 @@
-<!doctype html>
-<html lang="ko">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <meta
-    name="description"
-    content="피델릭스와 메모리 반도체 피어그룹 실적·주가 팔로업 대시보드"
-  >
-
+  <meta name="description" content="피델릭스와 메모리 반도체 피어그룹 실적 팔로업 대시보드">
+  <meta name="description" content="&#54588;&#45944;&#47533;&#49828;&#50752; &#47700;&#47784;&#47532; &#48152;&#46020;&#52404; &#54588;&#50612;&#44536;&#47353; &#49892;&#51201; &#54036;&#47196;&#50629; &#45824;&#49884;&#48372;&#46300;">
   <title>Fidelix Memory Radar</title>
-
   <link rel="stylesheet" href="styles.css">
-
-  <!--
-    주가 비교 차트 전용 스타일입니다.
-    styles.css를 별도로 수정하지 않아도 됩니다.
-  -->
-  <style>
-    .stock-chart-card {
-      width: 100%;
-      height: 650px;
-      padding: 12px;
-      overflow: hidden;
-
-      border: 1px solid var(--line);
-      border-radius: 18px;
-
-      background: var(--card);
-      box-shadow: 0 5px 18px rgba(29, 45, 38, .035);
-    }
-
-    .stock-chart-card .tradingview-widget-container {
-      width: 100%;
-      height: 100%;
-    }
-
-    .stock-chart-card .tradingview-widget-container__widget {
-      width: 100%;
-      height: calc(100% - 32px);
-    }
-
-    .stock-chart-card .tradingview-widget-copyright {
-      height: 32px;
-
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 3px;
-
-      padding: 0 8px;
-
-      color: var(--muted);
-      font-size: 9px;
-    }
-
-    .stock-chart-card .blue-text {
-      color: var(--green);
-      font-weight: 700;
-    }
-
-    .stock-chart-note {
-      margin: 10px 4px 0;
-
-      color: var(--muted);
-      font-size: 9px;
-      line-height: 1.6;
-    }
-
-    @media (max-width: 900px) {
-      .stock-chart-card {
-        height: 580px;
-        padding: 8px;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .stock-chart-card {
-        height: 520px;
-        border-radius: 14px;
-      }
-
-      #stock-trends .section-heading {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-    }
-  </style>
 </head>
-
 <body>
   <div class="shell">
     <aside class="sidebar">
-      <a
-        class="brand"
-        href="#top"
-        aria-label="Fidelix Memory Radar 홈"
-      >
-        <span class="brand-mark">
-          <i></i>
-          <i></i>
-          <i></i>
-        </span>
-
-        <span>
-          <strong>FIDELIX</strong>
-          <small>MEMORY RADAR</small>
-        </span>
+      <a class="brand" href="#top" aria-label="Fidelix Memory Radar 홈">
+      <a class="brand" href="#top" aria-label="Fidelix Memory Radar &#54856;">
+        <span class="brand-mark"><i></i><i></i><i></i></span>
+        <span><strong>FIDELIX</strong><small>MEMORY RADAR</small></span>
       </a>
-
       <nav class="nav" aria-label="대시보드 메뉴">
-        <a class="active" href="#overview">
-          <span>⌂</span>
-          Overview
-        </a>
-
-        <a href="#peers">
-          <span>◎</span>
-          Peer Tracker
-        </a>
-
-        <a href="#stock-trends">
-          <span>⌁</span>
-          Stock Tracker
-        </a>
-
-        <a href="#fidelix-dosilicon">
-          <span>⇄</span>
-          Fidelix vs Dosi
-        </a>
-
-        <a href="#spot-prices">
-          <span>〽</span>
-          DDR Spot
-        </a>
-
-        <a href="#calendar">
-          <span>□</span>
-          Calendar
-        </a>
-
-        <a href="#feed">
-          <span>↗</span>
-          Disclosures
-        </a>
-
-        <a href="#china-orders">
-          <span>▭</span>
-          China IDC
-        </a>
-
-        <a href="#sources">
-          <span>⋮</span>
-          Data Sources
-        </a>
+        <a class="active" href="#overview"><span>⌂</span>Overview</a>
+        <a href="#peers"><span>◎</span>Peer Tracker</a>
+        <a href="#fidelix-dosilicon"><span>⇄</span>Fidelix vs Dosi</a>
+        <a href="#fidelix-dosilicon"><span>⇄</span>Fidelix vs Dosi</a>
+        <a href="#spot-prices"><span>〽</span>DDR Spot</a>
+        <a href="#calendar"><span>□</span>Calendar</a>
+        <a href="#feed"><span>↗</span>Disclosures</a>
+        <a href="#china-orders"><span>▥</span>China IDC</a>
+        <a href="#sources"><span>⋮</span>Data Sources</a>
+      <nav class="nav" aria-label="&#45824;&#49884;&#48372;&#46300; &#47700;&#45684;">
+        <a class="active" href="#overview"><span>&#8962;</span>Overview</a>
+        <a href="#peers"><span>&#9678;</span>Peer Tracker</a>
+        <a href="#fidelix-dosilicon"><span>&#8644;</span>Fidelix vs Dosi</a>
+        <a href="#spot-prices"><span>&#12349;</span>DDR Spot</a>
+        <a href="#calendar"><span>&#9633;</span>Calendar</a>
+        <a href="#feed"><span>&#8599;</span>Disclosures</a>
+        <a href="#china-orders"><span>&#9637;</span>China IDC</a>
+        <a href="#sources"><span>&#8942;</span>Data Sources</a>
       </nav>
-
       <div class="sidebar-bottom">
         <div class="pulse-card">
-          <div class="pulse-title">
-            <span class="live-dot"></span>
-            Auto tracking
-          </div>
-
+          <div class="pulse-title"><span class="live-dot"></span> Auto tracking</div>
           <strong>매일 08:00</strong>
           <small>공식 원문을 우선 확인합니다</small>
+          <strong>&#47588;&#51068; 08:00</strong>
+          <small>&#44277;&#49885; &#50896;&#47928;&#51012; &#50864;&#49440; &#54869;&#51064;&#54633;&#45768;&#45796;</small>
         </div>
-
         <p>정보 제공용 · 투자 권유 아님</p>
+        <p>&#51221;&#48372; &#51228;&#44277;&#50857; &#183; &#53804;&#51088; &#44428;&#50976; &#50500;&#45784;</p>
       </div>
     </aside>
 
     <main id="top">
       <header class="topbar">
-        <button
-          class="menu-button"
-          id="menuButton"
-          aria-label="메뉴 열기"
-        >
-          ☰
-        </button>
-
-        <div class="status-line">
-          <span class="live-dot"></span>
-          <span id="topStatus">데이터 연결 확인 중</span>
-        </div>
-
+        <button class="menu-button" id="menuButton" aria-label="메뉴 열기">☰</button>
+        <div class="status-line"><span class="live-dot"></span><span id="topStatus">데이터 연결 확인 중</span></div>
+        <button class="menu-button" id="menuButton" aria-label="&#47700;&#45684; &#50676;&#44592;">&#9776;</button>
+        <div class="status-line"><span class="live-dot"></span><span id="topStatus">&#45936;&#51060;&#53552; &#50672;&#44208; &#54869;&#51064; &#51473;</span></div>
         <div class="top-actions">
           <span class="updated" id="lastUpdated">—</span>
-
-          <button
-            class="refresh-button"
-            id="refreshButton"
-          >
-            <span>↻</span>
-            새로고침
-          </button>
+          <button class="refresh-button" id="refreshButton"><span>↻</span> 새로고침</button>
+          <span class="updated" id="lastUpdated">&#8212;</span>
+          <button class="refresh-button" id="refreshButton"><span>&#8635;</span> &#49352;&#47196;&#44256;&#52840;</button>
         </div>
       </header>
 
       <div class="content">
-        <!-- 메인 소개 영역 -->
         <section class="hero" id="overview">
           <div>
-            <p class="eyebrow">
-              MEMORY SEMICONDUCTOR FOLLOW-UP
-            </p>
-
-            <h1>
-              피델릭스 투자 가설을<br>
-              <em>실적으로 검증합니다.</em>
-            </h1>
-
-            <p class="hero-copy">
-              동일한 업황을 먼저 보여주는 5개 피어의 매출과 이익,
-              공시 일정과 주가 추이를 한곳에서 추적합니다.
-            </p>
+            <p class="eyebrow">MEMORY SEMICONDUCTOR FOLLOW-UP</p>
+            <h1>피델릭스 투자 가설을<br><em>실적으로 검증합니다.</em></h1>
+            <p class="hero-copy">동일한 업황을 먼저 보여주는 5개 피어의 매출과 이익, 공시 일정을 한곳에서 추적합니다.</p>
+            <h1>&#54588;&#45944;&#47533;&#49828; &#53804;&#51088; &#44032;&#49444;&#51012;<br><em>&#49892;&#51201;&#51004;&#47196; &#44160;&#51613;&#54633;&#45768;&#45796;.</em></h1>
+            <p class="hero-copy">&#46041;&#51068;&#54620; &#50629;&#54889;&#51012; &#47676;&#51200; &#48372;&#50668;&#51452;&#45716; 5&#44060; &#54588;&#50612;&#51032; &#47588;&#52636;&#44284; &#51060;&#51061;, &#44277;&#49884; &#51068;&#51221;&#51012; &#54620;&#44275;&#50640;&#49436; &#52628;&#51201;&#54633;&#45768;&#45796;.</p>
           </div>
-
           <div class="hero-aside">
             <span>다음 중요 일정</span>
             <strong id="nextEventDate">—</strong>
             <p id="nextEventTitle">일정 계산 중</p>
+            <span>&#45796;&#51020; &#51473;&#50836; &#51068;&#51221;</span>
+            <strong id="nextEventDate">&#8212;</strong>
+            <p id="nextEventTitle">&#51068;&#51221; &#44228;&#49328; &#51473;</p>
           </div>
         </section>
 
-        <!-- 투자 가설 카드 -->
-        <section
-          class="thesis-grid"
-          id="thesisGrid"
-          aria-label="투자 가설 상태"
-        ></section>
+        <section class="thesis-grid" id="thesisGrid" aria-label="투자 가설 상태"></section>
+        <section class="thesis-grid" id="thesisGrid" aria-label="&#53804;&#51088; &#44032;&#49444; &#49345;&#53468;"></section>
 
-        <!-- 실적 온도판 -->
         <section class="section" id="peers">
           <div class="section-heading">
-            <div>
-              <p class="eyebrow">PEER PULSE</p>
-              <h2>실적 온도판</h2>
-            </div>
-
-            <div
-              class="segmented"
-              role="group"
-              aria-label="기업 필터"
-            >
-              <button
-                class="active"
-                data-filter="all"
-              >
-                전체
-              </button>
-
-              <button data-filter="KR">
-                한국
-              </button>
-
-              <button data-filter="TW">
-                대만
-              </button>
-
-              <button data-filter="CN">
-                중국
-              </button>
+            <div><p class="eyebrow">PEER PULSE</p><h2>실적 온도판</h2></div>
+            <div class="segmented" role="group" aria-label="기업 필터">
+              <button class="active" data-filter="all">전체</button>
+              <button data-filter="KR">한국</button>
+              <button data-filter="TW">대만</button>
+              <button data-filter="CN">중국</button>
+            <div><p class="eyebrow">PEER PULSE</p><h2>&#49892;&#51201; &#50728;&#46020;&#54032;</h2></div>
+            <div class="segmented" role="group" aria-label="&#44592;&#50629; &#54596;&#53552;">
+              <button class="active" data-filter="all">&#51204;&#52404;</button>
+              <button data-filter="KR">&#54620;&#44397;</button>
+              <button data-filter="TW">&#45824;&#47564;</button>
+              <button data-filter="CN">&#51473;&#44397;</button>
             </div>
           </div>
-
-          <div
-            class="peer-feature"
-            id="fidelixFeature"
-          ></div>
-
-          <div
-            class="peer-grid"
-            id="peerGrid"
-          ></div>
+          <div class="peer-feature" id="fidelixFeature"></div>
+          <div class="peer-grid" id="peerGrid"></div>
         </section>
 
-        <!--
-          =====================================================
-          6개사 주가 비교 차트
-
-          피델릭스       KRX:032580
-          제주반도체     KRX:080220
-          Winbond       TWSE:2344
-          Nanya         TWSE:2408
-          Macronix      TWSE:2337
-          Dosilicon     SSE:688110
-          =====================================================
-        -->
-        <section class="section" id="stock-trends">
+        <section class="section" id="fidelix-dosilicon">
           <div class="section-heading">
-            <div>
-              <p class="eyebrow">
-                STOCK PERFORMANCE
-              </p>
-
-              <h2>
-                6개사 주가 추이·상대수익률
-              </h2>
-            </div>
-
-            <p class="section-note">
-              피델릭스 기준 · 상단 비교 종목에서 표시 종목을
-              추가하거나 삭제할 수 있습니다
-            </p>
+            <div><p class="eyebrow">PEER PROFITABILITY</p><h2>피델릭스 vs Dosilicon 실적 비교</h2></div>
+            <p class="section-note">매출·영업이익: 공통 시작 분기=100 지수 · 영업이익률: 실제 %</p>
           </div>
-
-          <div class="stock-chart-card">
-            <!-- TradingView Widget BEGIN -->
-            <div class="tradingview-widget-container">
-              <div
-                class="tradingview-widget-container__widget"
-              ></div>
-
-              <div class="tradingview-widget-copyright">
-                <a
-                  href="https://kr.tradingview.com/symbols/KRX-032580/"
-                  rel="noopener nofollow"
-                  target="_blank"
-                >
-                  <span class="blue-text">
-                    피델릭스 및 메모리 피어 주가
-                  </span>
-                </a>
-
-                <span class="trademark">
-                  by TradingView
-                </span>
-              </div>
-
-              <script
-                type="text/javascript"
-                src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js"
-                async
-              >
-              {
-                "autosize": true,
-                "symbol": "KRX:032580",
-                "interval": "5",
-                "timezone": "Asia/Seoul",
-                "theme": "light",
-                "style": "2",
-                "locale": "ko",
-
-                "allow_symbol_change": true,
-                "calendar": false,
-                "details": false,
-                "hide_side_toolbar": true,
-                "hide_top_toolbar": false,
-                "hide_legend": false,
-                "hide_volume": true,
-                "hotlist": false,
-                "save_image": false,
-                "withdateranges": true,
-
-                "backgroundColor": "#ffffff",
-                "gridColor": "rgba(23, 33, 29, 0.08)",
-
-                "compareSymbols": [
-                  {
-                    "symbol": "KRX:080220",
-                    "position": "SameScale"
-                  },
-                  {
-                    "symbol": "TWSE:2344",
-                    "position": "SameScale"
-                  },
-                  {
-                    "symbol": "TWSE:2408",
-                    "position": "SameScale"
-                  },
-                  {
-                    "symbol": "TWSE:2337",
-                    "position": "SameScale"
-                  },
-                  {
-                    "symbol": "SSE:688110",
-                    "position": "SameScale"
-                  }
-                ],
-
-                "studies": []
-              }
-              </script>
-            </div>
-            <!-- TradingView Widget END -->
-          </div>
-
-          <p class="stock-chart-note">
-            피델릭스(KRX:032580), 제주반도체(KRX:080220),
-            Winbond(TWSE:2344), Nanya(TWSE:2408),
-            Macronix(TWSE:2337), Dosilicon(SSE:688110)을 비교합니다.
-            서로 다른 통화의 종목이므로 비교선은 상대수익률 기준으로
-            보는 것이 적절합니다.
-          </p>
-        </section>
-
-        <!-- 피델릭스와 Dosilicon 비교 -->
-        <section
-          class="section"
-          id="fidelix-dosilicon"
-        >
-          <div class="section-heading">
-            <div>
-              <p class="eyebrow">
-                PEER PROFITABILITY
-              </p>
-
-              <h2>
-                피델릭스 vs Dosilicon 실적 비교
-              </h2>
-            </div>
-
-            <p class="section-note">
-              왼쪽: 피델릭스 KRW 억원 ·
-              오른쪽: Dosilicon CNY 억원 ·
-              점선: OPM
-            </p>
-          </div>
-
           <div id="fidelixDosiliconChart"></div>
         </section>
 
-        <!-- 대만 3사 월매출 -->
-        <section
-          class="section"
-          id="monthly-trends"
-        >
+
+        <section class="section" id="fidelix-dosilicon">
           <div class="section-heading">
-            <div>
-              <p class="eyebrow">
-                36-MONTH REVENUE
-              </p>
-
-              <h2>
-                최근 3년 월매출 추이
-              </h2>
-            </div>
-
-            <p class="section-note">
-              MOPS 공식 공시 · 단위 NT$ 억 ·
-              Dosilicon은 월매출 미공시로 제외
-            </p>
+            <div><p class="eyebrow">PEER PROFITABILITY</p><h2>피델릭스 vs Dosilicon 실적 비교</h2></div>
+            <p class="section-note">왼쪽: 피델릭스 KRW 억원 · 오른쪽: Dosilicon CNY 억원 · 점선: OPM</p>
+            <div><p class="eyebrow">PEER PROFITABILITY</p><h2>&#54588;&#45944;&#47533;&#49828; vs Dosilicon &#49892;&#51201; &#48708;&#44368;</h2></div>
+            <p class="section-note">&#50812;&#51901;: &#54588;&#45944;&#47533;&#49828; KRW &#50613;&#50896; &#183; &#50724;&#47480;&#51901;: Dosilicon CNY &#50613;&#50896; &#183; &#51216;&#49440;: OPM</p>
           </div>
-
-          <div
-            class="chart-grid"
-            id="monthlyChartGrid"
-          ></div>
+          <div id="fidelixDosiliconChart"></div>
         </section>
 
-        <!-- DRAM 현물가 -->
-        <section
-          class="section"
-          id="spot-prices"
-        >
+        <section class="section" id="monthly-trends">
           <div class="section-heading">
-            <div>
-              <p class="eyebrow">
-                DRAM SPOT PRICE
-              </p>
-
-              <h2>
-                DDR4·DDR5 현물가 추이
-              </h2>
-            </div>
-
-            <p class="section-note">
-              DRAMeXchange 공개 Session Average ·
-              매일 저장해 자체 추이 생성
-            </p>
+            <div><p class="eyebrow">36-MONTH REVENUE</p><h2>최근 3년 월매출 추이</h2></div>
+            <p class="section-note">MOPS 공식 공시 · 단위 NT$ 억 · Dosilicon은 월매출 미공시로 제외</p>
+            <div><p class="eyebrow">36-MONTH REVENUE</p><h2>&#52572;&#44540; 3&#45380; &#50900;&#47588;&#52636; &#52628;&#51060;</h2></div>
+            <p class="section-note">MOPS &#44277;&#49885; &#44277;&#49884; &#183; &#45800;&#50948; NT$ &#50613; &#183; Dosilicon&#51008; &#50900;&#47588;&#52636; &#48120;&#44277;&#49884;&#47196; &#51228;&#50808;</p>
           </div>
-
-          <div
-            class="spot-price-grid"
-            id="spotPriceGrid"
-          ></div>
+          <div class="chart-grid" id="monthlyChartGrid"></div>
         </section>
 
-        <!-- 제주반도체 수출입 -->
-        <section
-          class="section"
-          id="jeju-trade"
-        >
+        <section class="section" id="spot-prices">
           <div class="section-heading">
-            <div>
-              <p class="eyebrow">
-                JEJU TRADE SIGNAL
-              </p>
-
-              <h2>
-                제주반도체 수출입 데이터
-              </h2>
-            </div>
-
-            <p class="section-note">
-              제주 제주시 수출입 표 기반 ·
-              2026년 7월 20일까지 누계 포함
-            </p>
+            <div><p class="eyebrow">DRAM SPOT PRICE</p><h2>DDR4·DDR5 현물가 추이</h2></div>
+            <p class="section-note">DRAMeXchange 공개 Session Average · 매일 저장해 자체 추이 생성</p>
+            <div><p class="eyebrow">DRAM SPOT PRICE</p><h2>DDR4&#183;DDR5 &#54788;&#47932;&#44032; &#52628;&#51060;</h2></div>
+            <p class="section-note">DRAMeXchange &#44277;&#44060; Session Average &#183; &#47588;&#51068; &#51200;&#51109;&#54644; &#51088;&#52404; &#52628;&#51060; &#49373;&#49457;</p>
           </div>
+          <div class="spot-price-grid" id="spotPriceGrid"></div>
+        </section>
 
+        <section class="section" id="jeju-trade">
+          <div class="section-heading">
+            <div><p class="eyebrow">JEJU TRADE SIGNAL</p><h2>제주반도체 수출입 데이터</h2></div>
+            <p class="section-note">제주 제주시 수출입 표 기반 · 2026년 7월 20일까지 누계 포함</p>
+            <div><p class="eyebrow">JEJU TRADE SIGNAL</p><h2>&#51228;&#51452;&#48152;&#46020;&#52404; &#49688;&#52636;&#51077; &#45936;&#51060;&#53552;</h2></div>
+            <p class="section-note">&#51228;&#51452; &#51228;&#51452;&#49884; &#49688;&#52636;&#51077; &#54364; &#44592;&#48152; &#183; 2026&#45380; 7&#50900; 20&#51068;&#44620;&#51648; &#45572;&#44228; &#54252;&#54632;</p>
+          </div>
           <div class="jeju-trade-grid">
             <div id="jejuTradeMonthly"></div>
-            <div id="jejuTradeQuarterly"></div>
-          </div>
-        </section>
+@@ -120,32 +113,32 @@ <h1>피델릭스 투자 가설을<br><em>실적으로 검증합니다.</em></h1>
 
-        <!-- 분기 실적 -->
-        <section
-          class="section"
-          id="quarterly-trends"
-        >
+        <section class="section" id="quarterly-trends">
           <div class="section-heading">
-            <div>
-              <p class="eyebrow">
-                12-QUARTER FUNDAMENTALS
-              </p>
-
-              <h2>
-                최근 12개 분기 실적·수익성
-              </h2>
-            </div>
-
-            <p class="section-note">
-              막대: 매출·영업이익·순이익 ·
-              점선: 영업이익률·순이익률 ·
-              회사별 현지 통화
-            </p>
+            <div><p class="eyebrow">12-QUARTER FUNDAMENTALS</p><h2>최근 12개 분기 실적·수익성</h2></div>
+            <p class="section-note">막대: 매출·영업이익·순이익 · 점선: 영업이익률·순이익률 · 회사별 현지 통화</p>
+            <div><p class="eyebrow">12-QUARTER FUNDAMENTALS</p><h2>&#52572;&#44540; 12&#44060; &#48516;&#44592; &#49892;&#51201;&#183;&#49688;&#51061;&#49457;</h2></div>
+            <p class="section-note">&#47561;&#45824;: &#47588;&#52636;&#183;&#50689;&#50629;&#51060;&#51061;&#183;&#49692;&#51060;&#51061; &#183; &#51216;&#49440;: &#50689;&#50629;&#51060;&#51061;&#47456;&#183;&#49692;&#51060;&#51061;&#47456; &#183; &#54924;&#49324;&#48324; &#54788;&#51648; &#53685;&#54868;</p>
           </div>
-
-          <div
-            class="quarter-chart-grid"
-            id="quarterlyChartGrid"
-          ></div>
+          <div class="quarter-chart-grid" id="quarterlyChartGrid"></div>
         </section>
 
-        <!-- 중국 IDC 수요 -->
-        <section
-          class="section"
-          id="china-orders"
-        >
+        <section class="section" id="china-orders">
           <div class="section-heading">
-            <div>
-              <p class="eyebrow">
-                CHINA IDC DEMAND
-              </p>
-
-              <h2>
-                중국 서버 신규수주·백로그
-              </h2>
-            </div>
-
-            <p class="section-note">
-              GDS·VNET 공식 IR 기준 ·
-              신규수주(MW)와 백로그/확약용량은 구분 표시
-            </p>
+            <div><p class="eyebrow">CHINA IDC DEMAND</p><h2>중국 서버 신규수주·백로그</h2></div>
+            <p class="section-note">GDS·VNET 공식 IR 기준 · 신규수주(MW)와 백로그/확약용량은 구분 표시</p>
+            <div><p class="eyebrow">CHINA IDC DEMAND</p><h2>&#51473;&#44397; &#49436;&#48260; &#49888;&#44508;&#49688;&#51452;&#183;&#48177;&#47196;&#44536;</h2></div>
+            <p class="section-note">GDS&#183;VNET &#44277;&#49885; IR &#44592;&#51456; &#183; &#49888;&#44508;&#49688;&#51452;(MW)&#50752; &#48177;&#47196;&#44536;/&#54869;&#50557;&#50857;&#47049;&#51008; &#44396;&#48516; &#54364;&#49884;</p>
           </div>
-
-          <div
-            class="china-order-grid"
-            id="chinaOrderGrid"
-          ></div>
+          <div class="china-order-grid" id="chinaOrderGrid"></div>
         </section>
 
-        <!-- 일정 및 질문 -->
         <section class="split-layout">
-          <div
-            class="section calendar-panel"
-            id="calendar"
-          >
+          <div class="section calendar-panel" id="calendar">
             <div class="section-heading compact">
-              <div>
-                <p class="eyebrow">
-                  CATALYSTS
-                </p>
-
-                <h2>
-                  팔로업 캘린더
-                </h2>
-              </div>
-
-              <span class="chip">
-                향후 일정
-              </span>
+              <div><p class="eyebrow">CATALYSTS</p><h2>팔로업 캘린더</h2></div>
+              <span class="chip">향후 일정</span>
+              <div><p class="eyebrow">CATALYSTS</p><h2>&#54036;&#47196;&#50629; &#52888;&#47536;&#45908;</h2></div>
+              <span class="chip">&#54693;&#54980; &#51068;&#51221;</span>
             </div>
-
-            <div
-              class="timeline"
-              id="timeline"
-            ></div>
+            <div class="timeline" id="timeline"></div>
           </div>
 
           <div class="section questions-panel">
             <div class="section-heading compact">
-              <div>
-                <p class="eyebrow">
-                  RESEARCH QUEUE
-                </p>
-
-                <h2>
-                  이번 분기 확인할 것
-                </h2>
-              </div>
-
-              <span
-                class="question-count"
-                id="questionCount"
-              >
-                0
-              </span>
+              <div><p class="eyebrow">RESEARCH QUEUE</p><h2>이번 분기 확인할 것</h2></div>
+              <div><p class="eyebrow">RESEARCH QUEUE</p><h2>&#51060;&#48264; &#48516;&#44592; &#54869;&#51064;&#54624; &#44163;</h2></div>
+              <span class="question-count" id="questionCount">0</span>
             </div>
+            <div class="question-list" id="questionList"></div>
+@@ -154,39 +147,38 @@ <h1>피델릭스 투자 가설을<br><em>실적으로 검증합니다.</em></h1>
 
-            <div
-              class="question-list"
-              id="questionList"
-            ></div>
+        <section class="section" id="feed">
+          <div class="section-heading">
+            <div><p class="eyebrow">FILING STREAM</p><h2>최근 공시·실적</h2></div>
+            <p class="section-note">원문을 새 탭에서 확인할 수 있습니다.</p>
+            <div><p class="eyebrow">FILING STREAM</p><h2>&#52572;&#44540; &#44277;&#49884;&#183;&#49892;&#51201;</h2></div>
+            <p class="section-note">&#50896;&#47928;&#51012; &#49352; &#53485;&#50640;&#49436; &#54869;&#51064;&#54624; &#49688; &#51080;&#49845;&#45768;&#45796;.</p>
           </div>
+          <div class="feed-list" id="feedList"></div>
         </section>
 
-        <!-- 최근 공시 -->
-        <section
-          class="section"
-          id="feed"
-        >
+        <section class="section source-section" id="sources">
           <div class="section-heading">
-            <div>
-              <p class="eyebrow">
-                FILING STREAM
-              </p>
-
-              <h2>
-                최근 공시·실적
-              </h2>
-            </div>
-
-            <p class="section-note">
-              원문을 새 탭에서 확인할 수 있습니다.
-            </p>
+            <div><p class="eyebrow">DATA HEALTH</p><h2>데이터 연결 상태</h2></div>
+            <button class="text-button" id="setupButton">OpenDART 설정 보기</button>
+            <div><p class="eyebrow">DATA HEALTH</p><h2>&#45936;&#51060;&#53552; &#50672;&#44208; &#49345;&#53468;</h2></div>
+            <button class="text-button" id="setupButton">OpenDART &#49444;&#51221; &#48372;&#44592;</button>
           </div>
-
-          <div
-            class="feed-list"
-            id="feedList"
-          ></div>
-        </section>
-
-        <!-- 데이터 연결 상태 -->
-        <section
-          class="section source-section"
-          id="sources"
-        >
-          <div class="section-heading">
-            <div>
-              <p class="eyebrow">
-                DATA HEALTH
-              </p>
-
-              <h2>
-                데이터 연결 상태
-              </h2>
-            </div>
-
-            <button
-              class="text-button"
-              id="setupButton"
-            >
-              OpenDART 설정 보기
-            </button>
-          </div>
-
-          <div
-            class="source-grid"
-            id="sourceGrid"
-          ></div>
-
-          <div
-            class="setup-guide"
-            id="setupGuide"
-            hidden
-          >
-            <button
-              class="setup-close"
-              id="setupClose"
-              aria-label="닫기"
-            >
-              ×
-            </button>
-
-            <span class="guide-number">
-              01
-            </span>
-
-            <div>
-              <strong>
-                OpenDART 인증키를 무료로 발급
-              </strong>
-
-              <p>
-                opendart.fss.or.kr에서 인증키를 신청합니다.
-              </p>
-            </div>
-
-            <span class="guide-number">
-              02
-            </span>
-
-            <div>
-              <strong>
-                <code>.env.example</code>을
-                <code>.env</code>로 복사
-              </strong>
-
-              <p>
-                <code>DART_API_KEY=발급키</code>를 입력합니다.
-              </p>
-            </div>
-
-            <span class="guide-number">
-              03
-            </span>
-
-            <div>
-              <strong>
-                서비스 다시 시작
-              </strong>
-
-              <p>
-                피델릭스·제주반도체 실적과 공시가
-                자동 갱신됩니다.
-              </p>
-            </div>
+          <div class="source-grid" id="sourceGrid"></div>
+          <div class="setup-guide" id="setupGuide" hidden>
+            <button class="setup-close" id="setupClose" aria-label="닫기">×</button>
+            <button class="setup-close" id="setupClose" aria-label="&#45803;&#44592;">&#215;</button>
+            <span class="guide-number">01</span>
+            <div><strong>OpenDART 인증키를 무료로 발급</strong><p>opendart.fss.or.kr에서 인증키를 신청합니다.</p></div>
+            <div><strong>OpenDART &#51064;&#51613;&#53412;&#47484; &#47924;&#47308;&#47196; &#48156;&#44553;</strong><p>opendart.fss.or.kr&#50640;&#49436; &#51064;&#51613;&#53412;&#47484; &#49888;&#52397;&#54633;&#45768;&#45796;.</p></div>
+            <span class="guide-number">02</span>
+            <div><strong><code>.env.example</code>을 <code>.env</code>로 복사</strong><p><code>DART_API_KEY=발급키</code>를 입력합니다.</p></div>
+            <div><strong><code>.env.example</code>&#51012; <code>.env</code>&#47196; &#48373;&#49324;</strong><p><code>DART_API_KEY=&#48156;&#44553;&#53412;</code>&#47484; &#51077;&#47141;&#54633;&#45768;&#45796;.</p></div>
+            <span class="guide-number">03</span>
+            <div><strong>서비스 다시 시작</strong><p>피델릭스·제주반도체 실적과 공시가 자동 갱신됩니다.</p></div>
+            <div><strong>&#49436;&#48708;&#49828; &#45796;&#49884; &#49884;&#51089;</strong><p>&#54588;&#45944;&#47533;&#49828;&#183;&#51228;&#51452;&#48152;&#46020;&#52404; &#49892;&#51201;&#44284; &#44277;&#49884;&#44032; &#51088;&#46041; &#44081;&#49888;&#46121;&#45768;&#45796;.</p></div>
           </div>
         </section>
 
         <footer>
-          <span>
-            Fidelix Memory Radar
-          </span>
-
-          <p>
-            공개 자료를 자동 정리한 정보 제공용 화면입니다.
-            최종 판단 전 원문 공시를 확인하세요.
-          </p>
+          <span>Fidelix Memory Radar</span>
+          <p>공개 자료를 자동 정리한 정보 제공용 화면입니다. 최종 판단 전 원문 공시를 확인하세요.</p>
+          <p>&#44277;&#44060; &#51088;&#47308;&#47484; &#51088;&#46041; &#51221;&#47532;&#54620; &#51221;&#48372; &#51228;&#44277;&#50857; &#54868;&#47732;&#51077;&#45768;&#45796;. &#52572;&#51333; &#54032;&#45800; &#51204; &#50896;&#47928; &#44277;&#49884;&#47484; &#54869;&#51064;&#54616;&#49464;&#50836;.</p>
         </footer>
       </div>
     </main>
   </div>
-
-  <div
-    class="toast"
-    id="toast"
-    role="status"
-    aria-live="polite"
-  ></div>
-
-  <script
-    src="app.js"
-    defer
-  ></script>
-
-  <script
-    src="peer-comparison.js"
-    defer
-  ></script>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js" defer></script>
+  <script src="peer-comparison.js" defer></script>
+  <script src="peer-comparison.js" defer></script>
 </body>
 </html>
