@@ -7,7 +7,7 @@ const isStaticDashboard = () => Boolean(window.DASHBOARD_STATIC_MODE);
 const dashboardDataUrl = () => window.DASHBOARD_DATA_URL || "/api/dashboard";
 
 function fmtDate(value) {
-  if (!value) return "—";
+  if (!value) return "\u2014";
   const normalized = /^\d{8}$/.test(value) ? `${value.slice(0,4)}-${value.slice(4,6)}-${value.slice(6,8)}` : value;
   const date = new Date(normalized);
   if (Number.isNaN(date.getTime())) return normalized;
@@ -15,10 +15,10 @@ function fmtDate(value) {
 }
 
 function fmtUpdated(value) {
-  if (!value) return "갱신 기록 없음";
+  if (!value) return "\uac31\uc2e0 \uae30\ub85d \uc5c6\uc74c";
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return value;
-  return `${new Intl.DateTimeFormat("ko-KR", {month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit"}).format(date)} 업데이트`;
+  return `${new Intl.DateTimeFormat("ko-KR", {month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit"}).format(date)} \uc5c5\ub370\uc774\ud2b8`;
 }
 
 function pct(value, compareLabel = "YoY") {
@@ -28,9 +28,9 @@ function pct(value, compareLabel = "YoY") {
 }
 
 function freshness(value) {
-  if (!value) return "기준일 없음";
+  if (!value) return "\uae30\uc900\uc77c \uc5c6\uc74c";
   const days = Math.max(0, Math.floor((Date.now() - new Date(value).getTime()) / 86400000));
-  return days === 0 ? "오늘 확인" : `${days}일 전 확인`;
+  return days === 0 ? "\uc624\ub298 \ud655\uc778" : `${days}\uc77c \uc804 \ud655\uc778`;
 }
 
 function render(data) {
@@ -51,12 +51,12 @@ function render(data) {
 
 function renderTop(data) {
   const live = data.sources.filter(s => s.status === "live").length;
-  $("#topStatus").textContent = `${live}/${data.sources.length}개 데이터 소스 정상`;
+  $("#topStatus").textContent = `${live}/${data.sources.length}\uac1c \ub370\uc774\ud130 \uc18c\uc2a4 \uc815\uc0c1`;
   $("#lastUpdated").textContent = fmtUpdated(data.system.lastRefresh);
   const future = [...data.calendar].filter(e => new Date(e.date) >= new Date(new Date().toDateString())).sort((a,b) => a.date.localeCompare(b.date))[0] || data.calendar[0];
   if (future) {
     $("#nextEventDate").textContent = fmtDate(future.date);
-    $("#nextEventTitle").textContent = `${future.company} · ${future.event}`;
+    $("#nextEventTitle").textContent = `${future.company} \u00b7 ${future.event}`;
   }
   $("#refreshButton").classList.toggle("loading", Boolean(data.system.refreshing));
 }
@@ -73,7 +73,7 @@ function renderThesis(items) {
 function identity(company) {
   return `<div class="identity-top">
     <span class="flag">${esc(company.country)}</span>
-    <div><span class="company-name">${esc(company.name)}</span><span class="company-ticker">${esc(company.market)} · ${esc(company.ticker)}</span></div>
+    <div><span class="company-name">${esc(company.name)}</span><span class="company-ticker">${esc(company.market)} \u00b7 ${esc(company.ticker)}</span></div>
   </div>`;
 }
 
@@ -86,11 +86,11 @@ function renderCompanies(companies) {
       <p class="focus">${esc(fidelix.focus)}</p>
     </div>
     <div class="feature-metrics">
-      <div class="metric"><label>${esc(fidelix.metrics.period)} 매출</label><strong>${esc(fidelix.metrics.revenueDisplay)}</strong>${pct(fidelix.metrics.revenueYoY)}</div>
-      <div class="metric"><label>영업이익</label><strong>${esc(fidelix.metrics.operatingIncomeDisplay)}</strong></div>
-      <div class="metric"><label>순이익</label><strong>${esc(fidelix.metrics.netIncomeDisplay)}</strong></div>
+      <div class="metric"><label>${esc(fidelix.metrics.period)} \ub9e4\ucd9c</label><strong>${esc(fidelix.metrics.revenueDisplay)}</strong>${pct(fidelix.metrics.revenueYoY)}</div>
+      <div class="metric"><label>\uc601\uc5c5\uc774\uc775</label><strong>${esc(fidelix.metrics.operatingIncomeDisplay)}</strong></div>
+      <div class="metric"><label>\uc21c\uc774\uc775</label><strong>${esc(fidelix.metrics.netIncomeDisplay)}</strong></div>
     </div>
-    <div class="feature-note"><span>KEY READ</span><strong>${esc(fidelix.note)}</strong><a href="${esc(fidelix.sourceUrl)}" target="_blank" rel="noreferrer">${esc(fidelix.sourceLabel)} ↗</a></div>
+    <div class="feature-note"><span>KEY READ</span><strong>${esc(fidelix.note)}</strong><a href="${esc(fidelix.sourceUrl)}" target="_blank" rel="noreferrer">${esc(fidelix.sourceLabel)} \u2197</a></div>
   </article>`;
 
   const peers = companies.filter(c => c.id !== "fidelix");
@@ -99,8 +99,8 @@ function renderCompanies(companies) {
     <span class="role-tag">${esc(company.role)}</span>
     <p class="focus">${esc(company.focus)}</p>
     <div class="peer-primary"><label>${esc(company.metrics.period)} ${esc(company.metrics.periodType)}</label><strong>${esc(company.metrics.revenueDisplay)}</strong></div>
-    <div class="peer-change ${company.metrics.revenueYoY >= 0 ? "positive-text" : "negative-text"}">${company.metrics.revenueYoY == null ? "YoY —" : `YoY ${company.metrics.revenueYoY >= 0 ? "+" : ""}${Number(company.metrics.revenueYoY).toFixed(1)}%`}</div>
-    <div class="peer-footer"><span>${esc(freshness(company.updatedAt))}</span><a class="verify" href="${esc(company.sourceUrl)}" target="_blank" rel="noreferrer">원문 ↗</a></div>
+    <div class="peer-change ${company.metrics.revenueYoY >= 0 ? "positive-text" : "negative-text"}">${company.metrics.revenueYoY == null ? "YoY \u2014" : `YoY ${company.metrics.revenueYoY >= 0 ? "+" : ""}${Number(company.metrics.revenueYoY).toFixed(1)}%`}</div>
+    <div class="peer-footer"><span>${esc(freshness(company.updatedAt))}</span><a class="verify" href="${esc(company.sourceUrl)}" target="_blank" rel="noreferrer">\uc6d0\ubb38 \u2197</a></div>
   </article>`).join("");
 
   const featureVisible = state.filter === "all" || state.filter === "KR";
@@ -131,21 +131,21 @@ function chartMarkup(company, color) {
   const bars = history.map((item, index) => {
     const barY = y(values[index]);
     const barHeight = Math.max(1, baseline - barY);
-    return `<rect class="revenue-bar" x="${x(index).toFixed(1)}" y="${barY.toFixed(1)}" width="${barWidth.toFixed(1)}" height="${barHeight.toFixed(1)}" rx="1.8" fill="${color}" data-period="${item.period}" data-value="${values[index].toFixed(1)}" tabindex="0" role="graphics-symbol" aria-label="${item.period} 월매출 NT$ ${values[index].toFixed(1)}억"><title>${item.period} · NT$ ${values[index].toFixed(1)}억</title></rect>`;
+    return `<rect class="revenue-bar" x="${x(index).toFixed(1)}" y="${barY.toFixed(1)}" width="${barWidth.toFixed(1)}" height="${barHeight.toFixed(1)}" rx="1.8" fill="${color}" data-period="${item.period}" data-value="${values[index].toFixed(1)}" tabindex="0" role="graphics-symbol" aria-label="${item.period} \uc6d4\ub9e4\ucd9c NT$ ${values[index].toFixed(1)}\uc5b5"><title>${item.period} \u00b7 NT$ ${values[index].toFixed(1)}\uc5b5</title></rect>`;
   }).join("");
   const latest = history[history.length - 1];
   const latestValue = values[values.length - 1];
   const low = Math.min(...values), high = Math.max(...values);
   return `<article class="trend-card">
     <div class="trend-head">
-      <div><span class="trend-company">${esc(company.name)}</span><small>${esc(company.market)} · ${esc(company.ticker)}</small></div>
-      <div class="trend-latest"><strong>NT$ ${latestValue.toFixed(1)}억</strong><span class="${latest.yoy >= 0 ? "positive-text" : "negative-text"}">YoY ${latest.yoy >= 0 ? "+" : ""}${Number(latest.yoy).toFixed(1)}%</span></div>
+      <div><span class="trend-company">${esc(company.name)}</span><small>${esc(company.market)} \u00b7 ${esc(company.ticker)}</small></div>
+      <div class="trend-latest"><strong>NT$ ${latestValue.toFixed(1)}\uc5b5</strong><span class="${latest.yoy >= 0 ? "positive-text" : "negative-text"}">YoY ${latest.yoy >= 0 ? "+" : ""}${Number(latest.yoy).toFixed(1)}%</span></div>
     </div>
-    <svg class="monthly-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="${esc(company.name)} 최근 ${history.length}개월 월매출 그래프">
+    <svg class="monthly-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="${esc(company.name)} \ucd5c\uadfc ${history.length}\uac1c\uc6d4 \uc6d4\ub9e4\ucd9c \uadf8\ub798\ud504">
       ${grid}${bars}${labels}
       <g class="chart-tooltip" aria-hidden="true"><rect x="-58" y="-29" width="116" height="23" rx="5"></rect><text x="0" y="-14" text-anchor="middle"></text></g>
     </svg>
-    <div class="trend-foot"><span>${history[0].period}–${latest.period}</span><span>3년 범위 ${low.toFixed(1)}–${high.toFixed(1)}억</span></div>
+    <div class="trend-foot"><span>${history[0].period}\u2013${latest.period}</span><span>3\ub144 \ubc94\uc704 ${low.toFixed(1)}\u2013${high.toFixed(1)}\uc5b5</span></div>
   </article>`;
 }
 
@@ -155,7 +155,7 @@ function renderMonthlyCharts(companies) {
     const company = companies.find(item => item.id === id);
     return company ? chartMarkup(company, colors[id]) : "";
   }).filter(Boolean).join("");
-  $("#monthlyChartGrid").innerHTML = html || `<div class="chart-empty">월매출 이력을 수집 중입니다. 다음 갱신 후 표시됩니다.</div>`;
+  $("#monthlyChartGrid").innerHTML = html || `<div class="chart-empty">\uc6d4\ub9e4\ucd9c \uc774\ub825\uc744 \uc218\uc9d1 \uc911\uc785\ub2c8\ub2e4. \ub2e4\uc74c \uac31\uc2e0 \ud6c4 \ud45c\uc2dc\ub429\ub2c8\ub2e4.</div>`;
   bindChartTooltips();
 }
 
@@ -169,7 +169,7 @@ function bindChartTooltips() {
       const top = Number(bar.getAttribute("y"));
       const tx = Math.max(62, Math.min(358, center));
       const ty = Math.max(38, top);
-      label.textContent = `${bar.dataset.period} · NT$ ${bar.dataset.value}억`;
+      label.textContent = `${bar.dataset.period} \u00b7 NT$ ${bar.dataset.value}\uc5b5`;
       tooltip.setAttribute("transform", `translate(${tx} ${ty})`);
       tooltip.classList.add("show");
     };
@@ -185,7 +185,7 @@ function bindChartTooltips() {
 }
 
 function spotNumber(value) {
-  if (value === null || value === undefined) return "—";
+  if (value === null || value === undefined) return "\u2014";
   return `$${Number(value).toLocaleString("ko-KR", {minimumFractionDigits: 3, maximumFractionDigits: 3})}`;
 }
 
@@ -217,9 +217,9 @@ function spotChartMarkup(product) {
   }).join("");
   const labelIndexes = history.length === 1 ? [0] : [...new Set([0, Math.floor((history.length-1)/2), history.length-1])];
   const labels = labelIndexes.map(index => `<text x="${x(index)}" y="${height-10}" text-anchor="middle" class="chart-xlabel">${String(history[index].date).slice(5).replace("-",".")}</text>`).join("");
-  const dots = history.map((item,index) => `<circle cx="${x(index).toFixed(1)}" cy="${y(Number(item.average)).toFixed(1)}" r="3.2" fill="#fff" stroke="${color}" stroke-width="2"><title>${item.date} · ${spotNumber(item.average)} · ${item.change == null ? "—" : `${Number(item.change).toFixed(2)}%`}</title></circle>`).join("");
+  const dots = history.map((item,index) => `<circle cx="${x(index).toFixed(1)}" cy="${y(Number(item.average)).toFixed(1)}" r="3.2" fill="#fff" stroke="${color}" stroke-width="2"><title>${item.date} \u00b7 ${spotNumber(item.average)} \u00b7 ${item.change == null ? "\u2014" : `${Number(item.change).toFixed(2)}%`}</title></circle>`).join("");
   const polyline = history.length > 1 ? `<polyline points="${points}" class="spot-line" style="stroke:${color}"></polyline>` : "";
-  return `<svg class="spot-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="${esc(product.name)} 현물가 추이">
+  return `<svg class="spot-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="${esc(product.name)} \ud604\ubb3c\uac00 \ucd94\uc774">
     ${grid}${polyline}${dots}${labels}
   </svg>`;
 }
@@ -229,27 +229,27 @@ function renderSpotPrices(payload) {
   if (!container) return;
   const products = payload?.products || [];
   if (!products.length) {
-    container.innerHTML = `<div class="chart-empty">DRAMeXchange 현물가 데이터를 수집 중입니다.</div>`;
+    container.innerHTML = `<div class="chart-empty">DRAMeXchange \ud604\ubb3c\uac00 \ub370\uc774\ud130\ub97c \uc218\uc9d1 \uc911\uc785\ub2c8\ub2e4.</div>`;
     return;
   }
   container.innerHTML = products.map(product => {
     const history = [...(product.history || [])].filter(item => item.average != null).sort((a,b) => String(a.date).localeCompare(String(b.date)));
     const latest = product.latest || history[history.length - 1] || {};
-    const change = latest.change == null ? "—" : `${Number(latest.change) >= 0 ? "+" : ""}${Number(latest.change).toFixed(2)}%`;
+    const change = latest.change == null ? "\u2014" : `${Number(latest.change) >= 0 ? "+" : ""}${Number(latest.change).toFixed(2)}%`;
     const tone = Number(latest.change) >= 0 ? "positive-text" : "negative-text";
     return `<article class="spot-card">
       <div class="spot-head">
         <div><span>${esc(product.name)}</span><small>${esc(product.label)}</small></div>
-        <a href="${esc(payload.sourceUrl || "https://www.dramexchange.com/")}" target="_blank" rel="noreferrer">${esc(payload.sourceLabel || "DRAMeXchange")} ↗</a>
+        <a href="${esc(payload.sourceUrl || "https://www.dramexchange.com/")}" target="_blank" rel="noreferrer">${esc(payload.sourceLabel || "DRAMeXchange")} \u2197</a>
       </div>
       <div class="spot-kpis">
         <div><label>Session Average</label><strong>${esc(spotNumber(latest.average))}</strong></div>
         <div><label>Session Change</label><strong class="${tone}">${esc(change)}</strong></div>
-        <div><label>최근 기준</label><strong>${esc(latest.date || "—")}</strong></div>
+        <div><label>\ucd5c\uadfc \uae30\uc900</label><strong>${esc(latest.date || "\u2014")}</strong></div>
       </div>
       ${spotChartMarkup(product)}
       <div class="spot-foot">
-        <span>${history.length ? `${history[0].date}–${history[history.length-1].date}` : "이력 수집 전"}</span>
+        <span>${history.length ? `${history[0].date}\u2013${history[history.length-1].date}` : "\uc774\ub825 \uc218\uc9d1 \uc804"}</span>
         <span>${esc(latest.sourceTime || payload.updatedAt || "")}</span>
       </div>
     </article>`;
@@ -267,23 +267,23 @@ function normalizeTradeRows(rows = [], columns = []) {
 }
 
 function tradeEok(value) {
-  if (value === null || value === undefined) return "—";
+  if (value === null || value === undefined) return "\u2014";
   const amount = Number(value) / 100000;
-  return `${amount.toLocaleString("ko-KR", {minimumFractionDigits: amount < 10 ? 1 : 0, maximumFractionDigits: 1})}억원`;
+  return `${amount.toLocaleString("ko-KR", {minimumFractionDigits: amount < 10 ? 1 : 0, maximumFractionDigits: 1})}\uc5b5\uc6d0`;
 }
 
 function tradeUsd(value) {
-  if (value === null || value === undefined) return "—";
+  if (value === null || value === undefined) return "\u2014";
   return `$${(Number(value) / 1000000).toLocaleString("ko-KR", {maximumFractionDigits: 1})}M`;
 }
 
 function tradeUnit(value) {
-  if (value === null || value === undefined) return "—";
+  if (value === null || value === undefined) return "\u2014";
   return `$${Number(value).toLocaleString("ko-KR", {maximumFractionDigits: 0})}`;
 }
 
 function signedPercent(value) {
-  if (value === null || value === undefined) return "—";
+  if (value === null || value === undefined) return "\u2014";
   return `${Number(value) >= 0 ? "+" : ""}${Number(value).toFixed(1)}%`;
 }
 
@@ -293,12 +293,12 @@ function percentTone(value) {
 
 function tradeMonthLabel(period) {
   const [year = "", month = ""] = String(period || "").split("-");
-  return year && month ? `${year.slice(2)}.${month}` : "—";
+  return year && month ? `${year.slice(2)}.${month}` : "\u2014";
 }
 
 function tradeQuarterLabel(period) {
   period = String(period || "");
-  return period.length >= 6 ? `${period.slice(2, 4)}Q${period.slice(-1)}` : period || "—";
+  return period.length >= 6 ? `${period.slice(2, 4)}Q${period.slice(-1)}` : period || "\u2014";
 }
 
 function latestWith(rows, key) {
@@ -308,7 +308,7 @@ function latestWith(rows, key) {
 function jejuTradeMonthlyMarkup(payload) {
   const monthly = normalizeTradeRows(payload?.monthly, payload?.monthlyColumns).sort((a,b) => String(a.period).localeCompare(String(b.period)));
   const quarterly = normalizeTradeRows(payload?.quarterly, payload?.quarterlyColumns).sort((a,b) => String(a.period).localeCompare(String(b.period)));
-  if (monthly.length < 2) return `<div class="chart-empty">제주반도체 월별 수출입 데이터를 수집 중입니다.</div>`;
+  if (monthly.length < 2) return `<div class="chart-empty">\uc81c\uc8fc\ubc18\ub3c4\uccb4 \uc6d4\ubcc4 \uc218\ucd9c\uc785 \ub370\uc774\ud130\ub97c \uc218\uc9d1 \uc911\uc785\ub2c8\ub2e4.</div>`;
 
   const latest = latestWith(monthly, "exportKrwThousand");
   const latestQuarter = latestWith(quarterly, "exportKrwThousand");
@@ -338,35 +338,35 @@ function jejuTradeMonthlyMarkup(payload) {
   const bars = monthly.map((item,index) => {
     const value = Number(item.exportKrwThousand) / 100000;
     const y = exportY(value);
-    const title = `${item.period} · 수출액 ${tradeEok(item.exportKrwThousand)} (${tradeUsd(item.exportUsd)}) · 단가 ${tradeUnit(item.unitUsd)} · YoY ${signedPercent(item.exportYoY)} · MoM ${signedPercent(item.exportMoM)}`;
+    const title = `${item.period} \u00b7 \uc218\ucd9c\uc561 ${tradeEok(item.exportKrwThousand)} (${tradeUsd(item.exportUsd)}) \u00b7 \ub2e8\uac00 ${tradeUnit(item.unitUsd)} \u00b7 YoY ${signedPercent(item.exportYoY)} \u00b7 MoM ${signedPercent(item.exportMoM)}`;
     const hot = Number(item.exportYoY) >= 100 ? " hot" : "";
     return `<rect class="trade-bar export${hot}" x="${barX(index).toFixed(1)}" y="${y.toFixed(1)}" width="${barWidth.toFixed(1)}" height="${Math.max(1, baseline-y).toFixed(1)}" rx="1.5"><title>${esc(title)}</title></rect>`;
   }).join("");
   const unitPoints = monthly.map((item,index) => `${x(index).toFixed(1)},${unitY(Number(item.unitUsd)).toFixed(1)}`).join(" ");
-  const unitDots = monthly.map((item,index) => index % 3 === 0 || index === monthly.length - 1 ? `<circle cx="${x(index).toFixed(1)}" cy="${unitY(Number(item.unitUsd)).toFixed(1)}" r="2.2" class="trade-dot unit"><title>${esc(`${item.period} · 단가 ${tradeUnit(item.unitUsd)} · 단가 MoM ${signedPercent(item.unitMoM)}`)}</title></circle>` : "").join("");
+  const unitDots = monthly.map((item,index) => index % 3 === 0 || index === monthly.length - 1 ? `<circle cx="${x(index).toFixed(1)}" cy="${unitY(Number(item.unitUsd)).toFixed(1)}" r="2.2" class="trade-dot unit"><title>${esc(`${item.period} \u00b7 \ub2e8\uac00 ${tradeUnit(item.unitUsd)} \u00b7 \ub2e8\uac00 MoM ${signedPercent(item.unitMoM)}`)}</title></circle>` : "").join("");
 
   return `<article class="trade-card">
     <div class="trade-card-head">
-      <div><span>월별 수출입 데이터</span><small>${esc(payload?.basis || "제주반도체 수출입 데이터")}</small></div>
+      <div><span>\uc6d4\ubcc4 \uc218\ucd9c\uc785 \ub370\uc774\ud130</span><small>${esc(payload?.basis || "\uc81c\uc8fc\ubc18\ub3c4\uccb4 \uc218\ucd9c\uc785 \ub370\uc774\ud130")}</small></div>
       <strong>${tradeMonthLabel(latest.period)}</strong>
     </div>
     <div class="trade-kpis">
-      <div><label>최근 월 수출액</label><strong>${tradeEok(latest.exportKrwThousand)}</strong><span class="${percentTone(latest.exportYoY)}">YoY ${signedPercent(latest.exportYoY)}</span></div>
-      <div><label>월간 증감</label><strong class="${percentTone(latest.exportMoM)}">${signedPercent(latest.exportMoM)}</strong><span>수출금액 MoM</span></div>
-      <div><label>단가</label><strong>${tradeUnit(latest.unitUsd)}</strong><span class="${percentTone(latest.unitMoM)}">MoM ${signedPercent(latest.unitMoM)}</span></div>
-      <div><label>최근 분기합</label><strong>${tradeEok(latestQuarter.exportKrwThousand)}</strong><span class="${percentTone(latestQuarter.exportQoQ)}">QoQ ${signedPercent(latestQuarter.exportQoQ)}</span></div>
+      <div><label>\ucd5c\uadfc \uc6d4 \uc218\ucd9c\uc561</label><strong>${tradeEok(latest.exportKrwThousand)}</strong><span class="${percentTone(latest.exportYoY)}">YoY ${signedPercent(latest.exportYoY)}</span></div>
+      <div><label>\uc6d4\uac04 \uc99d\uac10</label><strong class="${percentTone(latest.exportMoM)}">${signedPercent(latest.exportMoM)}</strong><span>\uc218\ucd9c\uae08\uc561 MoM</span></div>
+      <div><label>\ub2e8\uac00</label><strong>${tradeUnit(latest.unitUsd)}</strong><span class="${percentTone(latest.unitMoM)}">MoM ${signedPercent(latest.unitMoM)}</span></div>
+      <div><label>\ucd5c\uadfc \ubd84\uae30\ud569</label><strong>${tradeEok(latestQuarter.exportKrwThousand)}</strong><span class="${percentTone(latestQuarter.exportQoQ)}">QoQ ${signedPercent(latestQuarter.exportQoQ)}</span></div>
     </div>
-    <div class="trade-legend"><span><i class="trade-swatch export"></i>수출액</span><span><i class="trade-swatch hot"></i>YoY +100% 이상</span><span><i class="trade-line unit"></i>단가</span></div>
-    <svg class="trade-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="제주반도체 월별 수출액과 단가 추이">
+    <div class="trade-legend"><span><i class="trade-swatch export"></i>\uc218\ucd9c\uc561</span><span><i class="trade-swatch hot"></i>YoY +100% \uc774\uc0c1</span><span><i class="trade-line unit"></i>\ub2e8\uac00</span></div>
+    <svg class="trade-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="\uc81c\uc8fc\ubc18\ub3c4\uccb4 \uc6d4\ubcc4 \uc218\ucd9c\uc561\uacfc \ub2e8\uac00 \ucd94\uc774">
       ${grid}${rightLabels}${bars}<polyline points="${unitPoints}" class="trade-unit-line"></polyline>${unitDots}${labels}
     </svg>
-    <div class="trade-foot"><span>${tradeMonthLabel(monthly[0].period)}–${tradeMonthLabel(latest.period)}</span><span>${esc(payload?.note || "")}</span></div>
+    <div class="trade-foot"><span>${tradeMonthLabel(monthly[0].period)}\u2013${tradeMonthLabel(latest.period)}</span><span>${esc(payload?.note || "")}</span></div>
   </article>`;
 }
 
 function jejuTradeQuarterMarkup(payload) {
   const quarterly = normalizeTradeRows(payload?.quarterly, payload?.quarterlyColumns).sort((a,b) => String(a.period).localeCompare(String(b.period)));
-  if (quarterly.length < 2) return `<div class="chart-empty">제주반도체 분기 수출입 데이터를 수집 중입니다.</div>`;
+  if (quarterly.length < 2) return `<div class="chart-empty">\uc81c\uc8fc\ubc18\ub3c4\uccb4 \ubd84\uae30 \uc218\ucd9c\uc785 \ub370\uc774\ud130\ub97c \uc218\uc9d1 \uc911\uc785\ub2c8\ub2e4.</div>`;
 
   const latestExport = latestWith(quarterly, "exportKrwThousand");
   const latestRevenue = latestWith(quarterly, "revenueKrwThousand");
@@ -396,35 +396,35 @@ function jejuTradeQuarterMarkup(payload) {
   const rightLabels = [opmMax, (opmMax+opmMin)/2, opmMin].map((value,index) => `<text x="${width-pad.right+7}" y="${pad.top + index*plotHeight/2 + 3}" class="quarter-axis-label">${value.toFixed(0)}%</text>`).join("");
   const bars = quarterly.map((item,index) => {
     const rendered = [];
-    [["revenueKrwThousand", "revenue", -0.58, "매출액"], ["exportKrwThousand", "export", 0.58, "수출액"]].forEach(([key, cls, offset, label]) => {
+    [["revenueKrwThousand", "revenue", -0.58, "\ub9e4\ucd9c\uc561"], ["exportKrwThousand", "export", 0.58, "\uc218\ucd9c\uc561"]].forEach(([key, cls, offset, label]) => {
       if (item[key] === null || item[key] === undefined) return;
       const value = Number(item[key]) / 100000;
       const y = moneyY(value);
-      const qoq = key === "exportKrwThousand" ? ` · QoQ ${signedPercent(item.exportQoQ)} · YoY ${signedPercent(item.exportYoY)}` : "";
-      rendered.push(`<rect class="trade-bar ${cls}" x="${(x(index) + offset * barWidth - barWidth / 2).toFixed(1)}" y="${y.toFixed(1)}" width="${barWidth.toFixed(1)}" height="${Math.max(1, baseline-y).toFixed(1)}" rx="1.5"><title>${esc(`${item.period} · ${label} ${tradeEok(item[key])}${qoq}`)}</title></rect>`);
+      const qoq = key === "exportKrwThousand" ? ` \u00b7 QoQ ${signedPercent(item.exportQoQ)} \u00b7 YoY ${signedPercent(item.exportYoY)}` : "";
+      rendered.push(`<rect class="trade-bar ${cls}" x="${(x(index) + offset * barWidth - barWidth / 2).toFixed(1)}" y="${y.toFixed(1)}" width="${barWidth.toFixed(1)}" height="${Math.max(1, baseline-y).toFixed(1)}" rx="1.5"><title>${esc(`${item.period} \u00b7 ${label} ${tradeEok(item[key])}${qoq}`)}</title></rect>`);
     });
     return rendered.join("");
   }).join("");
   const opmPoints = quarterly.map((item,index) => item.opm == null ? null : `${x(index).toFixed(1)},${opmY(Number(item.opm)).toFixed(1)}`).filter(Boolean).join(" ");
-  const opmDots = quarterly.map((item,index) => item.opm == null ? "" : `<circle cx="${x(index).toFixed(1)}" cy="${opmY(Number(item.opm)).toFixed(1)}" r="2.7" class="trade-dot opm"><title>${esc(`${item.period} · OPM ${signedPercent(item.opm)}`)}</title></circle>`).join("");
+  const opmDots = quarterly.map((item,index) => item.opm == null ? "" : `<circle cx="${x(index).toFixed(1)}" cy="${opmY(Number(item.opm)).toFixed(1)}" r="2.7" class="trade-dot opm"><title>${esc(`${item.period} \u00b7 OPM ${signedPercent(item.opm)}`)}</title></circle>`).join("");
   const labels = quarterly.map((item,index) => index % 4 === 0 || index === quarterly.length - 1 ? `<text x="${x(index)}" y="${height-12}" text-anchor="middle" class="chart-xlabel">${tradeQuarterLabel(item.period)}</text>` : "").join("");
 
   return `<article class="trade-card">
     <div class="trade-card-head">
-      <div><span>분기합 + 매출액 + OPM</span><small>수출액과 제주반도체 분기 매출액을 같은 축으로 비교</small></div>
+      <div><span>\ubd84\uae30\ud569 + \ub9e4\ucd9c\uc561 + OPM</span><small>\uc218\ucd9c\uc561\uacfc \uc81c\uc8fc\ubc18\ub3c4\uccb4 \ubd84\uae30 \ub9e4\ucd9c\uc561\uc744 \uac19\uc740 \ucd95\uc73c\ub85c \ube44\uad50</small></div>
       <strong>${tradeQuarterLabel(latestExport.period)}</strong>
     </div>
     <div class="trade-kpis">
-      <div><label>최근 수출액</label><strong>${tradeEok(latestExport.exportKrwThousand)}</strong><span class="${percentTone(latestExport.exportYoY)}">YoY ${signedPercent(latestExport.exportYoY)}</span></div>
-      <div><label>수출액 QoQ</label><strong class="${percentTone(latestExport.exportQoQ)}">${signedPercent(latestExport.exportQoQ)}</strong><span>${tradeQuarterLabel(latestExport.period)}</span></div>
-      <div><label>최근 매출액</label><strong>${tradeEok(latestRevenue.revenueKrwThousand)}</strong><span>${tradeQuarterLabel(latestRevenue.period)} · 수출비중 ${signedPercent(latestRevenue.exportToRevenuePct).replace("+", "")}</span></div>
+      <div><label>\ucd5c\uadfc \uc218\ucd9c\uc561</label><strong>${tradeEok(latestExport.exportKrwThousand)}</strong><span class="${percentTone(latestExport.exportYoY)}">YoY ${signedPercent(latestExport.exportYoY)}</span></div>
+      <div><label>\uc218\ucd9c\uc561 QoQ</label><strong class="${percentTone(latestExport.exportQoQ)}">${signedPercent(latestExport.exportQoQ)}</strong><span>${tradeQuarterLabel(latestExport.period)}</span></div>
+      <div><label>\ucd5c\uadfc \ub9e4\ucd9c\uc561</label><strong>${tradeEok(latestRevenue.revenueKrwThousand)}</strong><span>${tradeQuarterLabel(latestRevenue.period)} \u00b7 \uc218\ucd9c\ube44\uc911 ${signedPercent(latestRevenue.exportToRevenuePct).replace("+", "")}</span></div>
       <div><label>OPM</label><strong>${signedPercent(latestOpm.opm).replace("+", "")}</strong><span>${tradeQuarterLabel(latestOpm.period)}</span></div>
     </div>
-    <div class="trade-legend"><span><i class="trade-swatch revenue"></i>매출액</span><span><i class="trade-swatch export"></i>수출액</span><span><i class="trade-line opm"></i>OPM</span></div>
-    <svg class="trade-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="제주반도체 분기 매출액 수출액 OPM 그래프">
+    <div class="trade-legend"><span><i class="trade-swatch revenue"></i>\ub9e4\ucd9c\uc561</span><span><i class="trade-swatch export"></i>\uc218\ucd9c\uc561</span><span><i class="trade-line opm"></i>OPM</span></div>
+    <svg class="trade-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="\uc81c\uc8fc\ubc18\ub3c4\uccb4 \ubd84\uae30 \ub9e4\ucd9c\uc561 \uc218\ucd9c\uc561 OPM \uadf8\ub798\ud504">
       ${grid}${rightLabels}${bars}${opmPoints ? `<polyline points="${opmPoints}" class="trade-opm-line"></polyline>${opmDots}` : ""}${labels}
     </svg>
-    <div class="trade-foot"><span>${tradeQuarterLabel(quarterly[0].period)}–${tradeQuarterLabel(latestExport.period)}</span><span>단위: 억원, %</span></div>
+    <div class="trade-foot"><span>${tradeQuarterLabel(quarterly[0].period)}\u2013${tradeQuarterLabel(latestExport.period)}</span><span>\ub2e8\uc704: \uc5b5\uc6d0, %</span></div>
   </article>`;
 }
 
@@ -437,10 +437,10 @@ function renderJejuTrade(payload) {
 }
 
 function quarterValue(value, currency) {
-  if (value === null || value === undefined) return "—";
+  if (value === null || value === undefined) return "\u2014";
   const amount = Number(value) / 100;
   const prefix = currency === "KRW" ? "" : currency === "TWD" ? "NT$ " : "CNY ";
-  const suffix = currency === "KRW" ? "억원" : "억";
+  const suffix = currency === "KRW" ? "\uc5b5\uc6d0" : "\uc5b5";
   return `${prefix}${amount.toLocaleString("ko-KR", {maximumFractionDigits: 1})}${suffix}`;
 }
 
@@ -460,9 +460,9 @@ function quarterlyChartMarkup(company) {
   const barWidth = Math.max(4, slot * .19);
   const toEok = value => value == null ? null : Number(value) / 100;
   const barSeries = [
-    {key:"revenue", label:"매출", color:"#a9bbb3"},
-    {key:"operatingIncome", label:"영업이익", color:"#2e7a8f"},
-    {key:"netIncome", label:"순이익", color:"#c69b51"}
+    {key:"revenue", label:"\ub9e4\ucd9c", color:"#a9bbb3"},
+    {key:"operatingIncome", label:"\uc601\uc5c5\uc774\uc775", color:"#2e7a8f"},
+    {key:"netIncome", label:"\uc21c\uc774\uc775", color:"#c69b51"}
   ];
   const barValues = history.flatMap(item => barSeries.map(series => toEok(item[series.key])).filter(value => value != null));
   let barMin = Math.min(0, ...barValues), barMax = Math.max(0, ...barValues);
@@ -496,18 +496,18 @@ function quarterlyChartMarkup(company) {
     return `<line x1="${pad.left}" y1="${gy}" x2="${width-pad.right}" y2="${gy}" class="chart-gridline"/><text x="${pad.left-5}" y="${gy+3}" text-anchor="end" class="quarter-axis-label">${value.toFixed(0)}</text>`;
   }).join("");
   const rightLabels = [marginMax,(marginMax+marginMin)/2,marginMin].map((value,index) => `<text x="${width-pad.right+5}" y="${pad.top + index*plotHeight/2 + 3}" class="quarter-axis-label">${value.toFixed(0)}%</text>`).join("");
-  const hits = history.map((item,index) => `<rect class="quarter-hit" x="${(pad.left+index*slot).toFixed(1)}" y="${pad.top}" width="${slot.toFixed(1)}" height="${plotHeight}" fill="transparent" tabindex="0" data-index="${index}" aria-label="${item.period} 실적${item.isPreliminary ? " 예비" : ""}"></rect>`).join("");
+  const hits = history.map((item,index) => `<rect class="quarter-hit" x="${(pad.left+index*slot).toFixed(1)}" y="${pad.top}" width="${slot.toFixed(1)}" height="${plotHeight}" fill="transparent" tabindex="0" data-index="${index}" aria-label="${item.period} \uc2e4\uc801${item.isPreliminary ? " \uc608\ube44" : ""}"></rect>`).join("");
   const latest = history[history.length-1];
-  const latestLabel = `${esc(latest.period)}${latest.isPreliminary ? " 예비" : ""}`;
-  const currencyLabel = latest.currency === "KRW" ? "KRW 억원" : latest.currency === "TWD" ? "NT$ 억" : "CNY 억";
+  const latestLabel = `${esc(latest.period)}${latest.isPreliminary ? " \uc608\ube44" : ""}`;
+  const currencyLabel = latest.currency === "KRW" ? "KRW \uc5b5\uc6d0" : latest.currency === "TWD" ? "NT$ \uc5b5" : "CNY \uc5b5";
   return `<article class="quarter-card">
-    <div class="quarter-head"><div><span>${esc(company.name)}</span><small>${esc(company.market)} · ${esc(company.ticker)} · ${currencyLabel}</small></div><strong>${latestLabel}</strong></div>
+    <div class="quarter-head"><div><span>${esc(company.name)}</span><small>${esc(company.market)} \u00b7 ${esc(company.ticker)} \u00b7 ${currencyLabel}</small></div><strong>${latestLabel}</strong></div>
     <div class="quarter-legend">
       ${barSeries.map(series => `<span><i style="background:${series.color}"></i>${series.label}</span>`).join("")}
-      <span><i class="dash op"></i>영업이익률</span><span><i class="dash net"></i>순이익률</span>
+      <span><i class="dash op"></i>\uc601\uc5c5\uc774\uc775\ub960</span><span><i class="dash net"></i>\uc21c\uc774\uc775\ub960</span>
     </div>
     <div class="quarter-chart-wrap">
-      <svg class="quarter-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="${esc(company.name)} 최근 12개 분기 실적과 이익률">
+      <svg class="quarter-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="${esc(company.name)} \ucd5c\uadfc 12\uac1c \ubd84\uae30 \uc2e4\uc801\uacfc \uc774\uc775\ub960">
         ${leftGrid}<line x1="${pad.left}" y1="${zeroY}" x2="${width-pad.right}" y2="${zeroY}" class="zero-line"/>
         ${bars}
         ${opPoints ? `<polyline points="${opPoints}" class="margin-line op"></polyline>${lineDots("operatingMargin","#0d6b4d")}` : ""}
@@ -516,7 +516,7 @@ function quarterlyChartMarkup(company) {
       </svg>
       <div class="quarter-tooltip"></div>
     </div>
-    <div class="quarter-source"><span>${history[0].period}–${latest.period}</span><span>${esc(latest.source || "공시")}${latest.isPreliminary ? " · 중간값" : ""}</span></div>
+    <div class="quarter-source"><span>${history[0].period}\u2013${latest.period}</span><span>${esc(latest.source || "\uacf5\uc2dc")}${latest.isPreliminary ? " \u00b7 \uc911\uac04\uac12" : ""}</span></div>
   </article>`;
 }
 
@@ -530,8 +530,8 @@ function bindQuarterTooltips(companies) {
       if (!item) return;
       const revenueRange = quarterRangeValue(item.revenueRange, item.currency);
       const netIncomeRange = quarterRangeValue(item.netIncomeRange, item.currency);
-      const preliminaryLines = item.isPreliminary ? `${revenueRange ? `<span>예비 매출 범위 ${esc(revenueRange)}</span>` : ""}${netIncomeRange ? `<span>예비 순이익 범위 ${esc(netIncomeRange)}</span>` : ""}` : "";
-      tooltip.innerHTML = `<strong>${esc(item.period)}${item.isPreliminary ? " 예비" : ""}</strong><div><span>매출 ${quarterValue(item.revenue,item.currency)}</span><span>영업이익 ${quarterValue(item.operatingIncome,item.currency)}</span><span>순이익 ${quarterValue(item.netIncome,item.currency)}</span><span>OPM ${item.operatingMargin == null ? "—" : `${Number(item.operatingMargin).toFixed(1)}%`} · NPM ${item.netMargin == null ? "—" : `${Number(item.netMargin).toFixed(1)}%`}</span>${preliminaryLines}</div>`;
+      const preliminaryLines = item.isPreliminary ? `${revenueRange ? `<span>\uc608\ube44 \ub9e4\ucd9c \ubc94\uc704 ${esc(revenueRange)}</span>` : ""}${netIncomeRange ? `<span>\uc608\ube44 \uc21c\uc774\uc775 \ubc94\uc704 ${esc(netIncomeRange)}</span>` : ""}` : "";
+      tooltip.innerHTML = `<strong>${esc(item.period)}${item.isPreliminary ? " \uc608\ube44" : ""}</strong><div><span>\ub9e4\ucd9c ${quarterValue(item.revenue,item.currency)}</span><span>\uc601\uc5c5\uc774\uc775 ${quarterValue(item.operatingIncome,item.currency)}</span><span>\uc21c\uc774\uc775 ${quarterValue(item.netIncome,item.currency)}</span><span>OPM ${item.operatingMargin == null ? "\u2014" : `${Number(item.operatingMargin).toFixed(1)}%`} \u00b7 NPM ${item.netMargin == null ? "\u2014" : `${Number(item.netMargin).toFixed(1)}%`}</span>${preliminaryLines}</div>`;
       const index = Number(hit.dataset.index);
       tooltip.style.left = `${Math.max(18,Math.min(82,(index+.5)/history.length*100))}%`;
       tooltip.classList.add("show");
@@ -550,12 +550,12 @@ function bindQuarterTooltips(companies) {
 function renderQuarterlyCharts(companies) {
   const ordered = ["fidelix","jeju","winbond","nanya","macronix","dosilicon"].map(id => companies.find(company => company.id === id)).filter(Boolean);
   const html = ordered.map(quarterlyChartMarkup).filter(Boolean).join("");
-  $("#quarterlyChartGrid").innerHTML = html || `<div class="chart-empty">분기 실적 이력을 수집 중입니다.</div>`;
+  $("#quarterlyChartGrid").innerHTML = html || `<div class="chart-empty">\ubd84\uae30 \uc2e4\uc801 \uc774\ub825\uc744 \uc218\uc9d1 \uc911\uc785\ub2c8\ub2e4.</div>`;
   bindQuarterTooltips(ordered.filter(company => (company.quarterlyHistory || []).length >= 2));
 }
 
 function orderDisplay(value, unit = "MW") {
-  if (value === null || value === undefined || value === "") return "—";
+  if (value === null || value === undefined || value === "") return "\u2014";
   const formatted = Number(value).toLocaleString("ko-KR", {maximumFractionDigits: unit === "%" ? 0 : 1});
   return unit === "%" ? `${formatted}%` : `${formatted} ${unit}`;
 }
@@ -565,7 +565,7 @@ function renderChinaOrders(payload) {
   if (!container) return;
   const companies = payload?.companies || [];
   if (!companies.length) {
-    container.innerHTML = `<div class="chart-empty">중국 IDC 신규수주 데이터를 수집 중입니다.</div>`;
+    container.innerHTML = `<div class="chart-empty">\uc911\uad6d IDC \uc2e0\uaddc\uc218\uc8fc \ub370\uc774\ud130\ub97c \uc218\uc9d1 \uc911\uc785\ub2c8\ub2e4.</div>`;
     return;
   }
   container.innerHTML = companies.map(company => {
@@ -576,7 +576,7 @@ function renderChinaOrders(payload) {
     const bars = series.map(item => {
       const value = Number(item.value) || 0;
       const width = Math.max(2, value / max * 100);
-      const tooltip = `${item.period} · ${orderDisplay(item.value, item.unit)} · ${item.basis || item.category || ""}`;
+      const tooltip = `${item.period} \u00b7 ${orderDisplay(item.value, item.unit)} \u00b7 ${item.basis || item.category || ""}`;
       return `<div class="order-row" title="${esc(tooltip)}">
         <span class="order-period">${esc(item.period)}</span>
         <div class="order-track"><i style="width:${width.toFixed(1)}%"></i></div>
@@ -585,22 +585,22 @@ function renderChinaOrders(payload) {
       </div>`;
     }).join("");
     const backlogItems = backlog.map(item => `<div class="backlog-chip" title="${esc(item.basis || "")}">
-      <span>${esc(item.label)}${item.derived ? " · 계산값" : ""}</span>
+      <span>${esc(item.label)}${item.derived ? " \u00b7 \uacc4\uc0b0\uac12" : ""}</span>
       <strong>${esc(orderDisplay(item.value, item.unit))}</strong>
     </div>`).join("");
     return `<article class="china-order-card">
       <div class="china-order-head">
         <div><span class="china-company">${esc(company.name)}</span><small>${esc(company.note || "")}</small></div>
-        <a href="${esc(company.sourceUrl)}" target="_blank" rel="noreferrer">${esc(company.sourceLabel || "공식 IR")} ↗</a>
+        <a href="${esc(company.sourceUrl)}" target="_blank" rel="noreferrer">${esc(company.sourceLabel || "\uacf5\uc2dd IR")} \u2197</a>
       </div>
       <div class="order-kpis">
-        <div><label>최근 신규수주</label><strong>${esc(orderDisplay(latest.value, latest.unit))}</strong><span>${esc(latest.label || "최근")}</span></div>
-        <div><label>업데이트</label><strong>${esc(fmtDate(company.updatedAt))}</strong><span>${esc(freshness(company.updatedAt))}</span></div>
-        <div><label>기준</label><strong>${esc(latest.unit || "MW")}</strong><span>${esc(latest.basis || "공식 IR")}</span></div>
+        <div><label>\ucd5c\uadfc \uc2e0\uaddc\uc218\uc8fc</label><strong>${esc(orderDisplay(latest.value, latest.unit))}</strong><span>${esc(latest.label || "\ucd5c\uadfc")}</span></div>
+        <div><label>\uc5c5\ub370\uc774\ud2b8</label><strong>${esc(fmtDate(company.updatedAt))}</strong><span>${esc(freshness(company.updatedAt))}</span></div>
+        <div><label>\uae30\uc900</label><strong>${esc(latest.unit || "MW")}</strong><span>${esc(latest.basis || "\uacf5\uc2dd IR")}</span></div>
       </div>
-      <div class="order-bars">${bars || `<p class="order-empty">신규수주 막대 데이터를 수집 중입니다.</p>`}</div>
-      <div class="backlog-title">백로그·확약/활용 용량</div>
-      <div class="backlog-grid">${backlogItems || `<div class="backlog-chip"><span>원문 확인 대기</span><strong>—</strong></div>`}</div>
+      <div class="order-bars">${bars || `<p class="order-empty">\uc2e0\uaddc\uc218\uc8fc \ub9c9\ub300 \ub370\uc774\ud130\ub97c \uc218\uc9d1 \uc911\uc785\ub2c8\ub2e4.</p>`}</div>
+      <div class="backlog-title">\ubc31\ub85c\uadf8\u00b7\ud655\uc57d/\ud65c\uc6a9 \uc6a9\ub7c9</div>
+      <div class="backlog-grid">${backlogItems || `<div class="backlog-chip"><span>\uc6d0\ubb38 \ud655\uc778 \ub300\uae30</span><strong>\u2014</strong></div>`}</div>
     </article>`;
   }).join("");
 }
@@ -609,7 +609,7 @@ function renderCalendar(events) {
   const today = new Date();
   $("#timeline").innerHTML = [...events].sort((a,b) => a.date.localeCompare(b.date)).map(event => {
     const days = Math.ceil((new Date(event.date) - today) / 86400000);
-    const dayLabel = days < 0 ? "완료" : days === 0 ? "D-day" : `D-${days}`;
+    const dayLabel = days < 0 ? "\uc644\ub8cc" : days === 0 ? "D-day" : `D-${days}`;
     return `<div class="timeline-item ${esc(event.importance)}">
       <span class="timeline-date">${esc(fmtDate(event.date))}</span>
       <div class="timeline-copy"><strong>${esc(event.event)}</strong><p>${esc(event.company)}</p></div>
@@ -633,7 +633,7 @@ function renderQuestions(companies) {
 
 function renderFeed(items) {
   if (!items.length) {
-    $("#feedList").innerHTML = `<div class="feed-item"><span>최근 공시가 없습니다.</span></div>`;
+    $("#feedList").innerHTML = `<div class="feed-item"><span>\ucd5c\uadfc \uacf5\uc2dc\uac00 \uc5c6\uc2b5\ub2c8\ub2e4.</span></div>`;
     return;
   }
   const dateKey = item => String(item.date || "").replace(/\D/g, "").padEnd(14, "0");
@@ -643,7 +643,7 @@ function renderFeed(items) {
     <span class="feed-company">${esc(item.company)}</span>
     <span class="feed-title">${esc(item.title)}</span>
     <span class="feed-source">${esc(item.source)}</span>
-    <span class="feed-arrow">↗</span>
+    <span class="feed-arrow">\u2197</span>
   </a>`).join("");
 }
 
@@ -651,9 +651,9 @@ function renderSources(sources, system) {
   $("#sourceGrid").innerHTML = sources.map(source => `<a class="source-card" href="${esc(source.url)}" target="_blank" rel="noreferrer">
     <div class="source-head"><strong>${esc(source.name)}</strong><span class="status-pill ${esc(source.status)}">${esc(source.status)}</span></div>
     <p>${esc(source.message)}</p>
-    <small>${source.checkedAt ? fmtUpdated(source.checkedAt) : "연결 대기"}</small>
+    <small>${source.checkedAt ? fmtUpdated(source.checkedAt) : "\uc5f0\uacb0 \ub300\uae30"}</small>
   </a>`).join("");
-  if (system.lastRefreshErrors?.length) showToast(`일부 소스 확인 필요: ${system.lastRefreshErrors[0]}`);
+  if (system.lastRefreshErrors?.length) showToast(`\uc77c\ubd80 \uc18c\uc2a4 \ud655\uc778 \ud544\uc694: ${system.lastRefreshErrors[0]}`);
 }
 
 function showToast(message) {
@@ -670,13 +670,13 @@ async function loadDashboard() {
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     render(await response.json());
   } catch (error) {
-    showToast(`대시보드를 불러오지 못했습니다: ${error.message}`);
+    showToast(`\ub300\uc2dc\ubcf4\ub4dc\ub97c \ubd88\ub7ec\uc624\uc9c0 \ubabb\ud588\uc2b5\ub2c8\ub2e4: ${error.message}`);
   }
 }
 
 async function refreshDashboard() {
   if (isStaticDashboard()) {
-    showToast("GitHub Actions가 매일 08시경 자동 갱신합니다. GitHub에서 수동 실행도 가능합니다.");
+    showToast("GitHub Actions\uac00 \ub9e4\uc77c 08\uc2dc\uacbd \uc790\ub3d9 \uac31\uc2e0\ud569\ub2c8\ub2e4. GitHub\uc5d0\uc11c \uc218\ub3d9 \uc2e4\ud589\ub3c4 \uac00\ub2a5\ud569\ub2c8\ub2e4.");
     return;
   }
   const button = $("#refreshButton");
@@ -685,7 +685,7 @@ async function refreshDashboard() {
   try {
     const response = await fetch("/api/refresh", { method: "POST" });
     const result = await response.json();
-    showToast(result.message || "갱신을 시작했습니다.");
+    showToast(result.message || "\uac31\uc2e0\uc744 \uc2dc\uc791\ud588\uc2b5\ub2c8\ub2e4.");
     let attempts = 0;
     clearInterval(state.polling);
     state.polling = setInterval(async () => {
@@ -695,13 +695,13 @@ async function refreshDashboard() {
         clearInterval(state.polling);
         button.classList.remove("loading");
         button.disabled = false;
-        showToast("최신 데이터 확인을 마쳤습니다.");
+        showToast("\ucd5c\uc2e0 \ub370\uc774\ud130 \ud655\uc778\uc744 \ub9c8\ucce4\uc2b5\ub2c8\ub2e4.");
       }
     }, 1500);
   } catch (error) {
     button.classList.remove("loading");
     button.disabled = false;
-    showToast(`갱신 실패: ${error.message}`);
+    showToast(`\uac31\uc2e0 \uc2e4\ud328: ${error.message}`);
   }
 }
 
@@ -720,4 +720,5 @@ function bindEvents() {
 
 bindEvents();
 loadDashboard();
+
 
