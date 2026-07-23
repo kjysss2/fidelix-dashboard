@@ -362,3 +362,14 @@ footer p { margin: 0; }
   footer { display: block; }
   footer p { margin-top: 8px; line-height: 1.5; }
 }
+
+.peer-compare-card { padding:22px; border:1px solid var(--line); border-radius:16px; background:var(--card); box-shadow:0 5px 18px rgba(29,45,38,.035); }
+.peer-compare-card svg { display:block; width:100%; height:auto; }
+.peer-compare-card>p { margin:10px 0 0; color:var(--muted); font-size:8px; }
+.peer-axis-titles { display:flex; justify-content:space-between; gap:16px; margin-bottom:10px; color:var(--muted); font:700 9px/1 "DM Sans",sans-serif; }
+.peer-axis-titles strong:first-child { color:#0d6b4d; }.peer-axis-titles strong:last-child { color:#b87419; text-align:right; }
+.peer-compare-legend { display:flex; flex-wrap:wrap; gap:10px 15px; margin-bottom:10px; color:var(--muted); font-size:8px; }
+.peer-compare-legend span { display:flex; align-items:center; gap:5px; }.peer-compare-legend i { width:10px; height:8px; border-radius:2px; }
+.peer-compare-legend .peer-dash { width:16px; height:0; border-top:2px dashed; border-radius:0; }.peer-compare-legend .peer-dash.f { border-color:#064d38; }.peer-compare-legend .peer-dash.d { border-color:#9a5d0b; }
+.peer-axis { fill:#7f8983; font:8px "DM Sans","Noto Sans KR",sans-serif; }
+
