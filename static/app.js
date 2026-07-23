@@ -720,3 +720,4 @@ function bindEvents() {
 
 bindEvents();
 loadDashboard();
+
