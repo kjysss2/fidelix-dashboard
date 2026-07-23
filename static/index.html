@@ -17,8 +17,8 @@
       <nav class="nav" aria-label="대시보드 메뉴">
         <a class="active" href="#overview"><span>⌂</span>Overview</a>
         <a href="#peers"><span>◎</span>Peer Tracker</a>
+        <a href="#fidelix-dosilicon"><span>⇄</span>Fidelix vs Dosi</a>
         <a href="#spot-prices"><span>〽</span>DDR Spot</a>
-        <a href="#jeju-trade"><span>▤</span>Jeju Trade</a>
         <a href="#calendar"><span>□</span>Calendar</a>
         <a href="#feed"><span>↗</span>Disclosures</a>
         <a href="#china-orders"><span>▥</span>China IDC</a>
@@ -74,6 +74,14 @@
           <div class="peer-grid" id="peerGrid"></div>
         </section>
 
+        <section class="section" id="fidelix-dosilicon">
+          <div class="section-heading">
+            <div><p class="eyebrow">PEER PROFITABILITY</p><h2>피델릭스 vs Dosilicon 실적 비교</h2></div>
+            <p class="section-note">매출·영업이익: 공통 시작 분기=100 지수 · 영업이익률: 실제 %</p>
+          </div>
+          <div id="fidelixDosiliconChart"></div>
+        </section>
+
         <section class="section" id="monthly-trends">
           <div class="section-heading">
             <div><p class="eyebrow">36-MONTH REVENUE</p><h2>최근 3년 월매출 추이</h2></div>
@@ -88,17 +96,6 @@
             <p class="section-note">DRAMeXchange 공개 Session Average · 매일 저장해 자체 추이 생성</p>
           </div>
           <div class="spot-price-grid" id="spotPriceGrid"></div>
-        </section>
-
-        <section class="section" id="jeju-trade">
-          <div class="section-heading">
-            <div><p class="eyebrow">JEJU TRADE SIGNAL</p><h2>제주반도체 수출입 데이터</h2></div>
-            <p class="section-note">제주 제주시 수출입 표 기반 · 월별 수출액·단가와 분기 수출액·매출액·OPM 비교</p>
-          </div>
-          <div class="jeju-trade-grid">
-            <div id="jejuTradeMonthly"></div>
-            <div id="jejuTradeQuarterly"></div>
-          </div>
         </section>
 
         <section class="section" id="quarterly-trends">
@@ -169,5 +166,6 @@
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="app.js" defer></script>
+  <script src="peer-comparison.js" defer></script>
 </body>
 </html>
