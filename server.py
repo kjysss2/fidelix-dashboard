@@ -269,6 +269,19 @@ class DashboardService:
 
     def _ensure_defaults(self, data: dict) -> None:
         """Add new dashboard sections to older cache files without discarding live data."""
+        seed_calendar = self.seed.get("calendar", [])
+        current_calendar = data.setdefault("calendar", [])
+        calendar_keys = {
+            (item.get("date"), item.get("company"), item.get("event"))
+            for item in current_calendar
+        }
+        for item in seed_calendar:
+            key = (item.get("date"), item.get("company"), item.get("event"))
+            if key not in calendar_keys:
+                current_calendar.append(copy.deepcopy(item))
+                calendar_keys.add(key)
+        current_calendar.sort(key=lambda item: item.get("date", ""))
+
         seed_sources = {source["id"]: source for source in self.seed.get("sources", [])}
         existing_sources = {source["id"]: source for source in data.get("sources", [])}
         merged_sources = []
@@ -1494,4 +1507,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
