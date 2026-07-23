@@ -140,6 +140,15 @@ main { margin-left: 236px; min-height: 100vh; }
 .hidden-card { display: none; }
 
 .chart-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.peer-compare-card { padding:22px; border:1px solid var(--line); border-radius:16px; background:var(--card); box-shadow:0 5px 18px rgba(29,45,38,.035); }
+.peer-compare-card svg { display:block; width:100%; height:auto; }
+.peer-compare-card>p { margin:10px 0 0; color:var(--muted); font-size:8px; }
+.peer-compare-legend { display:flex; flex-wrap:wrap; gap:10px 15px; margin-bottom:10px; color:var(--muted); font-size:8px; }
+.peer-compare-legend span { display:flex; align-items:center; gap:5px; }
+.peer-compare-legend i { width:10px; height:8px; border-radius:2px; }
+.peer-compare-legend .peer-dash { width:16px; height:0; border-top:2px dashed; border-radius:0; }
+.peer-compare-legend .peer-dash.f { border-color:#064d38; }.peer-compare-legend .peer-dash.d { border-color:#9a5d0b; }
+.peer-axis { fill:#7f8983; font:8px "DM Sans","Noto Sans KR",sans-serif; }
 .trend-card { min-width: 0; padding: 22px 20px 17px; border: 1px solid var(--line); border-radius: 16px; background: var(--card); box-shadow: 0 5px 18px rgba(29,45,38,.035); }
 .trend-head { display: flex; align-items: start; justify-content: space-between; gap: 12px; }
 .trend-company { display: block; font-size: 15px; font-weight: 800; }
@@ -200,44 +209,6 @@ main { margin-left: 236px; min-height: 100vh; }
 .quarter-tooltip div { display: grid; gap: 3px; }
 .quarter-tooltip span { font-size: 8px; line-height: 1.3; }
 .quarter-source { display: flex; justify-content: space-between; padding-top: 10px; border-top: 1px solid var(--line); color: var(--muted); font-size: 8px; }
-
-.jeju-trade-grid { display: grid; gap: 16px; }
-.trade-card { min-width: 0; padding: 22px 22px 16px; border: 1px solid var(--line); border-radius: 16px; background: var(--card); box-shadow: 0 5px 18px rgba(29,45,38,.035); }
-.trade-card-head { display: flex; justify-content: space-between; gap: 18px; align-items: start; }
-.trade-card-head span { display: block; font-size: 16px; font-weight: 850; }
-.trade-card-head small { display: block; margin-top: 6px; color: var(--muted); font-size: 9px; line-height: 1.45; }
-.trade-card-head strong { flex: 0 0 auto; padding: 5px 8px; border-radius: 6px; color: var(--green); background: var(--green-soft); font: 700 9px/1 "DM Sans", sans-serif; }
-.trade-kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 18px 0 13px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-.trade-kpis div { min-width: 0; padding: 12px 14px; border-left: 1px solid var(--line); }
-.trade-kpis div:first-child { border-left: 0; }
-.trade-kpis label { display: block; color: var(--muted); font-size: 8px; }
-.trade-kpis strong { display: block; margin-top: 7px; font: 800 17px/1.05 "DM Sans", "Noto Sans KR", sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.trade-kpis span { display: block; margin-top: 7px; color: var(--muted); font: 700 9px/1 "DM Sans", "Noto Sans KR", sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.trade-kpis span.positive-text, .trade-kpis strong.positive-text { color: var(--green); }
-.trade-kpis span.negative-text, .trade-kpis strong.negative-text { color: var(--red); }
-.trade-legend { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; margin: 4px 0 6px; color: var(--muted); font-size: 8px; }
-.trade-legend span { display: inline-flex; align-items: center; gap: 5px; }
-.trade-swatch { display: inline-block; width: 10px; height: 8px; border-radius: 2px; }
-.trade-swatch.revenue { background: #203f52; }
-.trade-swatch.export { background: #6f9cc3; }
-.trade-swatch.hot { background: #477fad; }
-.trade-line { display: inline-block; width: 16px; height: 0; border-top: 2px solid; }
-.trade-line.unit { border-color: #7d6b2c; }
-.trade-line.opm { border-color: #ff7a3d; }
-.trade-chart { display: block; width: 100%; height: auto; margin-top: 6px; overflow: visible; }
-.trade-bar { opacity: .86; transition: opacity .15s ease, filter .15s ease; }
-.trade-bar:hover { opacity: 1; filter: brightness(.88); }
-.trade-bar.export { fill: #6f9cc3; }
-.trade-bar.export.hot { fill: #477fad; }
-.trade-bar.revenue { fill: #203f52; }
-.trade-unit-line, .trade-opm-line { fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
-.trade-unit-line { stroke: #7d6b2c; }
-.trade-opm-line { stroke: #ff7a3d; }
-.trade-dot { fill: #fff; stroke-width: 1.8; }
-.trade-dot.unit { stroke: #7d6b2c; }
-.trade-dot.opm { stroke: #ff7a3d; }
-.trade-foot { display: flex; justify-content: space-between; gap: 14px; padding-top: 10px; border-top: 1px solid var(--line); color: var(--muted); font-size: 8px; }
-.trade-foot span:last-child { text-align: right; }
 
 .china-order-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .china-order-card { min-width: 0; padding: 23px; border: 1px solid var(--line); border-radius: 16px; background: var(--card); box-shadow: 0 5px 18px rgba(29,45,38,.035); }
@@ -352,10 +323,6 @@ footer p { margin: 0; }
   .spot-price-grid { grid-template-columns: 1fr; }
   .quarter-chart-grid { grid-template-columns: 1fr; }
   .china-order-grid { grid-template-columns: 1fr; }
-  .trade-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .trade-kpis div:nth-child(odd) { border-left: 0; }
-  #jeju-trade .section-heading { display: block; }
-  #jeju-trade .section-note { margin-top: 11px; line-height: 1.5; }
   #quarterly-trends .section-heading { display: block; }
   #quarterly-trends .section-note { margin-top: 11px; line-height: 1.5; }
   .setup-guide { grid-template-columns: 25px 1fr; }
@@ -381,15 +348,6 @@ footer p { margin: 0; }
   .spot-head { display: block; }
   .spot-head a { display: inline-block; margin-top: 10px; }
   .spot-kpis { grid-template-columns: 1fr; }
-  .trade-card { padding: 19px; }
-  .trade-card-head { display: block; }
-  .trade-card-head strong { display: inline-block; margin-top: 10px; }
-  .trade-kpis { grid-template-columns: 1fr; }
-  .trade-kpis div, .trade-kpis div:first-child { border-left: 0; border-top: 1px solid var(--line); }
-  .trade-kpis div:first-child { border-top: 0; }
-  .trade-foot { display: block; line-height: 1.5; }
-  .trade-foot span { display: block; }
-  .trade-foot span:last-child { margin-top: 4px; text-align: left; }
   .china-order-card { padding: 19px; }
   .china-order-head { display: block; }
   .china-order-head a { display: inline-block; margin-top: 10px; }
