@@ -3,7 +3,7 @@
   "title": "Fidelix Memory Radar",
   "subtitle": "메모리 업황과 피어 실적을 한 화면에서 추적합니다",
   "system": {
-    "lastRefresh": "2026-07-31T08:21:04+09:00",
+    "lastRefresh": "2026-07-31T18:54:53+09:00",
     "lastRefreshReason": "github-pages",
     "lastRefreshErrors": [],
     "refreshing": false,
@@ -32,7 +32,7 @@
         "currency": "KRW",
         "basis": "별도, 누적 기준일 수 있음"
       },
-      "updatedAt": "2026-07-31T08:20:03+09:00",
+      "updatedAt": "2026-07-31T18:53:54+09:00",
       "verification": "official",
       "sourceLabel": "OpenDART 연결재무제표",
       "sourceUrl": "https://opendart.fss.or.kr/",
@@ -198,7 +198,7 @@
         "currency": "TWD",
         "basis": "당월, NT$ million"
       },
-      "updatedAt": "2026-07-31T08:19:08+09:00",
+      "updatedAt": "2026-07-31T18:51:25+09:00",
       "verification": "official",
       "sourceLabel": "대만거래소 월매출",
       "sourceUrl": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
@@ -582,7 +582,7 @@
         "currency": "TWD",
         "basis": "당월, NT$ million"
       },
-      "updatedAt": "2026-07-31T08:21:07+09:00",
+      "updatedAt": "2026-07-31T18:55:08+09:00",
       "verification": "official",
       "sourceLabel": "대만거래소 월매출",
       "sourceUrl": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
@@ -968,7 +968,7 @@
         "currency": "TWD",
         "basis": "당월, NT$ million"
       },
-      "updatedAt": "2026-07-31T08:19:08+09:00",
+      "updatedAt": "2026-07-31T18:55:00+09:00",
       "verification": "official",
       "sourceLabel": "대만거래소 월매출",
       "sourceUrl": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
@@ -1197,17 +1197,6 @@
       ],
       "quarterlyHistory": [
         {
-          "period": "2023Q2",
-          "revenue": 7428.887,
-          "operatingIncome": -166.491,
-          "netIncome": 71.003,
-          "currency": "TWD",
-          "basis": "연결 단일분기",
-          "source": "MOPS",
-          "operatingMargin": -2.241129795082359,
-          "netMargin": 0.9557690135817115
-        },
-        {
           "period": "2023Q3",
           "revenue": 7283.103,
           "operatingIncome": -652.405,
@@ -1327,6 +1316,17 @@
           "source": "MOPS",
           "operatingMargin": 18.460181177181713,
           "netMargin": 16.996766030481993
+        },
+        {
+          "period": "2026Q2",
+          "revenue": 19124.524,
+          "operatingIncome": 8967.536,
+          "netIncome": 7735.793,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": 46.89024417026013,
+          "netMargin": 40.44959759521334
         }
       ]
     },
@@ -1352,7 +1352,7 @@
         "currency": "CNY",
         "basis": "H1 예비, CNY million"
       },
-      "updatedAt": "2026-07-31T08:19:42+09:00",
+      "updatedAt": "2026-07-31T18:53:33+09:00",
       "verification": "official-monitor",
       "sourceLabel": "2026년 반기 실적예고",
       "sourceUrl": "https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-07-21/688110_20260721_8A63.pdf",
@@ -1538,7 +1538,7 @@
         "currency": "KRW",
         "basis": "연결, 누적 기준일 수 있음"
       },
-      "updatedAt": "2026-07-31T08:20:08+09:00",
+      "updatedAt": "2026-07-31T18:53:59+09:00",
       "verification": "official",
       "sourceLabel": "OpenDART 연결재무제표",
       "sourceUrl": "https://opendart.fss.or.kr/",
@@ -1753,7 +1753,7 @@
   ],
   "feed": [
     {
-      "id": "sse-2026-07-31-443251616563116934",
+      "id": "sse-2026-07-31-9093852457339269448",
       "companyId": "dosilicon",
       "company": "Dosilicon",
       "date": "2026-07-31",
@@ -1764,7 +1764,7 @@
       "isNew": true
     },
     {
-      "id": "sse-2026-07-31-5089911418643821902",
+      "id": "sse-2026-07-31-5897229719770103906",
       "companyId": "dosilicon",
       "company": "Dosilicon",
       "date": "2026-07-31",
@@ -1797,7 +1797,7 @@
       "isNew": true
     },
     {
-      "id": "sse-2026-07-21-2350273940129109368",
+      "id": "sse-2026-07-21-2725787671825687611",
       "companyId": "dosilicon",
       "company": "Dosilicon",
       "date": "2026-07-21",
@@ -1852,7 +1852,7 @@
       "isNew": true
     },
     {
-      "id": "sse-2026-07-01-1075342516668890456",
+      "id": "sse-2026-07-01-8411902874872309388",
       "companyId": "dosilicon",
       "company": "Dosilicon",
       "date": "2026-07-01",
@@ -1863,7 +1863,7 @@
       "isNew": true
     },
     {
-      "id": "sse-2026-07-01-7583044295933509212",
+      "id": "sse-2026-07-01-7527387198893886820",
       "companyId": "dosilicon",
       "company": "Dosilicon",
       "date": "2026-07-01",
@@ -1874,7 +1874,7 @@
       "isNew": true
     },
     {
-      "id": "sse-2026-07-01-5901838811819459006",
+      "id": "sse-2026-07-01-7793793003421229841",
       "companyId": "dosilicon",
       "company": "Dosilicon",
       "date": "2026-07-01",
@@ -1957,7 +1957,7 @@
       "name": "대만거래소 OpenAPI",
       "status": "live",
       "message": "대만 3사 월매출·분기실적 갱신 완료 (2026Q2)",
-      "checkedAt": "2026-07-31T08:21:07+09:00",
+      "checkedAt": "2026-07-31T18:55:08+09:00",
       "url": "https://openapi.twse.com.tw/"
     },
     {
@@ -1965,7 +1965,7 @@
       "name": "OpenDART",
       "status": "live",
       "message": "국내 2개사 재무·공시 갱신 완료",
-      "checkedAt": "2026-07-31T08:20:08+09:00",
+      "checkedAt": "2026-07-31T18:53:59+09:00",
       "url": "https://opendart.fss.or.kr/"
     },
     {
@@ -1973,15 +1973,15 @@
       "name": "상하이거래소",
       "status": "live",
       "message": "Dosilicon 최근 공시 6건 확인",
-      "checkedAt": "2026-07-31T08:19:42+09:00",
+      "checkedAt": "2026-07-31T18:53:33+09:00",
       "url": "https://www.sse.com.cn/"
     },
     {
       "id": "dramexchange",
       "name": "DRAMeXchange",
       "status": "live",
-      "message": "DDR4/DDR5 현물가 2026-07-30 갱신 완료",
-      "checkedAt": "2026-07-31T08:19:44+09:00",
+      "message": "DDR4/DDR5 현물가 2026-07-31 갱신 완료",
+      "checkedAt": "2026-07-31T18:53:35+09:00",
       "url": "https://www.dramexchange.com/"
     },
     {
@@ -1989,7 +1989,7 @@
       "name": "GDS 공식 IR",
       "status": "live",
       "message": "GDS 신규수주·백로그 갱신 완료",
-      "checkedAt": "2026-07-31T08:19:46+09:00",
+      "checkedAt": "2026-07-31T18:53:36+09:00",
       "url": "https://investors.gds-services.com/financial-information/quarterly-results/"
     },
     {
@@ -1997,12 +1997,12 @@
       "name": "VNET 공식 IR",
       "status": "live",
       "message": "VNET 신규수주·확약용량 갱신 완료",
-      "checkedAt": "2026-07-31T08:19:51+09:00",
+      "checkedAt": "2026-07-31T18:53:41+09:00",
       "url": "https://ir.vnet.com/financial-information/quarterly-results/"
     }
   ],
   "chinaServerOrders": {
-    "updatedAt": "2026-07-31T08:19:51+09:00",
+    "updatedAt": "2026-07-31T18:53:41+09:00",
     "note": "공식 IR 원문에서 확인되는 중국 IDC 신규수주와 백로그만 표시합니다.",
     "companies": [
       {
@@ -2010,7 +2010,7 @@
         "name": "GDS",
         "sourceLabel": "GDS 공식 IR · GDS 1Q26 Earnings Presentation",
         "sourceUrl": "https://investors.gds-services.com/system/files-encrypted/nasdaq_kms/assets/2026/07/29/1-47-59/GDS%201Q26%20Earnings%20Presentation%200520%201700%20FINAL%281%29.pdf",
-        "updatedAt": "2026-07-31T08:19:46+09:00",
+        "updatedAt": "2026-07-31T18:53:36+09:00",
         "latest": {
           "label": "2Q26TD 신규수주",
           "value": 138,
@@ -2101,7 +2101,7 @@
         "name": "VNET",
         "sourceLabel": "VNET 공식 IR · Press Release",
         "sourceUrl": "https://ir.vnet.com/static-files/4e6384af-e95e-4838-9fa4-cad598c0dfef",
-        "updatedAt": "2026-07-31T08:19:51+09:00",
+        "updatedAt": "2026-07-31T18:53:41+09:00",
         "latest": {
           "label": "1Q26 YTD 신규수주",
           "value": 517,
@@ -2156,7 +2156,7 @@
     ]
   },
   "spotPrices": {
-    "updatedAt": "2026-07-31T08:19:44+09:00",
+    "updatedAt": "2026-07-31T18:53:35+09:00",
     "sourceLabel": "StockEasy / DRAMeXchange",
     "sourceUrl": "https://stockeasy.intellio.kr/market-analysis?tab=memory-prices",
     "note": "과거 90일은 StockEasy 메모리 화면 툴팁에서 수집했고, 이후 같은 DDR4 8Gb·DDR5 16Gb 품목의 공개 DRAMeXchange Session Average를 자동 누적합니다.",
@@ -2168,10 +2168,10 @@
         "unit": "USD",
         "color": "#2e7a8f",
         "latest": {
-          "date": "2026-07-30",
-          "sourceTime": "2026-07-30 18:10 GMT+8",
+          "date": "2026-07-31",
+          "sourceTime": "2026-07-31 14:40 GMT+8",
           "average": 50.967,
-          "change": 0.07,
+          "change": 0.0,
           "dailyHigh": 67.0,
           "dailyLow": 32.85,
           "sessionHigh": 67.0,
@@ -2711,6 +2711,17 @@
             "sessionHigh": 67.0,
             "sessionLow": 32.85,
             "source": "DRAMeXchange"
+          },
+          {
+            "date": "2026-07-31",
+            "sourceTime": "2026-07-31 14:40 GMT+8",
+            "average": 50.967,
+            "change": 0.0,
+            "dailyHigh": 67.0,
+            "dailyLow": 32.85,
+            "sessionHigh": 67.0,
+            "sessionLow": 32.85,
+            "source": "DRAMeXchange"
           }
         ]
       },
@@ -2721,10 +2732,10 @@
         "unit": "USD",
         "color": "#9a6f2e",
         "latest": {
-          "date": "2026-07-30",
-          "sourceTime": "2026-07-30 18:10 GMT+8",
-          "average": 42.13,
-          "change": 0.21,
+          "date": "2026-07-31",
+          "sourceTime": "2026-07-31 14:40 GMT+8",
+          "average": 42.112,
+          "change": -0.04,
           "dailyHigh": 74.0,
           "dailyLow": 20.3,
           "sessionHigh": 74.0,
@@ -3259,6 +3270,17 @@
             "sourceTime": "2026-07-30 18:10 GMT+8",
             "average": 42.13,
             "change": 0.21,
+            "dailyHigh": 74.0,
+            "dailyLow": 20.3,
+            "sessionHigh": 74.0,
+            "sessionLow": 20.3,
+            "source": "DRAMeXchange"
+          },
+          {
+            "date": "2026-07-31",
+            "sourceTime": "2026-07-31 14:40 GMT+8",
+            "average": 42.112,
+            "change": -0.04,
             "dailyHigh": 74.0,
             "dailyLow": 20.3,
             "sessionHigh": 74.0,
