@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-01T02:10:26+09:00",
+  "updatedAt": "2026-08-03T19:54:18+09:00",
   "sourceLabel": "StockEasy / DRAMeXchange",
   "sourceUrl": "https://stockeasy.intellio.kr/market-analysis?tab=memory-prices",
   "products": [
@@ -553,6 +553,17 @@
           "sessionHigh": 67.0,
           "sessionLow": 32.85,
           "source": "DRAMeXchange"
+        },
+        {
+          "date": "2026-08-03",
+          "sourceTime": "2026-08-03 18:10 GMT+8",
+          "average": 51.333,
+          "change": 0.72,
+          "dailyHigh": 67.0,
+          "dailyLow": 32.9,
+          "sessionHigh": 67.0,
+          "sessionLow": 32.9,
+          "source": "DRAMeXchange"
         }
       ]
     },
@@ -1105,6 +1116,17 @@
           "dailyLow": 20.3,
           "sessionHigh": 74.0,
           "sessionLow": 20.3,
+          "source": "DRAMeXchange"
+        },
+        {
+          "date": "2026-08-03",
+          "sourceTime": "2026-08-03 18:10 GMT+8",
+          "average": 42.112,
+          "change": 0.0,
+          "dailyHigh": 74.5,
+          "dailyLow": 20.4,
+          "sessionHigh": 74.5,
+          "sessionLow": 20.4,
           "source": "DRAMeXchange"
         }
       ]
