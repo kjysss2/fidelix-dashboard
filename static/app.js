@@ -277,9 +277,36 @@ function tradeUsd(value) {
   return `$${(Number(value) / 1000000).toLocaleString("ko-KR", {maximumFractionDigits: 1})}M`;
 }
 
-function tradeUnit(value) {
+function tradeUnitUsd(value) {
   if (value === null || value === undefined) return "\u2014";
   return `$${Number(value).toLocaleString("ko-KR", {maximumFractionDigits: 0})}`;
+}
+
+function tradeUnitKrwValue(item) {
+  if (!item) return null;
+  if (item.unitKrwPerKg !== null && item.unitKrwPerKg !== undefined) return Number(item.unitKrwPerKg);
+  const exportKrw = Number(item.exportKrwThousand);
+  const weight = Number(item.weightKg);
+  if (!Number.isFinite(exportKrw) || !Number.isFinite(weight) || weight <= 0) return null;
+  return exportKrw * 1000 / weight;
+}
+
+function tradeUnit(value) {
+  if (value === null || value === undefined || !Number.isFinite(Number(value))) return "\u2014";
+  const amount = Number(value);
+  if (amount >= 100000000) {
+    return `${(amount / 100000000).toLocaleString("ko-KR", {maximumFractionDigits: 1})}\uc5b5\uc6d0/kg`;
+  }
+  if (amount >= 10000) {
+    return `${(amount / 10000).toLocaleString("ko-KR", {maximumFractionDigits: 1})}\ub9cc\uc6d0/kg`;
+  }
+  return `${amount.toLocaleString("ko-KR", {maximumFractionDigits: 0})}\uc6d0/kg`;
+}
+
+function tradeUnitAxis(value) {
+  if (value >= 100000000) return `${(value / 100000000).toFixed(1)}\uc5b5`;
+  if (value >= 10000) return `${(value / 10000).toFixed(0)}\ub9cc`;
+  return `${value.toFixed(0)}`;
 }
 
 function signedPercent(value) {
@@ -305,6 +332,17 @@ function latestWith(rows, key) {
   return [...rows].reverse().find(item => item?.[key] !== null && item?.[key] !== undefined) || rows[rows.length - 1] || {};
 }
 
+function tradeUnitYoY(rows, item) {
+  const period = String(item?.period || "");
+  const match = period.match(/^(\d{4})-(\d{2})$/);
+  if (!match) return null;
+  const previous = rows.find(row => row.period === `${Number(match[1]) - 1}-${match[2]}`);
+  const currentUnit = tradeUnitKrwValue(item);
+  const previousUnit = tradeUnitKrwValue(previous);
+  if (!Number.isFinite(currentUnit) || !Number.isFinite(previousUnit) || previousUnit === 0) return null;
+  return currentUnit / previousUnit * 100 - 100;
+}
+
 function jejuTradeMonthlyMarkup(payload) {
   const monthly = normalizeTradeRows(payload?.monthly, payload?.monthlyColumns).sort((a,b) => String(a.period).localeCompare(String(b.period))).slice(-24);
   const quarterly = normalizeTradeRows(payload?.quarterly, payload?.quarterlyColumns).sort((a,b) => String(a.period).localeCompare(String(b.period)));
@@ -317,7 +355,8 @@ function jejuTradeMonthlyMarkup(payload) {
   const plotWidth = width - pad.left - pad.right;
   const plotHeight = height - pad.top - pad.bottom;
   const exports = monthly.map(item => Number(item.exportKrwThousand) / 100000);
-  const units = monthly.map(item => Number(item.unitUsd)).filter(value => Number.isFinite(value));
+  const unitSeries = monthly.map((item,index) => ({item, index, value: tradeUnitKrwValue(item)})).filter(point => Number.isFinite(point.value));
+  const units = unitSeries.map(point => point.value);
   const exportMax = Math.max(1, ...exports) * 1.12;
   const unitMax = Math.max(1, ...units) * 1.12;
   const slot = plotWidth / monthly.length;
@@ -332,33 +371,35 @@ function jejuTradeMonthlyMarkup(payload) {
     const value = exportMax - ratio * exportMax;
     return `<line x1="${pad.left}" y1="${gy}" x2="${width-pad.right}" y2="${gy}" class="chart-gridline"/><text x="${pad.left-7}" y="${gy+3}" text-anchor="end" class="quarter-axis-label">${value.toFixed(0)}</text>`;
   }).join("");
-  const rightLabels = [unitMax, unitMax / 2, 0].map((value,index) => `<text x="${width-pad.right+7}" y="${pad.top + index*plotHeight/2 + 3}" class="quarter-axis-label">$${value.toFixed(0)}</text>`).join("");
+  const rightLabels = [unitMax, unitMax / 2, 0].map((value,index) => `<text x="${width-pad.right+7}" y="${pad.top + index*plotHeight/2 + 3}" class="quarter-axis-label">${tradeUnitAxis(value)}</text>`).join("");
   const labelIndexes = monthly.map((_, index) => index).filter(index => index % 6 === 0 || index === monthly.length - 1);
   const labels = labelIndexes.map(index => `<text x="${x(index)}" y="${height-12}" text-anchor="middle" class="chart-xlabel">${tradeMonthLabel(monthly[index].period)}</text>`).join("");
   const bars = monthly.map((item,index) => {
     const value = Number(item.exportKrwThousand) / 100000;
     const y = exportY(value);
-    const title = `${item.period} \u00b7 \uc218\ucd9c\uc561 ${tradeEok(item.exportKrwThousand)} (${tradeUsd(item.exportUsd)}) \u00b7 \ub2e8\uac00 ${tradeUnit(item.unitUsd)} \u00b7 YoY ${signedPercent(item.exportYoY)} \u00b7 MoM ${signedPercent(item.exportMoM)}`;
+    const title = `${item.period} \u00b7 \uc218\ucd9c\uc561 ${tradeEok(item.exportKrwThousand)} \u00b7 \ub2e8\uac00 ${tradeUnit(tradeUnitKrwValue(item))} \u00b7 YoY ${signedPercent(item.exportYoY)} \u00b7 MoM ${signedPercent(item.exportMoM)}`;
     const hot = Number(item.exportYoY) >= 100 ? " hot" : "";
     return `<rect class="trade-bar export${hot}" x="${barX(index).toFixed(1)}" y="${y.toFixed(1)}" width="${barWidth.toFixed(1)}" height="${Math.max(1, baseline-y).toFixed(1)}" rx="1.5"><title>${esc(title)}</title></rect>`;
   }).join("");
-  const unitPoints = monthly.map((item,index) => `${x(index).toFixed(1)},${unitY(Number(item.unitUsd)).toFixed(1)}`).join(" ");
-  const unitDots = monthly.map((item,index) => index % 3 === 0 || index === monthly.length - 1 ? `<circle cx="${x(index).toFixed(1)}" cy="${unitY(Number(item.unitUsd)).toFixed(1)}" r="2.2" class="trade-dot unit"><title>${esc(`${item.period} \u00b7 \ub2e8\uac00 ${tradeUnit(item.unitUsd)} \u00b7 \ub2e8\uac00 MoM ${signedPercent(item.unitMoM)}`)}</title></circle>` : "").join("");
+  const unitPoints = unitSeries.map(point => `${x(point.index).toFixed(1)},${unitY(point.value).toFixed(1)}`).join(" ");
+  const unitDots = unitSeries.map(point => point.index % 3 === 0 || point.index === monthly.length - 1 ? `<circle cx="${x(point.index).toFixed(1)}" cy="${unitY(point.value).toFixed(1)}" r="2.2" class="trade-dot unit"><title>${esc(`${point.item.period} \u00b7 \ub2e8\uac00 ${tradeUnit(point.value)} \u00b7 \ub2e8\uac00 MoM ${signedPercent(point.item.unitMoM)}`)}</title></circle>` : "").join("");
+  const latestUnit = tradeUnitKrwValue(latest);
+  const latestUnitYoY = tradeUnitYoY(monthly, latest);
 
   return `<article class="trade-card">
     <div class="trade-card-head">
       <div><span>\uc6d4\ubcc4 \uc218\ucd9c\uc785 \ub370\uc774\ud130</span><small>${esc(payload?.basis || "\uc81c\uc8fc\ubc18\ub3c4\uccb4 \uc218\ucd9c\uc785 \ub370\uc774\ud130")}</small></div>
-      <strong>${tradeMonthLabel(latest.period)} ${latest.period === "2026-07" ? "(20D)" : ""}</strong>
+      <strong>${tradeMonthLabel(latest.period)} ${latest.period === "2026-07" ? "(\ud655\uc815)" : ""}</strong>
     </div>
     <div class="trade-kpis">
       <div><label>\ucd5c\uadfc \uc6d4 \uc218\ucd9c\uc561</label><strong>${tradeEok(latest.exportKrwThousand)}</strong><span class="${percentTone(latest.exportYoY)}">YoY ${signedPercent(latest.exportYoY)}</span></div>
       <div><label>\uc6d4\uac04 \uc99d\uac10</label><strong class="${percentTone(latest.exportMoM)}">${signedPercent(latest.exportMoM)}</strong><span>\uc218\ucd9c\uae08\uc561 MoM</span></div>
-      <div><label>\ub2e8\uac00</label><strong>${tradeUnit(latest.unitUsd)}</strong><span class="${percentTone(latest.unitMoM)}">MoM ${signedPercent(latest.unitMoM)}</span></div>
+      <div><label>\ub2e8\uac00</label><strong>${tradeUnit(latestUnit)}</strong><span class="${percentTone(latest.unitMoM)}">MoM ${signedPercent(latest.unitMoM)}${latestUnitYoY == null ? "" : ` \u00b7 YoY ${signedPercent(latestUnitYoY)}`}</span></div>
       <div><label>\ucd5c\uadfc \ubd84\uae30\ud569</label><strong>${tradeEok(latestQuarter.exportKrwThousand)}</strong><span class="${percentTone(latestQuarter.exportQoQ)}">QoQ ${signedPercent(latestQuarter.exportQoQ)}</span></div>
     </div>
     <div class="trade-legend"><span><i class="trade-swatch export"></i>\uc218\ucd9c\uc561</span><span><i class="trade-swatch hot"></i>YoY +100% \uc774\uc0c1</span><span><i class="trade-line unit"></i>\ub2e8\uac00</span></div>
     <svg class="trade-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="\uc81c\uc8fc\ubc18\ub3c4\uccb4 \uc6d4\ubcc4 \uc218\ucd9c\uc561\uacfc \ub2e8\uac00 \ucd94\uc774">
-      ${grid}${rightLabels}${bars}<polyline points="${unitPoints}" class="trade-unit-line"></polyline>${unitDots}${labels}
+      ${grid}${rightLabels}${bars}${unitPoints ? `<polyline points="${unitPoints}" class="trade-unit-line"></polyline>${unitDots}` : ""}${labels}
     </svg>
     <div class="trade-foot"><span>${tradeMonthLabel(monthly[0].period)}\u2013${tradeMonthLabel(latest.period)}</span><span>${esc(payload?.note || "")}</span></div>
   </article>`;
@@ -412,7 +453,7 @@ function jejuTradeQuarterMarkup(payload) {
   return `<article class="trade-card">
     <div class="trade-card-head">
       <div><span>\ubd84\uae30\ud569 + \ub9e4\ucd9c\uc561 + OPM</span><small>\uc218\ucd9c\uc561\uacfc \uc81c\uc8fc\ubc18\ub3c4\uccb4 \ubd84\uae30 \ub9e4\ucd9c\uc561\uc744 \uac19\uc740 \ucd95\uc73c\ub85c \ube44\uad50</small></div>
-      <strong>${tradeQuarterLabel(latestExport.period)} ${latestExport.period === "2026Q3" ? "(20D)" : ""}</strong>
+      <strong>${tradeQuarterLabel(latestExport.period)} ${latestExport.period === "2026Q3" ? "(7\uc6d4 \ub204\uacc4)" : ""}</strong>
     </div>
     <div class="trade-kpis">
       <div><label>\ucd5c\uadfc \uc218\ucd9c\uc561</label><strong>${tradeEok(latestExport.exportKrwThousand)}</strong><span class="${percentTone(latestExport.exportYoY)}">YoY ${signedPercent(latestExport.exportYoY)}</span></div>
