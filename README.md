@@ -14,7 +14,7 @@ PowerShell에서 다음 파일을 실행합니다.
 
 ## 자동 갱신 범위
 
-- Winbond·Nanya·Macronix: 대만거래소 OpenAPI 최신 월매출 + MOPS 최근 36개월 월매출 그래프(키 불필요)
+- Winbond·Nanya·Macronix: 대만거래소 OpenAPI + 각 사 공식 IR 선행발표 보완 + MOPS 최근 36개월 월매출 그래프(키 불필요)
 - Dosilicon: 상하이거래소 최근 공시 목록(키 불필요)
 - 피델릭스·제주반도체: OpenDART 분기 재무와 공시(OpenDART 키 필요)
 - GDS·VNET: 공식 IR 발표자료 기준 중국 IDC 신규수주(MW)와 백로그/확약용량

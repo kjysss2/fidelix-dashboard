@@ -40,6 +40,17 @@ NANYA_IR_LIST_URL = (
     "&year={year}&En_Pagetype=0"
 )
 NANYA_IR_BASE_URL = "https://www.nanya.com/en/IR/16/"
+WINBOND_MONTHLY_REVENUE_URL = (
+    "https://www.winbond.com/hq/about-winbond/investor/financial-information/"
+    "monthly-revenue/?__locale=en"
+)
+MACRONIX_MONTHLY_REVENUE_URL = (
+    "https://www.macronix.com/en-us/about/investor-relations/Pages/monthly-sales.aspx"
+)
+MACRONIX_MONTHLY_REVENUE_API = (
+    "https://www.macronix.com/_layouts/15/zMacronixPortal2016/about/"
+    "getMonthlySalesJson.aspx?Year={year}"
+)
 MOPS_HISTORY_URL = "https://mopsov.twse.com.tw/nas/t21/sii/t21sc03_{roc_year}_{month}_0.html"
 MOPS_FINANCIAL_URL = "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID={code}&SYEAR={year}&SSEASON={quarter}&REPORT_ID=C"
 TWSE_INCOME_URL = "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci"
@@ -304,6 +315,92 @@ def parse_nanya_monthly_release(source: str, period: str, source_url: str) -> di
     }
 
 
+def parse_winbond_monthly_page(source: str, source_url: str) -> dict | None:
+    """Parse the newest official Winbond monthly-revenue table."""
+    text = plain_text_from_html(source)
+    month_pattern = "|".join(name.title() for name in MONTH_NUMBERS)
+    header = re.search(
+        rf"\b({month_pattern})\s+(20\d{{2}})\s+Unit:\s*NT\$\s*1,000\s+"
+        rf"Revenue\s+Consolidated(?:\(Note\))?",
+        text,
+        flags=re.I,
+    )
+    if not header:
+        return None
+
+    month_name = header.group(1).title()
+    month = MONTH_NUMBERS[month_name.casefold()]
+    year = int(header.group(2))
+    period = f"{year}-{month:02d}"
+    previous_absolute = year * 12 + month - 2
+    previous_year = previous_absolute // 12
+    previous_month = previous_absolute % 12 + 1
+    previous_name = next(
+        name for name, number in MONTH_NUMBERS.items() if number == previous_month
+    ).title()
+    row = re.search(
+        rf"{year}\s+{month_name[:3]}\s+([\d,]+)\s+"
+        rf"{previous_year}\s+{previous_name[:3]}\s+([\d,]+)\s+"
+        rf"Increase\(Decrease\)\s+([+-]?[\d.]+)%\s+"
+        rf"{year - 1}\s+{month_name[:3]}\s+([\d,]+)\s+"
+        rf"Increase\(Decrease\)\s+([+-]?[\d.]+)%",
+        text[header.start():],
+        flags=re.I,
+    )
+    if not row:
+        return None
+
+    return {
+        "period": period,
+        "revenue": float(row.group(1).replace(",", "")) / 1000,
+        "mom": float(row.group(3)),
+        "yoy": float(row.group(5)),
+        "source": "Winbond official IR",
+        "sourceUrl": source_url,
+    }
+
+
+def parse_macronix_monthly_rows(rows: list[dict], source_url: str) -> dict | None:
+    """Parse the newest row from Macronix's official monthly-sales JSON."""
+    parsed: list[dict] = []
+    for row in rows:
+        year = str(row.get("Year", ""))
+        month = str(row.get("Month", "")).zfill(2)
+        revenue_thousand = clean_number(row.get("Revenue"))
+        prior_year_thousand = clean_number(row.get("Revenue_LY"))
+        if not re.fullmatch(r"20\d{2}", year) or not re.fullmatch(r"0[1-9]|1[0-2]", month):
+            continue
+        if revenue_thousand is None:
+            continue
+        parsed.append({
+            "period": f"{year}-{month}",
+            "revenueThousand": revenue_thousand,
+            "priorYearThousand": prior_year_thousand,
+        })
+    if not parsed:
+        return None
+
+    parsed.sort(key=lambda item: item["period"])
+    latest = parsed[-1]
+    previous = parsed[-2] if len(parsed) >= 2 else None
+    revenue_thousand = latest["revenueThousand"]
+    prior_year_thousand = latest["priorYearThousand"]
+    mom = None
+    if previous and previous["revenueThousand"] not in (None, 0):
+        mom = (revenue_thousand / previous["revenueThousand"] - 1) * 100
+    yoy = None
+    if prior_year_thousand not in (None, 0):
+        yoy = (revenue_thousand / prior_year_thousand - 1) * 100
+    return {
+        "period": latest["period"],
+        "revenue": revenue_thousand / 1000,
+        "mom": mom,
+        "yoy": yoy,
+        "source": "Macronix official IR",
+        "sourceUrl": source_url,
+    }
+
+
 def extract_pdf_text(payload: bytes) -> str:
     try:
         from pypdf import PdfReader
@@ -503,15 +600,36 @@ class DashboardService:
             try:
                 self._refresh_twse(working)
                 self._refresh_mops_history(working)
-                try:
-                    self._refresh_nanya_official_monthly(working)
-                except Exception as exc:
-                    errors.append(f"Nanya official IR monthly revenue: {exc}")
                 self._refresh_twse_quarterly(working)
                 updated_sources.append("TWSE")
             except Exception as exc:
                 errors.append(f"TWSE: {exc}")
                 self._source_error(working, "twse", str(exc))
+
+            official_monthly_updates: list[str] = []
+            official_monthly_refreshers = (
+                ("Winbond", self._refresh_winbond_official_monthly),
+                ("Nanya", self._refresh_nanya_official_monthly),
+                ("Macronix", self._refresh_macronix_official_monthly),
+            )
+            for label, refresher in official_monthly_refreshers:
+                try:
+                    if refresher(working):
+                        official_monthly_updates.append(label)
+                except Exception as exc:
+                    errors.append(f"{label} official IR monthly revenue: {exc}")
+            if official_monthly_updates:
+                self._source_status(
+                    working,
+                    "twse",
+                    "live",
+                    "3개사 월매출 갱신 · "
+                    + ", ".join(official_monthly_updates)
+                    + " official IR 보완",
+                )
+                updated_sources.extend(
+                    f"{label} official IR" for label in official_monthly_updates
+                )
 
             try:
                 self._refresh_sse(working)
@@ -602,6 +720,17 @@ class DashboardService:
                 continue
             found += 1
             company = self._company(data, company_id)
+            incoming_period = next(
+                (
+                    roc_period(str(value))
+                    for value in row.values()
+                    if re.fullmatch(r"\d{5}", str(value))
+                ),
+                "",
+            )
+            current_period = str(company.get("metrics", {}).get("period", ""))
+            if incoming_period and current_period and incoming_period < current_period:
+                continue
             revenue_thousand = clean_number(row.get("營業收入-當月營收"))
             revenue_million = revenue_thousand / 1000 if revenue_thousand is not None else None
             company["metrics"].update({
@@ -692,34 +821,39 @@ class DashboardService:
             message += f" (일부 {len(errors)}개월 재시도 예정)"
         self._source_status(data, "twse", "live", message)
 
-    def _refresh_nanya_official_monthly(self, data: dict) -> bool:
-        """Fill a Nanya month announced before the shared TWSE API catches up."""
-        year = datetime.now(KST).year
-        response = fetch_json(NANYA_IR_LIST_URL.format(year=year))
-        listing = response.get("msg", "") if isinstance(response, dict) else ""
-        release = find_nanya_latest_monthly_release(listing, year)
-        if not release:
-            return False
-
-        period, source_url = release
-        company = self._company(data, "nanya")
+    def _apply_official_monthly_item(
+        self,
+        data: dict,
+        company_id: str,
+        item: dict,
+    ) -> bool:
+        """Apply a newer official IR month without regressing cached data."""
+        company = self._company(data, company_id)
+        period = str(item["period"])
         current_period = str(company.get("metrics", {}).get("period", ""))
-        if period <= current_period:
+        history = {
+            entry["period"]: entry
+            for entry in company.get("monthlyHistory", [])
+            if entry.get("period")
+        }
+        if period < current_period or (period == current_period and period in history):
             return False
 
-        payload = fetch_bytes(source_url, timeout=35).decode("utf-8", "replace")
-        item = parse_nanya_monthly_release(payload, period, source_url)
-        if item is None:
-            raise RuntimeError(f"could not parse {period} official release")
+        revenue = float(item["revenue"])
+        mom = item.get("mom")
+        if mom is None:
+            previous_period = month_range(period, 2)[0]
+            previous_revenue = history.get(previous_period, {}).get("revenue")
+            if previous_revenue not in (None, 0):
+                mom = (revenue / float(previous_revenue) - 1) * 100
 
-        revenue = item["revenue"]
         company["metrics"].update({
             "period": period,
             "periodType": "월매출",
             "revenue": revenue,
             "revenueDisplay": f"NT$ {revenue / 100:,.1f}억",
-            "revenueYoY": item["yoy"],
-            "revenueQoQ": item["mom"],
+            "revenueYoY": item.get("yoy"),
+            "revenueQoQ": mom,
             "operatingIncome": None,
             "operatingIncomeDisplay": "월매출 공시 미제공",
             "netIncome": None,
@@ -731,32 +865,65 @@ class DashboardService:
             "updatedAt": now_iso(),
             "verification": "official",
             "sourceLabel": item["source"],
-            "sourceUrl": source_url,
-            "note": "Nanya official unaudited consolidated monthly revenue",
+            "sourceUrl": item["sourceUrl"],
+            "note": f"{item['source']} unaudited consolidated monthly revenue",
         })
-
-        history = {
-            entry["period"]: entry
-            for entry in company.get("monthlyHistory", [])
-            if entry.get("period")
-        }
         history[period] = {
             "period": period,
             "revenue": revenue,
-            "mom": item["mom"],
-            "yoy": item["yoy"],
+            "mom": mom,
+            "yoy": item.get("yoy"),
         }
         required = set(month_range(period, 36))
         company["monthlyHistory"] = [
             history[key] for key in sorted(history) if key in required
         ]
-        self._source_status(
-            data,
-            "twse",
-            "live",
-            f"3개사 월매출 갱신 · Nanya {period} official IR 보완",
-        )
         return True
+
+    def _refresh_winbond_official_monthly(self, data: dict) -> bool:
+        """Fill a Winbond month announced before the shared TWSE API catches up."""
+        payload = fetch_bytes(WINBOND_MONTHLY_REVENUE_URL, timeout=35)
+        item = parse_winbond_monthly_page(
+            payload.decode("utf-8", "replace"),
+            WINBOND_MONTHLY_REVENUE_URL,
+        )
+        if item is None:
+            raise RuntimeError("could not parse official monthly revenue page")
+        return self._apply_official_monthly_item(data, "winbond", item)
+
+    def _refresh_nanya_official_monthly(self, data: dict) -> bool:
+        """Fill a Nanya month announced before the shared TWSE API catches up."""
+        year = datetime.now(KST).year
+        response = fetch_json(NANYA_IR_LIST_URL.format(year=year))
+        listing = response.get("msg", "") if isinstance(response, dict) else ""
+        release = find_nanya_latest_monthly_release(listing, year)
+        if not release:
+            return False
+
+        period, source_url = release
+        company = self._company(data, "nanya")
+        history_periods = {
+            entry.get("period") for entry in company.get("monthlyHistory", [])
+        }
+        current_period = str(company.get("metrics", {}).get("period", ""))
+        if period < current_period or (period == current_period and period in history_periods):
+            return False
+
+        payload = fetch_bytes(source_url, timeout=35).decode("utf-8", "replace")
+        item = parse_nanya_monthly_release(payload, period, source_url)
+        if item is None:
+            raise RuntimeError(f"could not parse {period} official release")
+        return self._apply_official_monthly_item(data, "nanya", item)
+
+    def _refresh_macronix_official_monthly(self, data: dict) -> bool:
+        """Fill a Macronix month announced before the shared TWSE API catches up."""
+        year = datetime.now(KST).year
+        response = fetch_json(MACRONIX_MONTHLY_REVENUE_API.format(year=year))
+        rows = response if isinstance(response, list) else []
+        item = parse_macronix_monthly_rows(rows, MACRONIX_MONTHLY_REVENUE_URL)
+        if item is None:
+            raise RuntimeError(f"could not parse {year} official monthly revenue JSON")
+        return self._apply_official_monthly_item(data, "macronix", item)
 
     @staticmethod
     def _mops_row_value(source: str, labels: list[str], year: int, quarter: int) -> float | None:
