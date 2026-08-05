@@ -922,16 +922,17 @@
         },
         {
           "period": "2026Q2",
-          "revenue": 82549.073,
-          "operatingIncome": null,
-          "netIncome": 50190.0,
+          "revenue": 82549.0,
+          "operatingIncome": 60826.0,
+          "netIncome": 50192.0,
           "currency": "TWD",
-          "basis": "연결 단일분기·미감사 잠정실적",
-          "source": "Nanya unaudited preliminary results",
-          "sourceUrl": "https://www.reuters.com/world/asia-pacific/taiwanese-chipmaker-nanya-plans-6-billion-spending-2027-riding-ai-boom-2026-07-10/",
+          "basis": "연결 단일분기·미감사 실적발표",
+          "source": "Nanya official IR",
+          "sourceUrl": "https://www.nanya.com/en/IR/16/?IRId=13150",
           "announcementDate": "2026-07-10",
-          "operatingMargin": null,
-          "netMargin": 60.800198204527376
+          "isPreliminary": true,
+          "operatingMargin": 73.68472059019491,
+          "netMargin": 60.80267477498214
         }
       ]
     },
@@ -1814,8 +1815,8 @@
       "date": "2026-07-10",
       "title": "2026Q2 미감사 잠정실적",
       "type": "실적",
-      "url": "https://www.reuters.com/world/asia-pacific/taiwanese-chipmaker-nanya-plans-6-billion-spending-2027-riding-ai-boom-2026-07-10/",
-      "source": "Nanya unaudited preliminary results",
+      "url": "https://www.nanya.com/en/IR/16/?IRId=13150",
+      "source": "Nanya official IR",
       "isNew": true
     },
     {

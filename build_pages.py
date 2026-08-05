@@ -5,17 +5,25 @@ from __future__ import annotations
 
 import argparse
 import copy
+import html
 import json
 import os
 import re
 import shutil
+import urllib.parse
 from datetime import datetime
+from html.parser import HTMLParser
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
 STATIC_DIR = BASE_DIR / "static"
 DIST_DIR = BASE_DIR / "dist"
 TWSE_MATERIAL_URL = "https://openapi.twse.com.tw/v1/opendata/t187ap04_L"
+NANYA_PRESS_RELEASES_API = (
+    "https://www.nanya.com/en/Activity?Action=IR_PressCenter_year_Item"
+    "&year={year}&En_Pagetype=0"
+)
+NANYA_PRESS_RELEASE_BASE_URL = "https://www.nanya.com/en/IR/16/"
 
 # 2026Q2 was announced as unaudited preliminary results before the formal
 # MOPS quarterly financial statement became available. This one-time fallback
@@ -23,11 +31,11 @@ TWSE_MATERIAL_URL = "https://openapi.twse.com.tw/v1/opendata/t187ap04_L"
 # automatically overwrite the same period.
 NANYA_PRELIMINARY_FALLBACKS = {
     "2026Q2": {
-        "revenue": 82549.073,  # TWD million; Apr + May + Jun monthly revenue
-        "operatingIncome": None,
-        "netIncome": 50190.0,  # TWD million; unaudited preliminary result
-        "source": "Nanya unaudited preliminary results",
-        "sourceUrl": "https://www.reuters.com/world/asia-pacific/taiwanese-chipmaker-nanya-plans-6-billion-spending-2027-riding-ai-boom-2026-07-10/",
+        "revenue": 82549.0,
+        "operatingIncome": 60826.0,
+        "netIncome": 50192.0,
+        "source": "Nanya official IR",
+        "sourceUrl": "https://www.nanya.com/en/IR/16/?IRId=13150",
     },
 }
 
@@ -217,6 +225,117 @@ def sum_monthly_revenue(company: dict, year: int, quarter: int) -> float | None:
     return sum(float(history[period]) for period in required)
 
 
+def html_to_text(source: str) -> str:
+    """Collapse an HTML fragment into normalized visible text."""
+    return " ".join(html.unescape(re.sub(r"<[^>]+>", " ", source)).split())
+
+
+class AnchorTextParser(HTMLParser):
+    """Collect anchor destinations and their visible text."""
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.links: list[tuple[str, str]] = []
+        self._href: str | None = None
+        self._text: list[str] = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        if tag.casefold() != "a" or self._href is not None:
+            return
+        href = dict(attrs).get("href")
+        if href:
+            self._href = href
+            self._text = []
+
+    def handle_data(self, data: str) -> None:
+        if self._href is not None:
+            self._text.append(data)
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag.casefold() != "a" or self._href is None:
+            return
+        self.links.append((self._href, " ".join("".join(self._text).split())))
+        self._href = None
+        self._text = []
+
+
+def find_nanya_results_release_url(source: str, year: int, quarter: int) -> str | None:
+    """Find a quarter's earnings release from Nanya's official IR listing."""
+    quarter_name = {1: "First", 2: "Second", 3: "Third", 4: "Fourth"}[quarter]
+    expected = f"Nanya Technology Reports Results for the {quarter_name} Quarter {year}".casefold()
+    parser = AnchorTextParser()
+    parser.feed(source)
+    for href, text in parser.links:
+        if expected not in text.casefold():
+            continue
+        return urllib.parse.urljoin(NANYA_PRESS_RELEASE_BASE_URL, html.unescape(href))
+    return None
+
+
+def parse_nanya_results_release(
+    source: str,
+    year: int,
+    quarter: int,
+    source_url: str,
+) -> dict | None:
+    """Parse Nanya's official English quarterly earnings release."""
+    from server import with_margins
+
+    text = html_to_text(source)
+    quarter_name = {1: "first", 2: "second", 3: "third", 4: "fourth"}[quarter]
+    if f"{quarter_name} quarter {year}" not in text.casefold():
+        return None
+
+    def amount(label: str) -> float | None:
+        match = re.search(
+            rf"{label}[^.]*?NT\$\s*([\d,]+(?:\.\d+)?)\s*million",
+            text,
+            flags=re.I,
+        )
+        if not match:
+            return None
+        return float(match.group(1).replace(",", ""))
+
+    revenue = amount(r"quarterly sales revenue")
+    operating_income = amount(r"operating income of the quarter")
+    net_income = amount(r"\bnet income")
+    if revenue is None or operating_income is None or net_income is None:
+        return None
+
+    date_match = re.search(r"\b(20\d{2})[/-](\d{1,2})[/-](\d{1,2})\b", text)
+    announcement_date = None
+    if date_match:
+        announcement_date = "-".join(
+            (date_match.group(1), date_match.group(2).zfill(2), date_match.group(3).zfill(2))
+        )
+
+    return with_margins({
+        "period": f"{year}Q{quarter}",
+        "revenue": revenue,
+        "operatingIncome": operating_income,
+        "netIncome": net_income,
+        "currency": "TWD",
+        "basis": "연결 단일분기·미감사 실적발표",
+        "source": "Nanya official IR",
+        "sourceUrl": source_url,
+        "announcementDate": announcement_date,
+        "isPreliminary": True,
+    })
+
+
+def preliminary_nanya_from_official_ir(year: int, quarter: int) -> dict | None:
+    """Discover and parse Nanya's latest official quarterly press release."""
+    from server import fetch_bytes, fetch_json
+
+    response = fetch_json(NANYA_PRESS_RELEASES_API.format(year=year))
+    listing = response.get("msg", "") if isinstance(response, dict) else ""
+    release_url = find_nanya_results_release_url(listing, year, quarter)
+    if not release_url:
+        return None
+    release = fetch_bytes(release_url, timeout=35).decode("utf-8", "replace")
+    return parse_nanya_results_release(release, year, quarter, release_url)
+
+
 def preliminary_nanya_from_twse(service, data: dict, year: int, quarter: int) -> dict | None:
     """Read Nanya preliminary quarterly earnings from TWSE material disclosures."""
     from server import fetch_json, with_margins
@@ -299,6 +418,7 @@ def preliminary_nanya_fallback(service, data: dict, year: int, quarter: int) -> 
         "source": fallback["source"],
         "sourceUrl": fallback["sourceUrl"],
         "announcementDate": "2026-07-10",
+        "isPreliminary": True,
     })
 
 
@@ -361,18 +481,27 @@ def refresh_latest_completed_twse_quarter(service) -> dict:
             if company_id != "nanya":
                 errors.append(f"{company.get('name', company_id)} {target_period}: {exc}")
 
-        # Nanya often announces unaudited earnings before the formal MOPS
-        # financial statement is posted. Check TWSE material disclosures first.
+        # Nanya announces unaudited earnings before the formal MOPS statement.
+        # Prefer its official IR release, then fall back to TWSE material news.
         if item is None and company_id == "nanya":
+            lookup_errors: list[str] = []
             try:
-                item = preliminary_nanya_from_twse(service, working, year, quarter)
+                item = preliminary_nanya_from_official_ir(year, quarter)
             except Exception as exc:
-                errors.append(f"Nanya 잠정실적 공시 조회: {exc}")
+                lookup_errors.append(f"Nanya 공식 IR 조회: {exc}")
 
-            # One-time historical fallback for 2026Q2, which was already
-            # announced before this collector was enabled.
+            if item is None:
+                try:
+                    item = preliminary_nanya_from_twse(service, working, year, quarter)
+                except Exception as exc:
+                    lookup_errors.append(f"Nanya 잠정실적 공시 조회: {exc}")
+
+            # Verified fallback keeps a completed release from disappearing
+            # during a temporary Nanya/TWSE outage.
             if item is None:
                 item = preliminary_nanya_fallback(service, working, year, quarter)
+            if item is None:
+                errors.extend(lookup_errors)
 
         if item is None:
             continue
@@ -398,7 +527,9 @@ def refresh_latest_completed_twse_quarter(service) -> dict:
         company["updatedAt"] = now_iso()
         updated_companies.append(company.get("name", company_id))
 
-        if company_id == "nanya" and "잠정" in str(item.get("basis", "")):
+        if company_id == "nanya" and (
+            item.get("isPreliminary") or "잠정" in str(item.get("basis", ""))
+        ):
             add_preliminary_feed(working, item)
 
     if updated_companies:
