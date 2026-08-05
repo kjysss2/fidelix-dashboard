@@ -35,6 +35,11 @@ KST = timezone(timedelta(hours=9))
 DRAMEXCHANGE_URL = "https://www.dramexchange.com/"
 STOCKEASY_MEMORY_URL = "https://stockeasy.intellio.kr/market-analysis?tab=memory-prices"
 TWSE_URL = "https://openapi.twse.com.tw/v1/opendata/t187ap05_L"
+NANYA_IR_LIST_URL = (
+    "https://www.nanya.com/en/Activity?Action=IR_PressCenter_year_Item"
+    "&year={year}&En_Pagetype=0"
+)
+NANYA_IR_BASE_URL = "https://www.nanya.com/en/IR/16/"
 MOPS_HISTORY_URL = "https://mopsov.twse.com.tw/nas/t21/sii/t21sc03_{roc_year}_{month}_0.html"
 MOPS_FINANCIAL_URL = "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID={code}&SYEAR={year}&SSEASON={quarter}&REPORT_ID=C"
 TWSE_INCOME_URL = "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci"
@@ -226,6 +231,77 @@ def normalize_spaces(value: str) -> str:
 
 def plain_text_from_html(value: str) -> str:
     return normalize_spaces(html.unescape(re.sub(r"<[^>]+>", " ", value)))
+
+
+MONTH_NUMBERS = {
+    name.casefold(): number
+    for number, name in enumerate(
+        (
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December",
+        ),
+        start=1,
+    )
+}
+
+
+def find_nanya_latest_monthly_release(source: str, year: int) -> tuple[str, str] | None:
+    """Return the latest official Nanya monthly-revenue period and URL."""
+    parser = LinkParser()
+    parser.feed(source)
+    candidates: list[tuple[str, str]] = []
+    pattern = re.compile(
+        rf"Nanya\s+Technology\s+({'|'.join(name.title() for name in MONTH_NUMBERS)})\s+({year})\s+Revenue\b",
+        flags=re.I,
+    )
+    for link in parser.links:
+        match = pattern.search(html.unescape(link["text"]))
+        if not match:
+            continue
+        month = MONTH_NUMBERS[match.group(1).casefold()]
+        period = f"{year}-{month:02d}"
+        url = urllib.parse.urljoin(NANYA_IR_BASE_URL, html.unescape(link["href"]))
+        candidates.append((period, url))
+    return max(candidates, default=None)
+
+
+def parse_nanya_monthly_release(source: str, period: str, source_url: str) -> dict | None:
+    """Parse an official Nanya unaudited monthly-revenue release."""
+    year, month = (int(part) for part in period.split("-", 1))
+    month_name = next(name for name, number in MONTH_NUMBERS.items() if number == month).title()
+    text = plain_text_from_html(source)
+    expected_title = f"Nanya Technology {month_name} {year} Revenue"
+    if expected_title.casefold() not in text.casefold():
+        return None
+
+    amount_match = re.search(
+        rf"unaudited\s+consolidated\s+net\s+sales\s+revenue\s+of\s+"
+        rf"NT\$\s*([\d,]+(?:\.\d+)?)\s+million\s+for\s+{month_name}\s+{year}",
+        text,
+        flags=re.I,
+    )
+    if not amount_match:
+        return None
+
+    def percentage(label: str) -> float | None:
+        match = re.search(
+            rf"([\d,]+(?:\.\d+)?)%\s+(increase|decrease)\s+{label}",
+            text,
+            flags=re.I,
+        )
+        if not match:
+            return None
+        value = float(match.group(1).replace(",", ""))
+        return -value if match.group(2).casefold() == "decrease" else value
+
+    return {
+        "period": period,
+        "revenue": float(amount_match.group(1).replace(",", "")),
+        "mom": percentage("month-over-month"),
+        "yoy": percentage("year-over-year"),
+        "source": "Nanya official IR",
+        "sourceUrl": source_url,
+    }
 
 
 def extract_pdf_text(payload: bytes) -> str:
@@ -427,6 +503,10 @@ class DashboardService:
             try:
                 self._refresh_twse(working)
                 self._refresh_mops_history(working)
+                try:
+                    self._refresh_nanya_official_monthly(working)
+                except Exception as exc:
+                    errors.append(f"Nanya official IR monthly revenue: {exc}")
                 self._refresh_twse_quarterly(working)
                 updated_sources.append("TWSE")
             except Exception as exc:
@@ -611,6 +691,72 @@ class DashboardService:
         if errors:
             message += f" (일부 {len(errors)}개월 재시도 예정)"
         self._source_status(data, "twse", "live", message)
+
+    def _refresh_nanya_official_monthly(self, data: dict) -> bool:
+        """Fill a Nanya month announced before the shared TWSE API catches up."""
+        year = datetime.now(KST).year
+        response = fetch_json(NANYA_IR_LIST_URL.format(year=year))
+        listing = response.get("msg", "") if isinstance(response, dict) else ""
+        release = find_nanya_latest_monthly_release(listing, year)
+        if not release:
+            return False
+
+        period, source_url = release
+        company = self._company(data, "nanya")
+        current_period = str(company.get("metrics", {}).get("period", ""))
+        if period <= current_period:
+            return False
+
+        payload = fetch_bytes(source_url, timeout=35).decode("utf-8", "replace")
+        item = parse_nanya_monthly_release(payload, period, source_url)
+        if item is None:
+            raise RuntimeError(f"could not parse {period} official release")
+
+        revenue = item["revenue"]
+        company["metrics"].update({
+            "period": period,
+            "periodType": "월매출",
+            "revenue": revenue,
+            "revenueDisplay": f"NT$ {revenue / 100:,.1f}억",
+            "revenueYoY": item["yoy"],
+            "revenueQoQ": item["mom"],
+            "operatingIncome": None,
+            "operatingIncomeDisplay": "월매출 공시 미제공",
+            "netIncome": None,
+            "netIncomeDisplay": "월매출 공시 미제공",
+            "currency": "TWD",
+            "basis": "당월, NT$ million",
+        })
+        company.update({
+            "updatedAt": now_iso(),
+            "verification": "official",
+            "sourceLabel": item["source"],
+            "sourceUrl": source_url,
+            "note": "Nanya official unaudited consolidated monthly revenue",
+        })
+
+        history = {
+            entry["period"]: entry
+            for entry in company.get("monthlyHistory", [])
+            if entry.get("period")
+        }
+        history[period] = {
+            "period": period,
+            "revenue": revenue,
+            "mom": item["mom"],
+            "yoy": item["yoy"],
+        }
+        required = set(month_range(period, 36))
+        company["monthlyHistory"] = [
+            history[key] for key in sorted(history) if key in required
+        ]
+        self._source_status(
+            data,
+            "twse",
+            "live",
+            f"3개사 월매출 갱신 · Nanya {period} official IR 보완",
+        )
+        return True
 
     @staticmethod
     def _mops_row_value(source: str, labels: list[str], year: int, quarter: int) -> float | None:

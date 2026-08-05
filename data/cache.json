@@ -558,12 +558,12 @@
       "role": "Commodity DRAM",
       "focus": "범용 DRAM·DDR4/DDR5",
       "metrics": {
-        "period": "2026-06",
+        "period": "2026-07",
         "periodType": "월매출",
-        "revenue": 29388.309,
-        "revenueDisplay": "NT$ 293.9억",
-        "revenueYoY": 621.3354284927444,
-        "revenueQoQ": 6.211684658698802,
+        "revenue": 43868.0,
+        "revenueDisplay": "NT$ 438.7억",
+        "revenueYoY": 719.61,
+        "revenueQoQ": 49.27,
         "operatingIncome": null,
         "operatingIncomeDisplay": "월매출 공시 미제공",
         "netIncome": null,
@@ -571,22 +571,16 @@
         "currency": "TWD",
         "basis": "당월, NT$ million"
       },
-      "updatedAt": "2026-08-05T07:06:59+09:00",
+      "updatedAt": "2026-08-05T14:05:08+09:00",
       "verification": "official",
-      "sourceLabel": "대만거래소 월매출",
-      "sourceUrl": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
-      "note": "受市場需求成長影響。",
+      "sourceLabel": "Nanya official IR",
+      "sourceUrl": "https://www.nanya.com/en/IR/16/?IRId=13157",
+      "note": "Nanya official unaudited consolidated monthly revenue",
       "questions": [
         "DDR4 가격 급등의 지속 기간은?",
         "신공정 램프업 비용과 가동률 회복 속도는?"
       ],
       "monthlyHistory": [
-        {
-          "period": "2023-07",
-          "revenue": 2437.193,
-          "mom": -0.84,
-          "yoy": -44.56
-        },
         {
           "period": "2023-08",
           "revenue": 2574.894,
@@ -796,6 +790,12 @@
           "revenue": 29388.309,
           "mom": 6.21,
           "yoy": 621.33
+        },
+        {
+          "period": "2026-07",
+          "revenue": 43868.0,
+          "mom": 49.27,
+          "yoy": 719.61
         }
       ],
       "quarterlyHistory": [
@@ -1946,8 +1946,8 @@
       "id": "twse",
       "name": "대만거래소 OpenAPI",
       "status": "live",
-      "message": "대만 3사 월매출·분기실적 갱신 완료 (2026Q2)",
-      "checkedAt": "2026-08-05T07:06:59+09:00",
+      "message": "3개사 월매출 갱신 · Nanya 2026-07 official IR 보완",
+      "checkedAt": "2026-08-05T14:05:08+09:00",
       "url": "https://openapi.twse.com.tw/"
     },
     {
