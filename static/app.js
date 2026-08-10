@@ -150,8 +150,8 @@ function chartMarkup(company, color) {
 }
 
 function renderMonthlyCharts(companies) {
-  const colors = { winbond: "#0d6b4d", nanya: "#b87419", macronix: "#2e7a8f" };
-  const html = ["winbond", "nanya", "macronix"].map(id => {
+  const colors = { winbond: "#0d6b4d", nanya: "#b87419", macronix: "#2e7a8f", esmt: "#76549a" };
+  const html = ["winbond", "nanya", "macronix", "esmt"].map(id => {
     const company = companies.find(item => item.id === id);
     return company ? chartMarkup(company, colors[id]) : "";
   }).filter(Boolean).join("");
@@ -589,7 +589,7 @@ function bindQuarterTooltips(companies) {
 }
 
 function renderQuarterlyCharts(companies) {
-  const ordered = ["fidelix","jeju","winbond","nanya","macronix","dosilicon"].map(id => companies.find(company => company.id === id)).filter(Boolean);
+  const ordered = ["fidelix","jeju","winbond","nanya","macronix","esmt","dosilicon"].map(id => companies.find(company => company.id === id)).filter(Boolean);
   const html = ordered.map(quarterlyChartMarkup).filter(Boolean).join("");
   $("#quarterlyChartGrid").innerHTML = html || `<div class="chart-empty">\ubd84\uae30 \uc2e4\uc801 \uc774\ub825\uc744 \uc218\uc9d1 \uc911\uc785\ub2c8\ub2e4.</div>`;
   bindQuarterTooltips(ordered.filter(company => (company.quarterlyHistory || []).length >= 2));
@@ -660,7 +660,7 @@ function renderCalendar(events) {
 }
 
 function renderQuestions(companies) {
-  const ordered = ["fidelix", "jeju", "dosilicon", "nanya", "winbond", "macronix"];
+  const ordered = ["fidelix", "jeju", "dosilicon", "nanya", "winbond", "macronix", "esmt"];
   const questions = ordered.flatMap(id => {
     const company = companies.find(c => c.id === id);
     return (company?.questions || []).slice(0, 1).map(text => ({company: company.name, text}));

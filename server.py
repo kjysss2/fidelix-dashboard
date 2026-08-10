@@ -17,6 +17,7 @@ import urllib.parse
 import urllib.request
 import zipfile
 from datetime import datetime, timedelta, timezone
+from decimal import Decimal, ROUND_HALF_UP
 from http import HTTPStatus
 from html.parser import HTMLParser
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
@@ -51,6 +52,10 @@ MACRONIX_MONTHLY_REVENUE_API = (
     "https://www.macronix.com/_layouts/15/zMacronixPortal2016/about/"
     "getMonthlySalesJson.aspx?Year={year}"
 )
+ESMT_MONTHLY_REVENUE_LIST_URL = (
+    "https://www.esmt.com.tw/tw/press-room?category=investor-Info"
+)
+ESMT_IR_BASE_URL = "https://www.esmt.com.tw/tw/press-room/"
 MOPS_HISTORY_URL = "https://mopsov.twse.com.tw/nas/t21/sii/t21sc03_{roc_year}_{month}_0.html"
 MOPS_FINANCIAL_URL = "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID={code}&SYEAR={year}&SSEASON={quarter}&REPORT_ID=C"
 TWSE_INCOME_URL = "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci"
@@ -138,6 +143,14 @@ def clean_number(value: str | int | float | None) -> float | None:
         return float(str(value).replace(",", "").strip())
     except ValueError:
         return None
+
+
+def format_twd_yi(revenue_million: float) -> str:
+    value = (Decimal(str(revenue_million)) / Decimal("100")).quantize(
+        Decimal("0.1"),
+        rounding=ROUND_HALF_UP,
+    )
+    return f"NT$ {value:,.1f}억"
 
 
 def disclosure_sort_key(item: dict) -> str:
@@ -401,6 +414,52 @@ def parse_macronix_monthly_rows(rows: list[dict], source_url: str) -> dict | Non
     }
 
 
+def find_esmt_latest_monthly_release(source: str) -> tuple[str, str] | None:
+    """Return the newest ESMT monthly-revenue press release."""
+    parser = LinkParser()
+    parser.feed(source)
+    candidates: list[tuple[str, str]] = []
+    for link in parser.links:
+        match = re.search(
+            r"晶豪科技(20\d{2})年(0[1-9]|1[0-2])月份營收報告",
+            html.unescape(link["text"]),
+        )
+        if not match:
+            continue
+        period = f"{match.group(1)}-{match.group(2)}"
+        url = urllib.parse.urljoin(ESMT_IR_BASE_URL, html.unescape(link["href"]))
+        candidates.append((period, url))
+    return max(candidates, default=None)
+
+
+def parse_esmt_monthly_release(source: str, period: str, source_url: str) -> dict | None:
+    """Parse ESMT's official consolidated monthly-revenue announcement."""
+    year, month = period.split("-", 1)
+    text = plain_text_from_html(source)
+    if f"晶豪科技{year}年{month}月份營收報告" not in text:
+        return None
+    match = re.search(
+        rf"公布{year}年{month}月合併營業收入報告.*?"
+        rf"合併營收(?:入)?為新台幣\s*([\d.]+)\s*億元.*?"
+        rf"較去年同期(增加|減少)\s*([\d.]+)%",
+        text,
+        flags=re.S,
+    )
+    if not match:
+        return None
+    yoy = float(match.group(3))
+    if match.group(2) == "減少":
+        yoy = -yoy
+    return {
+        "period": period,
+        "revenue": round(float(match.group(1)) * 100, 6),
+        "mom": None,
+        "yoy": yoy,
+        "source": "ESMT official IR",
+        "sourceUrl": source_url,
+    }
+
+
 def extract_pdf_text(payload: bytes) -> str:
     try:
         from pypdf import PdfReader
@@ -611,6 +670,7 @@ class DashboardService:
                 ("Winbond", self._refresh_winbond_official_monthly),
                 ("Nanya", self._refresh_nanya_official_monthly),
                 ("Macronix", self._refresh_macronix_official_monthly),
+                ("ESMT", self._refresh_esmt_official_monthly),
             )
             for label, refresher in official_monthly_refreshers:
                 try:
@@ -623,7 +683,7 @@ class DashboardService:
                     working,
                     "twse",
                     "live",
-                    "3개사 월매출 갱신 · "
+                    "4개사 월매출 갱신 · "
                     + ", ".join(official_monthly_updates)
                     + " official IR 보완",
                 )
@@ -712,7 +772,12 @@ class DashboardService:
         rows = fetch_json(TWSE_URL)
         if not isinstance(rows, list):
             raise RuntimeError("예상하지 못한 응답 형식")
-        code_map = {"2344": "winbond", "2408": "nanya", "2337": "macronix"}
+        code_map = {
+            "2344": "winbond",
+            "2408": "nanya",
+            "2337": "macronix",
+            "3006": "esmt",
+        }
         found = 0
         for row in rows:
             company_id = code_map.get(row.get("公司代號"))
@@ -737,7 +802,7 @@ class DashboardService:
                 "period": roc_period(row.get("資料年月", "")),
                 "periodType": "월매출",
                 "revenue": revenue_million,
-                "revenueDisplay": f"NT$ {revenue_million / 100:,.1f}억" if revenue_million is not None else "—",
+                "revenueDisplay": format_twd_yi(revenue_million) if revenue_million is not None else "—",
                 "revenueYoY": clean_number(row.get("營業收入-去年同月增減(%)")),
                 "revenueQoQ": clean_number(row.get("營業收入-上月比較增減(%)")),
                 "operatingIncome": None,
@@ -754,16 +819,16 @@ class DashboardService:
                 "sourceUrl": TWSE_URL,
                 "note": row.get("備註") or "대만거래소 월매출 공시",
             })
-        if found != 3:
-            raise RuntimeError(f"대상 3개사 중 {found}개사만 확인")
-        self._source_status(data, "twse", "live", "3개사 월매출 갱신 완료")
+        if found != 4:
+            raise RuntimeError(f"대상 4개사 중 {found}개사만 확인")
+        self._source_status(data, "twse", "live", "4개사 월매출 갱신 완료")
 
     @staticmethod
     def _parse_mops_month(payload: bytes, period: str) -> dict[str, dict]:
         parser = CellParser()
         parser.feed(payload.decode("big5", "replace"))
         result: dict[str, dict] = {}
-        for code in ("2337", "2344", "2408"):
+        for code in ("2337", "2344", "2408", "3006"):
             try:
                 index = parser.cells.index(code)
                 revenue_thousand = clean_number(parser.cells[index + 2])
@@ -788,16 +853,29 @@ class DashboardService:
         return period, self._parse_mops_month(payload, period)
 
     def _refresh_mops_history(self, data: dict) -> None:
-        code_map = {"2344": "winbond", "2408": "nanya", "2337": "macronix"}
-        end_period = self._company(data, "winbond")["metrics"]["period"]
-        required_periods = month_range(end_period, 36)
+        code_map = {
+            "2344": "winbond",
+            "2408": "nanya",
+            "2337": "macronix",
+            "3006": "esmt",
+        }
         existing: dict[str, dict[str, dict]] = {code: {} for code in code_map}
+        required_by_code: dict[str, list[str]] = {}
         for code, company_id in code_map.items():
-            for item in self._company(data, company_id).get("monthlyHistory", []):
+            company = self._company(data, company_id)
+            end_period = str(company.get("metrics", {}).get("period", ""))
+            required_periods = month_range(end_period, 36)
+            required_by_code[code] = required_periods
+            for item in company.get("monthlyHistory", []):
                 if item.get("period") in required_periods:
                     existing[code][item["period"]] = item
 
-        missing = [period for period in required_periods if not all(period in existing[code] for code in code_map)]
+        missing = sorted({
+            period
+            for code, required_periods in required_by_code.items()
+            for period in required_periods
+            if period not in existing[code]
+        })
         errors: list[str] = []
         if missing:
             with ThreadPoolExecutor(max_workers=4) as executor:
@@ -813,10 +891,27 @@ class DashboardService:
 
         for code, company_id in code_map.items():
             company = self._company(data, company_id)
-            company["monthlyHistory"] = [existing[code][period] for period in required_periods if period in existing[code]]
+            required_periods = required_by_code[code]
+            refreshed = [
+                existing[code][period]
+                for period in required_periods
+                if period in existing[code]
+            ]
+            if len(refreshed) < 36:
+                merged = {
+                    item["period"]: item
+                    for item in company.get("monthlyHistory", [])
+                    if item.get("period")
+                }
+                merged.update({item["period"]: item for item in refreshed})
+                refreshed = [merged[period] for period in sorted(merged)[-36:]]
+            company["monthlyHistory"] = refreshed
 
-        complete = min(len(existing[code]) for code in code_map)
-        message = f"3개사 월매출·{complete}개월 이력 갱신 완료"
+        complete = min(
+            sum(period in existing[code] for period in required_by_code[code])
+            for code in code_map
+        )
+        message = f"4개사 월매출·{complete}개월 이력 갱신 완료"
         if errors:
             message += f" (일부 {len(errors)}개월 재시도 예정)"
         self._source_status(data, "twse", "live", message)
@@ -851,7 +946,7 @@ class DashboardService:
             "period": period,
             "periodType": "월매출",
             "revenue": revenue,
-            "revenueDisplay": f"NT$ {revenue / 100:,.1f}억",
+            "revenueDisplay": format_twd_yi(revenue),
             "revenueYoY": item.get("yoy"),
             "revenueQoQ": mom,
             "operatingIncome": None,
@@ -925,6 +1020,30 @@ class DashboardService:
             raise RuntimeError(f"could not parse {year} official monthly revenue JSON")
         return self._apply_official_monthly_item(data, "macronix", item)
 
+    def _refresh_esmt_official_monthly(self, data: dict) -> bool:
+        """Fill an ESMT month announced before the shared TWSE API catches up."""
+        listing = fetch_bytes(ESMT_MONTHLY_REVENUE_LIST_URL, timeout=35).decode(
+            "utf-8", "replace"
+        )
+        release = find_esmt_latest_monthly_release(listing)
+        if not release:
+            return False
+
+        period, source_url = release
+        company = self._company(data, "esmt")
+        history_periods = {
+            entry.get("period") for entry in company.get("monthlyHistory", [])
+        }
+        current_period = str(company.get("metrics", {}).get("period", ""))
+        if period < current_period or (period == current_period and period in history_periods):
+            return False
+
+        payload = fetch_bytes(source_url, timeout=35).decode("utf-8", "replace")
+        item = parse_esmt_monthly_release(payload, period, source_url)
+        if item is None:
+            raise RuntimeError(f"could not parse {period} official release")
+        return self._apply_official_monthly_item(data, "esmt", item)
+
     @staticmethod
     def _mops_row_value(source: str, labels: list[str], year: int, quarter: int) -> float | None:
         starts = {1: f"{year}0101", 2: f"{year}0401", 3: f"{year}0701", 4: f"{year}0101"}
@@ -965,7 +1084,12 @@ class DashboardService:
 
     def _refresh_twse_quarterly(self, data: dict) -> None:
         latest_rows = fetch_json(TWSE_INCOME_URL)
-        targets = {"2337": "macronix", "2344": "winbond", "2408": "nanya"}
+        targets = {
+            "2337": "macronix",
+            "2344": "winbond",
+            "2408": "nanya",
+            "3006": "esmt",
+        }
         latest_period = ""
         for row in latest_rows if isinstance(latest_rows, list) else []:
             if row.get("公司代號") in targets:

@@ -461,7 +461,12 @@ def refresh_latest_completed_twse_quarter(service) -> dict:
 
     year, quarter = latest_completed_quarter(datetime.now(KST))
     target_period = f"{year}Q{quarter}"
-    targets = {"2337": "macronix", "2344": "winbond", "2408": "nanya"}
+    targets = {
+        "2337": "macronix",
+        "2344": "winbond",
+        "2408": "nanya",
+        "3006": "esmt",
+    }
 
     with service.lock:
         working = copy.deepcopy(service.dashboard)
@@ -537,7 +542,7 @@ def refresh_latest_completed_twse_quarter(service) -> dict:
             working,
             "twse",
             "live",
-            f"대만 3사 월매출·분기실적 갱신 완료 ({target_period})",
+            f"대만 4사 월매출·분기실적 갱신 완료 ({target_period})",
         )
 
     existing_errors = list(working.get("system", {}).get("lastRefreshErrors", []))

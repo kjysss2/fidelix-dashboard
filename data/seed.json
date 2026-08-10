@@ -1329,6 +1329,390 @@
       ]
     },
     {
+      "id": "esmt",
+      "name": "ESMT",
+      "ticker": "3006",
+      "market": "TWSE",
+      "country": "TW",
+      "role": "Specialty DRAM",
+      "focus": "DRAM·LPDRAM·PSRAM·NOR Flash",
+      "metrics": {
+        "period": "2026-07",
+        "periodType": "월매출",
+        "revenue": 6785.0,
+        "revenueDisplay": "NT$ 67.9억",
+        "revenueYoY": 491.06,
+        "revenueQoQ": 40.027435884047776,
+        "operatingIncome": null,
+        "operatingIncomeDisplay": "월매출 공시 미제공",
+        "netIncome": null,
+        "netIncomeDisplay": "월매출 공시 미제공",
+        "currency": "TWD",
+        "basis": "당월, NT$ million"
+      },
+      "updatedAt": "2026-08-10T14:48:47+09:00",
+      "verification": "official",
+      "sourceLabel": "ESMT official IR",
+      "sourceUrl": "https://www.esmt.com.tw/tw/press-room/2026080401?category=investor-Info",
+      "note": "ESMT official IR unaudited consolidated monthly revenue",
+      "questions": [
+        "DRAM·PSRAM 가격 상승이 매출총이익률에 얼마나 반영되는가?",
+        "중국 메모리 공급 확대가 Specialty DRAM ASP에 미치는 영향은?"
+      ],
+      "monthlyHistory": [
+        {
+          "period": "2023-08",
+          "revenue": 961.951,
+          "mom": -6.85,
+          "yoy": -18.88
+        },
+        {
+          "period": "2023-09",
+          "revenue": 1026.869,
+          "mom": 6.74,
+          "yoy": -3.12
+        },
+        {
+          "period": "2023-10",
+          "revenue": 1079.154,
+          "mom": 5.09,
+          "yoy": 16.77
+        },
+        {
+          "period": "2023-11",
+          "revenue": 1066.325,
+          "mom": -1.18,
+          "yoy": 20.48
+        },
+        {
+          "period": "2023-12",
+          "revenue": 1018.994,
+          "mom": -4.43,
+          "yoy": 18.81
+        },
+        {
+          "period": "2024-01",
+          "revenue": 1090.218,
+          "mom": 6.98,
+          "yoy": 38.4
+        },
+        {
+          "period": "2024-02",
+          "revenue": 906.27,
+          "mom": -16.87,
+          "yoy": 1.84
+        },
+        {
+          "period": "2024-03",
+          "revenue": 1341.474,
+          "mom": 48.02,
+          "yoy": 29.0
+        },
+        {
+          "period": "2024-04",
+          "revenue": 1170.716,
+          "mom": -12.72,
+          "yoy": 21.94
+        },
+        {
+          "period": "2024-05",
+          "revenue": 1252.318,
+          "mom": 6.97,
+          "yoy": 20.07
+        },
+        {
+          "period": "2024-06",
+          "revenue": 1156.814,
+          "mom": -7.62,
+          "yoy": 18.32
+        },
+        {
+          "period": "2024-07",
+          "revenue": 1030.878,
+          "mom": -10.88,
+          "yoy": -0.17
+        },
+        {
+          "period": "2024-08",
+          "revenue": 1146.843,
+          "mom": 11.24,
+          "yoy": 19.22
+        },
+        {
+          "period": "2024-09",
+          "revenue": 1234.788,
+          "mom": 7.66,
+          "yoy": 20.24
+        },
+        {
+          "period": "2024-10",
+          "revenue": 1146.747,
+          "mom": -7.13,
+          "yoy": 6.26
+        },
+        {
+          "period": "2024-11",
+          "revenue": 963.752,
+          "mom": -15.95,
+          "yoy": -9.61
+        },
+        {
+          "period": "2024-12",
+          "revenue": 1044.351,
+          "mom": 8.36,
+          "yoy": 2.48
+        },
+        {
+          "period": "2025-01",
+          "revenue": 935.504,
+          "mom": -10.42,
+          "yoy": -14.19
+        },
+        {
+          "period": "2025-02",
+          "revenue": 917.212,
+          "mom": -1.95,
+          "yoy": 1.2
+        },
+        {
+          "period": "2025-03",
+          "revenue": 1050.219,
+          "mom": 14.5,
+          "yoy": -21.71
+        },
+        {
+          "period": "2025-04",
+          "revenue": 1031.627,
+          "mom": -1.77,
+          "yoy": -11.88
+        },
+        {
+          "period": "2025-05",
+          "revenue": 1125.618,
+          "mom": 9.11,
+          "yoy": -10.11
+        },
+        {
+          "period": "2025-06",
+          "revenue": 1131.185,
+          "mom": 0.49,
+          "yoy": -2.21
+        },
+        {
+          "period": "2025-07",
+          "revenue": 1147.877,
+          "mom": 1.47,
+          "yoy": 11.34
+        },
+        {
+          "period": "2025-08",
+          "revenue": 1120.861,
+          "mom": -2.35,
+          "yoy": -2.26
+        },
+        {
+          "period": "2025-09",
+          "revenue": 1308.368,
+          "mom": 16.72,
+          "yoy": 5.95
+        },
+        {
+          "period": "2025-10",
+          "revenue": 1234.94,
+          "mom": -5.61,
+          "yoy": 7.69
+        },
+        {
+          "period": "2025-11",
+          "revenue": 1401.078,
+          "mom": 13.45,
+          "yoy": 45.37
+        },
+        {
+          "period": "2025-12",
+          "revenue": 2170.785,
+          "mom": 54.93,
+          "yoy": 107.85
+        },
+        {
+          "period": "2026-01",
+          "revenue": 2146.214,
+          "mom": -1.13,
+          "yoy": 129.41
+        },
+        {
+          "period": "2026-02",
+          "revenue": 2094.881,
+          "mom": -2.39,
+          "yoy": 128.39
+        },
+        {
+          "period": "2026-03",
+          "revenue": 3025.805,
+          "mom": 44.43,
+          "yoy": 188.11
+        },
+        {
+          "period": "2026-04",
+          "revenue": 4634.223,
+          "mom": 53.15,
+          "yoy": 349.21
+        },
+        {
+          "period": "2026-05",
+          "revenue": 4466.516,
+          "mom": -3.61,
+          "yoy": 296.8
+        },
+        {
+          "period": "2026-06",
+          "revenue": 4845.479,
+          "mom": 8.48,
+          "yoy": 328.35
+        },
+        {
+          "period": "2026-07",
+          "revenue": 6785.0,
+          "mom": 40.027435884047776,
+          "yoy": 491.06
+        }
+      ],
+      "quarterlyHistory": [
+        {
+          "period": "2023Q3",
+          "revenue": 3021.539,
+          "operatingIncome": -378.989,
+          "netIncome": -145.13,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": -12.542912734205977,
+          "netMargin": -4.80318142509496
+        },
+        {
+          "period": "2023Q4",
+          "revenue": 3164.4739999999983,
+          "operatingIncome": -413.2629999999999,
+          "netIncome": -594.02,
+          "currency": "TWD",
+          "basis": "연결 단일분기(연간-1~3Q)",
+          "source": "MOPS",
+          "operatingMargin": -13.059453166624222,
+          "netMargin": -18.77152411427619
+        },
+        {
+          "period": "2024Q1",
+          "revenue": 3337.962,
+          "operatingIncome": -271.255,
+          "netIncome": -58.715,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": -8.126365728549336,
+          "netMargin": -1.7590074422656699
+        },
+        {
+          "period": "2024Q2",
+          "revenue": 3579.848,
+          "operatingIncome": 0.624,
+          "netIncome": 246.27,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": 0.01743090768099651,
+          "netMargin": 6.8793423631394415
+        },
+        {
+          "period": "2024Q3",
+          "revenue": 3412.509,
+          "operatingIncome": 40.909,
+          "netIncome": 208.108,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": 1.198795373140408,
+          "netMargin": 6.098386846745313
+        },
+        {
+          "period": "2024Q4",
+          "revenue": 3154.849,
+          "operatingIncome": -165.169,
+          "netIncome": 108.976,
+          "currency": "TWD",
+          "basis": "연결 단일분기(연간-1~3Q)",
+          "source": "MOPS",
+          "operatingMargin": -5.2354011237938805,
+          "netMargin": 3.454238221861014
+        },
+        {
+          "period": "2025Q1",
+          "revenue": 2902.935,
+          "operatingIncome": -155.886,
+          "netIncome": -76.176,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": -5.369944556113037,
+          "netMargin": -2.624102847635238
+        },
+        {
+          "period": "2025Q2",
+          "revenue": 3288.429,
+          "operatingIncome": -390.709,
+          "netIncome": -726.929,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": -11.881326919328346,
+          "netMargin": -22.105662004562056
+        },
+        {
+          "period": "2025Q3",
+          "revenue": 3577.106,
+          "operatingIncome": -82.382,
+          "netIncome": 13.541,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": -2.303034911461947,
+          "netMargin": 0.3785462326249208
+        },
+        {
+          "period": "2025Q4",
+          "revenue": 4806.802,
+          "operatingIncome": 973.544,
+          "netIncome": 1033.914,
+          "currency": "TWD",
+          "basis": "연결 단일분기(연간-1~3Q)",
+          "source": "MOPS",
+          "operatingMargin": 20.253465817814007,
+          "netMargin": 21.50939439569177
+        },
+        {
+          "period": "2026Q1",
+          "revenue": 7266.9,
+          "operatingIncome": 2254.754,
+          "netIncome": 2063.826,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": 31.027728467434535,
+          "netMargin": 28.400363291086983
+        },
+        {
+          "period": "2026Q2",
+          "revenue": 13946.218,
+          "operatingIncome": 7172.843,
+          "netIncome": 5905.129,
+          "currency": "TWD",
+          "basis": "연결 단일분기",
+          "source": "MOPS",
+          "operatingMargin": 51.43217322431071,
+          "netMargin": 42.342153263343505
+        }
+      ]
+    },
+    {
       "id": "dosilicon",
       "name": "Dosilicon",
       "ticker": "688110",
@@ -1664,14 +2048,14 @@
   "calendar": [
     {
       "date": "2026-07-10",
-      "company": "대만 3사",
+      "company": "대만 4사",
       "event": "6월 월매출 공시 예상",
       "importance": "high"
     },
     {
       "date": "2026-08-10",
-      "company": "\ub300\ub9cc 3\uc0ac",
-      "event": "7\uc6d4 \uc6d4\ub9e4\ucd9c \uacf5\uc2dc \uc608\uc0c1",
+      "company": "대만 4사",
+      "event": "7월 월매출 공시 예상",
       "importance": "high"
     },
     {
@@ -1688,13 +2072,13 @@
     },
     {
       "date": "2026-09-10",
-      "company": "\ub300\ub9cc 3\uc0ac",
-      "event": "8\uc6d4 \uc6d4\ub9e4\ucd9c \uacf5\uc2dc \uc608\uc0c1",
+      "company": "대만 4사",
+      "event": "8월 월매출 공시 예상",
       "importance": "high"
     },
     {
       "date": "2026-10-10",
-      "company": "대만 3사",
+      "company": "대만 4사",
       "event": "9월 월매출 공시 예상",
       "importance": "medium"
     }
@@ -1705,7 +2089,7 @@
       "label": "메모리 가격",
       "value": "상승",
       "tone": "positive",
-      "detail": "대만 3사 5월 매출이 전년 대비 큰 폭 증가"
+      "detail": "대만 4사 최근 매출이 전년 대비 큰 폭 증가"
     },
     {
       "id": "profit",
@@ -1934,8 +2318,8 @@
       "id": "twse",
       "name": "대만거래소 OpenAPI",
       "status": "live",
-      "message": "3개사 월매출·36개월 이력 갱신 완료",
-      "checkedAt": "2026-07-10T10:22:34+09:00",
+      "message": "4개사 월매출·36개월 이력 갱신 완료",
+      "checkedAt": "2026-08-10T14:48:45+09:00",
       "url": "https://openapi.twse.com.tw/"
     },
     {

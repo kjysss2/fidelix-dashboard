@@ -115,6 +115,7 @@ class TaiwanPeerOfficialMonthlyTests(unittest.TestCase):
             row("2344", 20596799),
             row("2408", 29388309),
             row("2337", 6956348),
+            row("3006", 4845479),
         ]
         data = copy.deepcopy(server.SERVICE.dashboard)
         nanya = next(company for company in data["companies"] if company["id"] == "nanya")
