@@ -1697,15 +1697,20 @@ class DashboardService:
         return result
 
     @staticmethod
-    def _dart_metric(rows: list[dict], patterns: list[str]) -> tuple[float | None, str | None]:
+    def _dart_metric(
+        rows: list[dict],
+        patterns: list[str],
+        amount_keys: tuple[str, ...] = ("thstrm_amount",),
+    ) -> tuple[float | None, str | None]:
         for pattern in patterns:
             for row in rows:
                 account = row.get("account_nm", "")
                 section = row.get("sj_nm", "")
                 if re.search(pattern, account) and section in ("손익계산서", "포괄손익계산서"):
-                    value = clean_number(row.get("thstrm_amount"))
-                    if value is not None:
-                        return value, account
+                    for amount_key in amount_keys:
+                        value = clean_number(row.get(amount_key))
+                        if value is not None:
+                            return value, account
         return None, None
 
     def _dart_financials(self, api_key: str, corp_code: str) -> tuple[dict, list[dict]]:
@@ -1734,9 +1739,10 @@ class DashboardService:
                     rows = result.get("list", [])
                     if not rows:
                         continue
-                    revenue, _ = self._dart_metric(rows, [r"^매출액$", r"^수익\(매출액\)$", r"^영업수익$"])
-                    op_income, _ = self._dart_metric(rows, [r"^영업이익", r"영업손익"])
-                    net_income, _ = self._dart_metric(rows, [r"지배기업.*순이익", r"당기순이익", r"분기순이익"])
+                    amount_keys = ("thstrm_add_amount", "thstrm_amount") if report_code in ("11012", "11014") else ("thstrm_amount",)
+                    revenue, _ = self._dart_metric(rows, [r"^매출액$", r"^수익\(매출액\)$", r"^영업수익$"], amount_keys)
+                    op_income, _ = self._dart_metric(rows, [r"^영업이익", r"영업손익"], amount_keys)
+                    net_income, _ = self._dart_metric(rows, [r"지배기업.*순이익", r"당기순이익", r"분기순이익"], amount_keys)
                     return ({
                         "period": f"{year} {period_name}",
                         "periodType": "정기보고서",
