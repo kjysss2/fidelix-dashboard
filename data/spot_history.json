@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-21T15:56:34+09:00",
+  "updatedAt": "2026-09-21T23:27:40+09:00",
   "sourceLabel": "StockEasy / DRAMeXchange",
   "sourceUrl": "https://stockeasy.intellio.kr/market-analysis?tab=memory-prices",
   "products": [
@@ -941,7 +941,7 @@
         },
         {
           "date": "2026-09-21",
-          "sourceTime": "2026-09-21 14:40 GMT+8",
+          "sourceTime": "2026-09-21 18:10 GMT+8",
           "average": 56.933,
           "change": 1.67,
           "dailyHigh": 68.0,
@@ -1890,7 +1890,7 @@
         },
         {
           "date": "2026-09-21",
-          "sourceTime": "2026-09-21 14:40 GMT+8",
+          "sourceTime": "2026-09-21 18:10 GMT+8",
           "average": 46.036,
           "change": 0.0,
           "dailyHigh": 83.0,
