@@ -3,7 +3,7 @@
   "title": "Fidelix Memory Radar",
   "subtitle": "메모리 업황과 피어 실적을 한 화면에서 추적합니다",
   "system": {
-    "lastRefresh": "2026-10-28T16:17:31+09:00",
+    "lastRefresh": "2026-10-28T23:31:58+09:00",
     "lastRefreshReason": "github-pages",
     "lastRefreshErrors": [],
     "refreshing": false,
@@ -32,7 +32,7 @@
         "currency": "KRW",
         "basis": "별도, 누적 기준일 수 있음"
       },
-      "updatedAt": "2026-10-28T16:16:37+09:00",
+      "updatedAt": "2026-10-28T23:25:42+09:00",
       "verification": "official",
       "sourceLabel": "OpenDART 연결재무제표",
       "sourceUrl": "https://opendart.fss.or.kr/",
@@ -198,7 +198,7 @@
         "currency": "TWD",
         "basis": "당월, NT$ million"
       },
-      "updatedAt": "2026-10-28T16:12:31+09:00",
+      "updatedAt": "2026-10-28T23:19:51+09:00",
       "verification": "official",
       "sourceLabel": "대만거래소 월매출",
       "sourceUrl": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
@@ -582,7 +582,7 @@
         "currency": "TWD",
         "basis": "당월, NT$ million"
       },
-      "updatedAt": "2026-10-28T16:17:38+09:00",
+      "updatedAt": "2026-10-28T23:32:07+09:00",
       "verification": "official",
       "sourceLabel": "대만거래소 월매출",
       "sourceUrl": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
@@ -969,7 +969,7 @@
         "currency": "TWD",
         "basis": "당월, NT$ million"
       },
-      "updatedAt": "2026-10-28T16:12:31+09:00",
+      "updatedAt": "2026-10-28T23:19:51+09:00",
       "verification": "official",
       "sourceLabel": "대만거래소 월매출",
       "sourceUrl": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
@@ -1353,7 +1353,7 @@
         "currency": "TWD",
         "basis": "당월, NT$ million"
       },
-      "updatedAt": "2026-10-28T16:18:03+09:00",
+      "updatedAt": "2026-10-28T23:32:22+09:00",
       "verification": "official",
       "sourceLabel": "대만거래소 월매출",
       "sourceUrl": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
@@ -1737,7 +1737,7 @@
         "currency": "CNY",
         "basis": "H1 예비, CNY million"
       },
-      "updatedAt": "2026-10-28T16:16:17+09:00",
+      "updatedAt": "2026-10-28T23:21:33+09:00",
       "verification": "official-monitor",
       "sourceLabel": "2026년 반기 실적예고",
       "sourceUrl": "https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-07-21/688110_20260721_8A63.pdf",
@@ -1903,7 +1903,7 @@
         "currency": "KRW",
         "basis": "연결, 누적 기준일 수 있음"
       },
-      "updatedAt": "2026-10-28T16:16:40+09:00",
+      "updatedAt": "2026-10-28T23:25:50+09:00",
       "verification": "official",
       "sourceLabel": "OpenDART 연결재무제표",
       "sourceUrl": "https://opendart.fss.or.kr/",
@@ -2130,7 +2130,62 @@
   ],
   "feed": [
     {
-      "id": "sse-2026-10-27-7603251545295876172",
+      "id": "dart-20261028900781",
+      "companyId": "fidelix",
+      "company": "피델릭스",
+      "date": "20261028",
+      "title": "기타시장안내              (상장적격성 실질심사 관련 안내)",
+      "type": "공시",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261028900781",
+      "source": "OpenDART",
+      "isNew": true
+    },
+    {
+      "id": "dart-20261028900784",
+      "companyId": "fidelix",
+      "company": "피델릭스",
+      "date": "20261028",
+      "title": "주권매매거래정지기간변경              (상장적격성 실질심사 대상(사유발생))",
+      "type": "공시",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261028900784",
+      "source": "OpenDART",
+      "isNew": true
+    },
+    {
+      "id": "dart-20261028900777",
+      "companyId": "fidelix",
+      "company": "피델릭스",
+      "date": "20261028",
+      "title": "회계처리기준위반행위로인한증권선물위원회의검찰고발등              ",
+      "type": "공시",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261028900777",
+      "source": "OpenDART",
+      "isNew": true
+    },
+    {
+      "id": "dart-20261028900730",
+      "companyId": "fidelix",
+      "company": "피델릭스",
+      "date": "20261028",
+      "title": "조회공시요구(풍문또는보도)              (회계처리기준 위반)",
+      "type": "공시",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261028900730",
+      "source": "OpenDART",
+      "isNew": true
+    },
+    {
+      "id": "dart-20261028900737",
+      "companyId": "fidelix",
+      "company": "피델릭스",
+      "date": "20261028",
+      "title": "주권매매거래정지              (풍문 또는 보도 관련)",
+      "type": "공시",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261028900737",
+      "source": "OpenDART",
+      "isNew": true
+    },
+    {
+      "id": "sse-2026-10-27-5023250693161439831",
       "companyId": "dosilicon",
       "company": "Dosilicon",
       "date": "2026-10-27",
@@ -2141,7 +2196,7 @@
       "isNew": true
     },
     {
-      "id": "sse-2026-10-27-7367988826517073072",
+      "id": "sse-2026-10-27-3333919378524658951",
       "companyId": "dosilicon",
       "company": "Dosilicon",
       "date": "2026-10-27",
@@ -2152,7 +2207,7 @@
       "isNew": true
     },
     {
-      "id": "sse-2026-10-27-7678560418489023723",
+      "id": "sse-2026-10-27-1720591887987884893",
       "companyId": "dosilicon",
       "company": "Dosilicon",
       "date": "2026-10-27",
@@ -2163,7 +2218,7 @@
       "isNew": true
     },
     {
-      "id": "sse-2026-10-27-5621685166101711612",
+      "id": "sse-2026-10-27-3030912717078298220",
       "companyId": "dosilicon",
       "company": "Dosilicon",
       "date": "2026-10-27",
@@ -2174,7 +2229,7 @@
       "isNew": true
     },
     {
-      "id": "sse-2026-10-27-2823111598848653734",
+      "id": "sse-2026-10-27-7764468041046922635",
       "companyId": "dosilicon",
       "company": "Dosilicon",
       "date": "2026-10-27",
@@ -2185,7 +2240,7 @@
       "isNew": true
     },
     {
-      "id": "sse-2026-10-27-6559756692934298848",
+      "id": "sse-2026-10-27-4049706542764917303",
       "companyId": "dosilicon",
       "company": "Dosilicon",
       "date": "2026-10-27",
@@ -2218,17 +2273,6 @@
       "isNew": true
     },
     {
-      "id": "dart-20261013900239",
-      "companyId": "fidelix",
-      "company": "피델릭스",
-      "date": "20261013",
-      "title": "단일판매ㆍ공급계약체결              ",
-      "type": "공시",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261013900239",
-      "source": "OpenDART",
-      "isNew": true
-    },
-    {
       "id": "nanya-preliminary-2026q3",
       "companyId": "nanya",
       "company": "Nanya",
@@ -2247,39 +2291,6 @@
       "title": "주식등의대량보유상황보고서(약식)",
       "type": "공시",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261007000312",
-      "source": "OpenDART",
-      "isNew": true
-    },
-    {
-      "id": "dart-20261006900124",
-      "companyId": "fidelix",
-      "company": "피델릭스",
-      "date": "20261006",
-      "title": "단기차입금증가결정              ",
-      "type": "공시",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261006900124",
-      "source": "OpenDART",
-      "isNew": true
-    },
-    {
-      "id": "dart-20260930900182",
-      "companyId": "fidelix",
-      "company": "피델릭스",
-      "date": "20260930",
-      "title": "단기차입금증가결정              ",
-      "type": "공시",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260930900182",
-      "source": "OpenDART",
-      "isNew": true
-    },
-    {
-      "id": "dart-20260930000121",
-      "companyId": "fidelix",
-      "company": "피델릭스",
-      "date": "20260930",
-      "title": "[기재정정]반기보고서 (2026.06)",
-      "type": "공시",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260930000121",
       "source": "OpenDART",
       "isNew": true
     },
@@ -2306,17 +2317,6 @@
       "isNew": true
     },
     {
-      "id": "dart-20260812000003",
-      "companyId": "fidelix",
-      "company": "피델릭스",
-      "date": "20260812",
-      "title": "[첨부추가]반기보고서 (2026.06)",
-      "type": "공시",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260812000003",
-      "source": "OpenDART",
-      "isNew": true
-    },
-    {
       "id": "nanya-preliminary-2026q2",
       "companyId": "nanya",
       "company": "Nanya",
@@ -2334,7 +2334,7 @@
       "name": "대만거래소 OpenAPI",
       "status": "live",
       "message": "대만 4사 월매출·분기실적 갱신 완료 (2026Q3)",
-      "checkedAt": "2026-10-28T16:18:03+09:00",
+      "checkedAt": "2026-10-28T23:32:22+09:00",
       "url": "https://openapi.twse.com.tw/"
     },
     {
@@ -2342,7 +2342,7 @@
       "name": "OpenDART",
       "status": "live",
       "message": "국내 2개사 재무·공시 갱신 완료",
-      "checkedAt": "2026-10-28T16:16:41+09:00",
+      "checkedAt": "2026-10-28T23:25:51+09:00",
       "url": "https://opendart.fss.or.kr/"
     },
     {
@@ -2350,7 +2350,7 @@
       "name": "상하이거래소",
       "status": "live",
       "message": "Dosilicon 최근 공시 6건 확인",
-      "checkedAt": "2026-10-28T16:16:17+09:00",
+      "checkedAt": "2026-10-28T23:21:33+09:00",
       "url": "https://www.sse.com.cn/"
     },
     {
@@ -2358,7 +2358,7 @@
       "name": "DRAMeXchange",
       "status": "live",
       "message": "DDR4/DDR5 현물가 2026-10-28 갱신 완료",
-      "checkedAt": "2026-10-28T16:16:19+09:00",
+      "checkedAt": "2026-10-28T23:21:36+09:00",
       "url": "https://www.dramexchange.com/"
     },
     {
@@ -2366,7 +2366,7 @@
       "name": "GDS 공식 IR",
       "status": "live",
       "message": "GDS 신규수주·백로그 갱신 완료",
-      "checkedAt": "2026-10-28T16:16:22+09:00",
+      "checkedAt": "2026-10-28T23:21:38+09:00",
       "url": "https://investors.gds-services.com/financial-information/quarterly-results/"
     },
     {
@@ -2374,12 +2374,12 @@
       "name": "VNET 공식 IR",
       "status": "live",
       "message": "VNET 신규수주·확약용량 갱신 완료",
-      "checkedAt": "2026-10-28T16:16:26+09:00",
+      "checkedAt": "2026-10-28T23:21:42+09:00",
       "url": "https://ir.vnet.com/financial-information/quarterly-results/"
     }
   ],
   "chinaServerOrders": {
-    "updatedAt": "2026-10-28T16:16:26+09:00",
+    "updatedAt": "2026-10-28T23:21:42+09:00",
     "note": "공식 IR 원문에서 확인되는 중국 IDC 신규수주와 백로그만 표시합니다.",
     "companies": [
       {
@@ -2387,7 +2387,7 @@
         "name": "GDS",
         "sourceLabel": "GDS 공식 IR · GDS 2Q26 Earnings Presentation",
         "sourceUrl": "https://investors.gds-services.com/system/files-encrypted/nasdaq_kms/assets/2026/08/13/9-41-50/GDS%202Q26%20Earnings%20Presentation%200813%20FINAL%284%29.pdf",
-        "updatedAt": "2026-10-28T16:16:22+09:00",
+        "updatedAt": "2026-10-28T23:21:38+09:00",
         "latest": {
           "label": "2Q26TD 신규수주",
           "value": 138,
@@ -2478,7 +2478,7 @@
         "name": "VNET",
         "sourceLabel": "VNET 공식 IR · Press Release",
         "sourceUrl": "https://ir.vnet.com/static-files/4e6384af-e95e-4838-9fa4-cad598c0dfef",
-        "updatedAt": "2026-10-28T16:16:26+09:00",
+        "updatedAt": "2026-10-28T23:21:42+09:00",
         "latest": {
           "label": "1Q26 YTD 신규수주",
           "value": 517,
@@ -2533,7 +2533,7 @@
     ]
   },
   "spotPrices": {
-    "updatedAt": "2026-10-28T16:16:19+09:00",
+    "updatedAt": "2026-10-28T23:21:36+09:00",
     "sourceLabel": "StockEasy / DRAMeXchange",
     "sourceUrl": "https://stockeasy.intellio.kr/market-analysis?tab=memory-prices",
     "note": "과거 90일은 StockEasy 메모리 화면 툴팁에서 수집했고, 이후 같은 DDR4 8Gb·DDR5 16Gb 품목의 공개 DRAMeXchange Session Average를 자동 누적합니다.",
@@ -2546,7 +2546,7 @@
         "color": "#2e7a8f",
         "latest": {
           "date": "2026-10-28",
-          "sourceTime": "2026-10-28 14:40 GMT+8",
+          "sourceTime": "2026-10-28 18:10 GMT+8",
           "average": 61.333,
           "change": 0.0,
           "dailyHigh": 72.5,
@@ -3773,7 +3773,7 @@
           },
           {
             "date": "2026-10-28",
-            "sourceTime": "2026-10-28 14:40 GMT+8",
+            "sourceTime": "2026-10-28 18:10 GMT+8",
             "average": 61.333,
             "change": 0.0,
             "dailyHigh": 72.5,
@@ -3792,7 +3792,7 @@
         "color": "#9a6f2e",
         "latest": {
           "date": "2026-10-28",
-          "sourceTime": "2026-10-28 14:40 GMT+8",
+          "sourceTime": "2026-10-28 18:10 GMT+8",
           "average": 46.864,
           "change": -0.38,
           "dailyHigh": 84.0,
@@ -5019,7 +5019,7 @@
           },
           {
             "date": "2026-10-28",
-            "sourceTime": "2026-10-28 14:40 GMT+8",
+            "sourceTime": "2026-10-28 18:10 GMT+8",
             "average": 46.864,
             "change": -0.38,
             "dailyHigh": 84.0,
