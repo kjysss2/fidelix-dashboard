@@ -3,11 +3,9 @@
   "title": "Fidelix Memory Radar",
   "subtitle": "메모리 업황과 피어 실적을 한 화면에서 추적합니다",
   "system": {
-    "lastRefresh": "2026-10-30T19:36:02+09:00",
+    "lastRefresh": "2026-10-31T02:09:07+09:00",
     "lastRefreshReason": "github-pages",
-    "lastRefreshErrors": [
-      "SSE: 데이터 요청 실패: <urlopen error [Errno 101] Network is unreachable>"
-    ],
+    "lastRefreshErrors": [],
     "refreshing": false,
     "dartConfigured": false
   },
@@ -34,7 +32,7 @@
         "currency": "KRW",
         "basis": "별도, 누적 기준일 수 있음"
       },
-      "updatedAt": "2026-10-30T19:29:55+09:00",
+      "updatedAt": "2026-10-31T02:08:15+09:00",
       "verification": "official",
       "sourceLabel": "OpenDART 연결재무제표",
       "sourceUrl": "https://opendart.fss.or.kr/",
@@ -200,7 +198,7 @@
         "currency": "TWD",
         "basis": "당월, NT$ million"
       },
-      "updatedAt": "2026-10-30T19:22:21+09:00",
+      "updatedAt": "2026-10-31T02:06:22+09:00",
       "verification": "official",
       "sourceLabel": "대만거래소 월매출",
       "sourceUrl": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
@@ -584,7 +582,7 @@
         "currency": "TWD",
         "basis": "당월, NT$ million"
       },
-      "updatedAt": "2026-10-30T19:36:45+09:00",
+      "updatedAt": "2026-10-31T02:09:22+09:00",
       "verification": "official",
       "sourceLabel": "대만거래소 월매출",
       "sourceUrl": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
@@ -971,7 +969,7 @@
         "currency": "TWD",
         "basis": "당월, NT$ million"
       },
-      "updatedAt": "2026-10-30T19:36:35+09:00",
+      "updatedAt": "2026-10-31T02:09:17+09:00",
       "verification": "official",
       "sourceLabel": "대만거래소 월매출",
       "sourceUrl": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
@@ -1355,7 +1353,7 @@
         "currency": "TWD",
         "basis": "당월, NT$ million"
       },
-      "updatedAt": "2026-10-30T19:37:07+09:00",
+      "updatedAt": "2026-10-31T02:09:27+09:00",
       "verification": "official",
       "sourceLabel": "대만거래소 월매출",
       "sourceUrl": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
@@ -1739,7 +1737,7 @@
         "currency": "CNY",
         "basis": "H1 예비, CNY million"
       },
-      "updatedAt": "2026-10-30T11:54:18+09:00",
+      "updatedAt": "2026-10-31T02:07:54+09:00",
       "verification": "official-monitor",
       "sourceLabel": "2026년 반기 실적예고",
       "sourceUrl": "https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-07-21/688110_20260721_8A63.pdf",
@@ -1905,7 +1903,7 @@
         "currency": "KRW",
         "basis": "연결, 누적 기준일 수 있음"
       },
-      "updatedAt": "2026-10-30T19:30:02+09:00",
+      "updatedAt": "2026-10-31T02:08:18+09:00",
       "verification": "official",
       "sourceLabel": "OpenDART 연결재무제표",
       "sourceUrl": "https://opendart.fss.or.kr/",
@@ -2132,6 +2130,39 @@
   ],
   "feed": [
     {
+      "id": "sse-2026-10-31-1119260969962026676",
+      "companyId": "dosilicon",
+      "company": "Dosilicon",
+      "date": "2026-10-31",
+      "title": "关于控股股东增持公司股份计划的公告",
+      "type": "공시",
+      "url": "https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-10-31/688110_20261031_QTGR.pdf",
+      "source": "SSE",
+      "isNew": true
+    },
+    {
+      "id": "sse-2026-10-31-8608413146472810283",
+      "companyId": "dosilicon",
+      "company": "Dosilicon",
+      "date": "2026-10-31",
+      "title": "关于收到行政监管措施决定书的公告",
+      "type": "공시",
+      "url": "https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-10-31/688110_20261031_XZRF.pdf",
+      "source": "SSE",
+      "isNew": true
+    },
+    {
+      "id": "sse-2026-10-31-7326670461116560137",
+      "companyId": "dosilicon",
+      "company": "Dosilicon",
+      "date": "2026-10-31",
+      "title": "关于独立董事聘请第三方中介机构的公告",
+      "type": "공시",
+      "url": "https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-10-31/688110_20261031_Y7J2.pdf",
+      "source": "SSE",
+      "isNew": true
+    },
+    {
       "id": "dart-20261030000638",
       "companyId": "jeju",
       "company": "제주반도체",
@@ -2198,7 +2229,7 @@
       "isNew": true
     },
     {
-      "id": "sse-2026-10-27-2088215935912039493",
+      "id": "sse-2026-10-27-3018812026590872298",
       "companyId": "dosilicon",
       "company": "Dosilicon",
       "date": "2026-10-27",
@@ -2209,7 +2240,7 @@
       "isNew": true
     },
     {
-      "id": "sse-2026-10-27-9098172722646997400",
+      "id": "sse-2026-10-27-7635897511149375982",
       "companyId": "dosilicon",
       "company": "Dosilicon",
       "date": "2026-10-27",
@@ -2220,46 +2251,13 @@
       "isNew": true
     },
     {
-      "id": "sse-2026-10-27-1200747433628028179",
+      "id": "sse-2026-10-27-9112672216391468178",
       "companyId": "dosilicon",
       "company": "Dosilicon",
       "date": "2026-10-27",
       "title": "关于2023年限制性股票激励计划预留授予部分第三个归属期符合归属条件的公告",
       "type": "공시",
       "url": "https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-10-27/688110_20261027_8XGW.pdf",
-      "source": "SSE",
-      "isNew": true
-    },
-    {
-      "id": "sse-2026-10-27-8155146585118006272",
-      "companyId": "dosilicon",
-      "company": "Dosilicon",
-      "date": "2026-10-27",
-      "title": "关于调整2023年、2024年限制性股票激励计划相关事项的公告",
-      "type": "공시",
-      "url": "https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-10-27/688110_20261027_C3VZ.pdf",
-      "source": "SSE",
-      "isNew": true
-    },
-    {
-      "id": "sse-2026-10-27-3891142452136259272",
-      "companyId": "dosilicon",
-      "company": "Dosilicon",
-      "date": "2026-10-27",
-      "title": "关于作废部分限制性股票的公告",
-      "type": "공시",
-      "url": "https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-10-27/688110_20261027_F0F4.pdf",
-      "source": "SSE",
-      "isNew": true
-    },
-    {
-      "id": "sse-2026-10-27-3232140797449124588",
-      "companyId": "dosilicon",
-      "company": "Dosilicon",
-      "date": "2026-10-27",
-      "title": "关于开展外汇套期保值业务的公告",
-      "type": "공시",
-      "url": "https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-10-27/688110_20261027_FGFY.pdf",
       "source": "SSE",
       "isNew": true
     },
@@ -2336,7 +2334,7 @@
       "name": "대만거래소 OpenAPI",
       "status": "live",
       "message": "대만 4사 월매출·분기실적 갱신 완료 (2026Q3)",
-      "checkedAt": "2026-10-30T19:37:07+09:00",
+      "checkedAt": "2026-10-31T02:09:27+09:00",
       "url": "https://openapi.twse.com.tw/"
     },
     {
@@ -2344,15 +2342,15 @@
       "name": "OpenDART",
       "status": "live",
       "message": "국내 2개사 재무·공시 갱신 완료",
-      "checkedAt": "2026-10-30T19:30:04+09:00",
+      "checkedAt": "2026-10-31T02:08:18+09:00",
       "url": "https://opendart.fss.or.kr/"
     },
     {
       "id": "sse",
       "name": "상하이거래소",
-      "status": "error",
-      "message": "데이터 요청 실패: <urlopen error [Errno 101] Network is unreachable>",
-      "checkedAt": "2026-10-30T19:25:57+09:00",
+      "status": "live",
+      "message": "Dosilicon 최근 공시 6건 확인",
+      "checkedAt": "2026-10-31T02:07:54+09:00",
       "url": "https://www.sse.com.cn/"
     },
     {
@@ -2360,7 +2358,7 @@
       "name": "DRAMeXchange",
       "status": "live",
       "message": "DDR4/DDR5 현물가 2026-10-30 갱신 완료",
-      "checkedAt": "2026-10-30T19:25:59+09:00",
+      "checkedAt": "2026-10-31T02:07:56+09:00",
       "url": "https://www.dramexchange.com/"
     },
     {
@@ -2368,7 +2366,7 @@
       "name": "GDS 공식 IR",
       "status": "live",
       "message": "GDS 신규수주·백로그 갱신 완료",
-      "checkedAt": "2026-10-30T19:26:01+09:00",
+      "checkedAt": "2026-10-31T02:07:59+09:00",
       "url": "https://investors.gds-services.com/financial-information/quarterly-results/"
     },
     {
@@ -2376,12 +2374,12 @@
       "name": "VNET 공식 IR",
       "status": "live",
       "message": "VNET 신규수주·확약용량 갱신 완료",
-      "checkedAt": "2026-10-30T19:26:07+09:00",
+      "checkedAt": "2026-10-31T02:08:05+09:00",
       "url": "https://ir.vnet.com/financial-information/quarterly-results/"
     }
   ],
   "chinaServerOrders": {
-    "updatedAt": "2026-10-30T19:26:07+09:00",
+    "updatedAt": "2026-10-31T02:08:05+09:00",
     "note": "공식 IR 원문에서 확인되는 중국 IDC 신규수주와 백로그만 표시합니다.",
     "companies": [
       {
@@ -2389,7 +2387,7 @@
         "name": "GDS",
         "sourceLabel": "GDS 공식 IR · GDS 2Q26 Earnings Presentation",
         "sourceUrl": "https://investors.gds-services.com/system/files-encrypted/nasdaq_kms/assets/2026/08/13/9-41-50/GDS%202Q26%20Earnings%20Presentation%200813%20FINAL%284%29.pdf",
-        "updatedAt": "2026-10-30T19:26:01+09:00",
+        "updatedAt": "2026-10-31T02:07:59+09:00",
         "latest": {
           "label": "2Q26TD 신규수주",
           "value": 138,
@@ -2480,7 +2478,7 @@
         "name": "VNET",
         "sourceLabel": "VNET 공식 IR · Press Release",
         "sourceUrl": "https://ir.vnet.com/static-files/4e6384af-e95e-4838-9fa4-cad598c0dfef",
-        "updatedAt": "2026-10-30T19:26:07+09:00",
+        "updatedAt": "2026-10-31T02:08:05+09:00",
         "latest": {
           "label": "1Q26 YTD 신규수주",
           "value": 517,
@@ -2535,7 +2533,7 @@
     ]
   },
   "spotPrices": {
-    "updatedAt": "2026-10-30T19:25:59+09:00",
+    "updatedAt": "2026-10-31T02:07:56+09:00",
     "sourceLabel": "StockEasy / DRAMeXchange",
     "sourceUrl": "https://stockeasy.intellio.kr/market-analysis?tab=memory-prices",
     "note": "과거 90일은 StockEasy 메모리 화면 툴팁에서 수집했고, 이후 같은 DDR4 8Gb·DDR5 16Gb 품목의 공개 DRAMeXchange Session Average를 자동 누적합니다.",
