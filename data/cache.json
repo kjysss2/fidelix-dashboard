@@ -3,10 +3,11 @@
   "title": "Fidelix Memory Radar",
   "subtitle": "메모리 업황과 피어 실적을 한 화면에서 추적합니다",
   "system": {
-    "lastRefresh": "2026-11-06T10:52:48+09:00",
+    "lastRefresh": "2026-11-06T20:23:43+09:00",
     "lastRefreshReason": "github-pages",
     "lastRefreshErrors": [
-      "TWSE: Expecting value: line 1 column 1 (char 0)"
+      "GDS IR: 데이터 요청 실패: HTTP Error 403: Forbidden",
+      "VNET IR: 데이터 요청 실패: HTTP Error 403: Forbidden"
     ],
     "refreshing": false,
     "dartConfigured": false
@@ -34,7 +35,7 @@
         "currency": "KRW",
         "basis": "별도, 누적 기준일 수 있음"
       },
-      "updatedAt": "2026-11-06T10:47:17+09:00",
+      "updatedAt": "2026-11-06T20:22:51+09:00",
       "verification": "official",
       "sourceLabel": "OpenDART 연결재무제표",
       "sourceUrl": "https://opendart.fss.or.kr/",
@@ -187,12 +188,12 @@
       "role": "Specialty DRAM",
       "focus": "Specialty DRAM·NOR Flash",
       "metrics": {
-        "period": "2026-09",
+        "period": "2026-10",
         "periodType": "월매출",
-        "revenue": 28248.909,
-        "revenueDisplay": "NT$ 282.5억",
-        "revenueYoY": 256.6686868151223,
-        "revenueQoQ": 3.4428274312557416,
+        "revenue": 29360.613,
+        "revenueDisplay": "NT$ 293.6억",
+        "revenueYoY": 256.96,
+        "revenueQoQ": 3.94,
         "operatingIncome": null,
         "operatingIncomeDisplay": "월매출 공시 미제공",
         "netIncome": null,
@@ -200,22 +201,16 @@
         "currency": "TWD",
         "basis": "당월, NT$ million"
       },
-      "updatedAt": "2026-11-06T10:54:22+09:00",
+      "updatedAt": "2026-11-06T20:24:21+09:00",
       "verification": "official",
-      "sourceLabel": "대만거래소 월매출",
-      "sourceUrl": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
-      "note": "受市場供需影響。",
+      "sourceLabel": "Winbond official IR",
+      "sourceUrl": "https://www.winbond.com/hq/about-winbond/investor/financial-information/monthly-revenue/?__locale=en",
+      "note": "Winbond official IR unaudited consolidated monthly revenue",
       "questions": [
         "Specialty DRAM 가격 상승이 매출총이익률에 얼마나 반영됐는가?",
         "NOR Flash 재고 조정은 끝났는가?"
       ],
       "monthlyHistory": [
-        {
-          "period": "2023-10",
-          "revenue": 6297.972,
-          "mom": -6.92,
-          "yoy": 1.15
-        },
         {
           "period": "2023-11",
           "revenue": 6368.389,
@@ -425,6 +420,12 @@
           "revenue": 28248.909,
           "mom": 3.44,
           "yoy": 256.67
+        },
+        {
+          "period": "2026-10",
+          "revenue": 29360.613,
+          "mom": 3.94,
+          "yoy": 256.96
         }
       ],
       "quarterlyHistory": [
@@ -584,7 +585,7 @@
         "currency": "TWD",
         "basis": "당월, NT$ million"
       },
-      "updatedAt": "2026-11-06T10:54:44+09:00",
+      "updatedAt": "2026-11-06T20:24:33+09:00",
       "verification": "official",
       "sourceLabel": "Nanya official IR",
       "sourceUrl": "https://www.nanya.com/en/IR/16/?IRId=14203",
@@ -955,12 +956,12 @@
       "role": "NOR Flash",
       "focus": "NOR Flash·ROM",
       "metrics": {
-        "period": "2026-09",
+        "period": "2026-10",
         "periodType": "월매출",
-        "revenue": 8367.275,
-        "revenueDisplay": "NT$ 83.7억",
-        "revenueYoY": 188.23580475843863,
-        "revenueQoQ": 2.72560739875071,
+        "revenue": 8413.362,
+        "revenueDisplay": "NT$ 84.1억",
+        "revenueYoY": 217.1919858274479,
+        "revenueQoQ": 0.5508005892001844,
         "operatingIncome": null,
         "operatingIncomeDisplay": "월매출 공시 미제공",
         "netIncome": null,
@@ -968,22 +969,16 @@
         "currency": "TWD",
         "basis": "당월, NT$ million"
       },
-      "updatedAt": "2026-11-06T10:53:23+09:00",
+      "updatedAt": "2026-11-06T20:24:00+09:00",
       "verification": "official",
-      "sourceLabel": "대만거래소 월매출",
-      "sourceUrl": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
-      "note": "受市場需求增加影響。",
+      "sourceLabel": "Macronix official IR",
+      "sourceUrl": "https://www.macronix.com/en-us/about/investor-relations/Pages/monthly-sales.aspx",
+      "note": "Macronix official IR unaudited consolidated monthly revenue",
       "questions": [
         "자동차·산업용 NOR 주문 회복이 실제 출하로 이어지는가?",
         "ROM 계절성이 하반기 실적을 지지하는가?"
       ],
       "monthlyHistory": [
-        {
-          "period": "2023-10",
-          "revenue": 2166.105,
-          "mom": -13.39,
-          "yoy": -41.93
-        },
         {
           "period": "2023-11",
           "revenue": 1808.91,
@@ -1193,6 +1188,12 @@
           "revenue": 8367.275,
           "mom": 2.725607398750718,
           "yoy": 188.23580475843863
+        },
+        {
+          "period": "2026-10",
+          "revenue": 8413.362,
+          "mom": 0.5508005892001844,
+          "yoy": 217.1919858274479
         }
       ],
       "quarterlyHistory": [
@@ -1352,7 +1353,7 @@
         "currency": "TWD",
         "basis": "당월, NT$ million"
       },
-      "updatedAt": "2026-11-06T10:55:18+09:00",
+      "updatedAt": "2026-11-06T20:24:56+09:00",
       "verification": "official",
       "sourceLabel": "대만거래소 월매출",
       "sourceUrl": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
@@ -1736,7 +1737,7 @@
         "currency": "CNY",
         "basis": "H1 예비, CNY million"
       },
-      "updatedAt": "2026-11-06T10:43:42+09:00",
+      "updatedAt": "2026-11-06T20:22:39+09:00",
       "verification": "official-monitor",
       "sourceLabel": "2026년 반기 실적예고",
       "sourceUrl": "https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-07-21/688110_20260721_8A63.pdf",
@@ -1902,7 +1903,7 @@
         "currency": "KRW",
         "basis": "연결, 누적 기준일 수 있음"
       },
-      "updatedAt": "2026-11-06T10:47:24+09:00",
+      "updatedAt": "2026-11-06T20:22:55+09:00",
       "verification": "official",
       "sourceLabel": "OpenDART 연결재무제표",
       "sourceUrl": "https://opendart.fss.or.kr/",
@@ -2129,6 +2130,17 @@
   ],
   "feed": [
     {
+      "id": "sse-2026-11-07-3230253622289798551",
+      "companyId": "dosilicon",
+      "company": "Dosilicon",
+      "date": "2026-11-07",
+      "title": "关于控股股东首次增持公司股份暨增持股份进展的公告",
+      "type": "공시",
+      "url": "https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-11-07/688110_20261107_73V9.pdf",
+      "source": "SSE",
+      "isNew": true
+    },
+    {
       "id": "dart-20261105000177",
       "companyId": "jeju",
       "company": "제주반도체",
@@ -2184,7 +2196,7 @@
       "isNew": true
     },
     {
-      "id": "sse-2026-11-03-1339261384128165173",
+      "id": "sse-2026-11-03-1664313086663638542",
       "companyId": "dosilicon",
       "company": "Dosilicon",
       "date": "2026-11-03",
@@ -2195,7 +2207,7 @@
       "isNew": true
     },
     {
-      "id": "sse-2026-10-31-5225493129638752576",
+      "id": "sse-2026-10-31-7588671305803158331",
       "companyId": "dosilicon",
       "company": "Dosilicon",
       "date": "2026-10-31",
@@ -2206,7 +2218,7 @@
       "isNew": true
     },
     {
-      "id": "sse-2026-10-31-2463104443504762946",
+      "id": "sse-2026-10-31-7214387509494891940",
       "companyId": "dosilicon",
       "company": "Dosilicon",
       "date": "2026-10-31",
@@ -2217,7 +2229,7 @@
       "isNew": true
     },
     {
-      "id": "sse-2026-10-31-8507261176948676563",
+      "id": "sse-2026-10-31-6389679569162116922",
       "companyId": "dosilicon",
       "company": "Dosilicon",
       "date": "2026-10-31",
@@ -2283,24 +2295,13 @@
       "isNew": true
     },
     {
-      "id": "sse-2026-10-27-4085497875532639950",
+      "id": "sse-2026-10-27-8260743701275680508",
       "companyId": "dosilicon",
       "company": "Dosilicon",
       "date": "2026-10-27",
       "title": "关于召开2026年上海辖区上市公司三季报集体业绩说明会的公告",
       "type": "공시",
       "url": "https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-10-27/688110_20261027_0NAG.pdf",
-      "source": "SSE",
-      "isNew": true
-    },
-    {
-      "id": "sse-2026-10-27-160991580023341222",
-      "companyId": "dosilicon",
-      "company": "Dosilicon",
-      "date": "2026-10-27",
-      "title": "董事会薪酬与考核委员会关于公司2023年限制性股票激励计划预留授予部分第三个归属期及2024年限制性股票激励计划预留授予部分第二个归属期归属名单的核查意见",
-      "type": "공시",
-      "url": "https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-10-27/688110_20261027_4VRC.pdf",
       "source": "SSE",
       "isNew": true
     },
@@ -2333,7 +2334,7 @@
       "name": "대만거래소 OpenAPI",
       "status": "live",
       "message": "대만 4사 월매출·분기실적 갱신 완료 (2026Q3)",
-      "checkedAt": "2026-11-06T10:55:18+09:00",
+      "checkedAt": "2026-11-06T20:24:56+09:00",
       "url": "https://openapi.twse.com.tw/"
     },
     {
@@ -2341,7 +2342,7 @@
       "name": "OpenDART",
       "status": "live",
       "message": "국내 2개사 재무·공시 갱신 완료",
-      "checkedAt": "2026-11-06T10:47:25+09:00",
+      "checkedAt": "2026-11-06T20:22:55+09:00",
       "url": "https://opendart.fss.or.kr/"
     },
     {
@@ -2349,31 +2350,31 @@
       "name": "상하이거래소",
       "status": "live",
       "message": "Dosilicon 최근 공시 6건 확인",
-      "checkedAt": "2026-11-06T10:43:42+09:00",
+      "checkedAt": "2026-11-06T20:22:39+09:00",
       "url": "https://www.sse.com.cn/"
     },
     {
       "id": "dramexchange",
       "name": "DRAMeXchange",
       "status": "live",
-      "message": "DDR4/DDR5 현물가 2026-11-05 갱신 완료",
-      "checkedAt": "2026-11-06T10:43:45+09:00",
+      "message": "DDR4/DDR5 현물가 2026-11-06 갱신 완료",
+      "checkedAt": "2026-11-06T20:22:41+09:00",
       "url": "https://www.dramexchange.com/"
     },
     {
       "id": "gds_ir",
       "name": "GDS 공식 IR",
-      "status": "live",
-      "message": "GDS 신규수주·백로그 갱신 완료",
-      "checkedAt": "2026-11-06T10:43:46+09:00",
+      "status": "error",
+      "message": "데이터 요청 실패: HTTP Error 403: Forbidden",
+      "checkedAt": "2026-11-06T20:22:41+09:00",
       "url": "https://investors.gds-services.com/financial-information/quarterly-results/"
     },
     {
       "id": "vnet_ir",
       "name": "VNET 공식 IR",
-      "status": "live",
-      "message": "VNET 신규수주·확약용량 갱신 완료",
-      "checkedAt": "2026-11-06T10:43:50+09:00",
+      "status": "error",
+      "message": "데이터 요청 실패: HTTP Error 403: Forbidden",
+      "checkedAt": "2026-11-06T20:22:42+09:00",
       "url": "https://ir.vnet.com/financial-information/quarterly-results/"
     }
   ],
@@ -2532,7 +2533,7 @@
     ]
   },
   "spotPrices": {
-    "updatedAt": "2026-11-06T10:43:45+09:00",
+    "updatedAt": "2026-11-06T20:22:41+09:00",
     "sourceLabel": "StockEasy / DRAMeXchange",
     "sourceUrl": "https://stockeasy.intellio.kr/market-analysis?tab=memory-prices",
     "note": "과거 90일은 StockEasy 메모리 화면 툴팁에서 수집했고, 이후 같은 DDR4 8Gb·DDR5 16Gb 품목의 공개 DRAMeXchange Session Average를 자동 누적합니다.",
@@ -2544,10 +2545,10 @@
         "unit": "USD",
         "color": "#2e7a8f",
         "latest": {
-          "date": "2026-11-05",
-          "sourceTime": "2026-11-05 18:10 GMT+8",
-          "average": 60.667,
-          "change": -1.09,
+          "date": "2026-11-06",
+          "sourceTime": "2026-11-06 18:10 GMT+8",
+          "average": 60.167,
+          "change": -0.82,
           "dailyHigh": 73.0,
           "dailyLow": 46.2,
           "sessionHigh": 73.0,
@@ -3846,6 +3847,17 @@
             "sessionHigh": 73.0,
             "sessionLow": 46.2,
             "source": "DRAMeXchange"
+          },
+          {
+            "date": "2026-11-06",
+            "sourceTime": "2026-11-06 18:10 GMT+8",
+            "average": 60.167,
+            "change": -0.82,
+            "dailyHigh": 73.0,
+            "dailyLow": 46.2,
+            "sessionHigh": 73.0,
+            "sessionLow": 46.2,
+            "source": "DRAMeXchange"
           }
         ]
       },
@@ -3856,14 +3868,14 @@
         "unit": "USD",
         "color": "#9a6f2e",
         "latest": {
-          "date": "2026-11-05",
-          "sourceTime": "2026-11-05 18:10 GMT+8",
-          "average": 46.036,
-          "change": -0.46,
-          "dailyHigh": 83.0,
-          "dailyLow": 25.8,
-          "sessionHigh": 83.0,
-          "sessionLow": 25.8,
+          "date": "2026-11-06",
+          "sourceTime": "2026-11-06 18:10 GMT+8",
+          "average": 45.607,
+          "change": -0.93,
+          "dailyHigh": 82.0,
+          "dailyLow": 25.0,
+          "sessionHigh": 82.0,
+          "sessionLow": 25.0,
           "source": "DRAMeXchange"
         },
         "history": [
@@ -5157,6 +5169,17 @@
             "dailyLow": 25.8,
             "sessionHigh": 83.0,
             "sessionLow": 25.8,
+            "source": "DRAMeXchange"
+          },
+          {
+            "date": "2026-11-06",
+            "sourceTime": "2026-11-06 18:10 GMT+8",
+            "average": 45.607,
+            "change": -0.93,
+            "dailyHigh": 82.0,
+            "dailyLow": 25.0,
+            "sessionHigh": 82.0,
+            "sessionLow": 25.0,
             "source": "DRAMeXchange"
           }
         ]
