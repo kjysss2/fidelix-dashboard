@@ -3,9 +3,11 @@
   "title": "Fidelix Memory Radar",
   "subtitle": "메모리 업황과 피어 실적을 한 화면에서 추적합니다",
   "system": {
-    "lastRefresh": "2026-11-15T20:25:34+09:00",
+    "lastRefresh": "2026-11-16T02:57:22+09:00",
     "lastRefreshReason": "github-pages",
-    "lastRefreshErrors": [],
+    "lastRefreshErrors": [
+      "OpenDART: 데이터 요청 실패: <urlopen error timed out>"
+    ],
     "refreshing": false,
     "dartConfigured": false
   },
@@ -198,7 +200,7 @@
         "currency": "TWD",
         "basis": "당월, NT$ million"
       },
-      "updatedAt": "2026-11-15T20:25:37+09:00",
+      "updatedAt": "2026-11-16T02:57:25+09:00",
       "verification": "official",
       "sourceLabel": "대만거래소 월매출",
       "sourceUrl": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
@@ -582,7 +584,7 @@
         "currency": "TWD",
         "basis": "당월, NT$ million"
       },
-      "updatedAt": "2026-11-15T20:25:44+09:00",
+      "updatedAt": "2026-11-16T02:57:26+09:00",
       "verification": "official",
       "sourceLabel": "대만거래소 월매출",
       "sourceUrl": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
@@ -966,7 +968,7 @@
         "currency": "TWD",
         "basis": "당월, NT$ million"
       },
-      "updatedAt": "2026-11-15T20:25:35+09:00",
+      "updatedAt": "2026-11-16T02:57:23+09:00",
       "verification": "official",
       "sourceLabel": "대만거래소 월매출",
       "sourceUrl": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
@@ -1350,7 +1352,7 @@
         "currency": "TWD",
         "basis": "당월, NT$ million"
       },
-      "updatedAt": "2026-11-15T20:25:49+09:00",
+      "updatedAt": "2026-11-16T02:57:28+09:00",
       "verification": "official",
       "sourceLabel": "대만거래소 월매출",
       "sourceUrl": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
@@ -1734,7 +1736,7 @@
         "currency": "CNY",
         "basis": "H1 예비, CNY million"
       },
-      "updatedAt": "2026-11-15T20:23:58+09:00",
+      "updatedAt": "2026-11-16T02:55:53+09:00",
       "verification": "official-monitor",
       "sourceLabel": "2026년 반기 실적예고",
       "sourceUrl": "https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-07-21/688110_20260721_8A63.pdf",
@@ -2138,17 +2140,6 @@
       "isNew": true
     },
     {
-      "id": "sse-2026-11-12-5345404075719704838",
-      "companyId": "dosilicon",
-      "company": "Dosilicon",
-      "date": "2026-11-12",
-      "title": "关于控股股东及其一致行动人权益变动触及1%刻度的提示性公告",
-      "type": "공시",
-      "url": "https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-11-12/688110_20261112_2LAK.pdf",
-      "source": "SSE",
-      "isNew": true
-    },
-    {
       "id": "dart-20261112000218",
       "companyId": "fidelix",
       "company": "피델릭스",
@@ -2160,7 +2151,18 @@
       "isNew": true
     },
     {
-      "id": "sse-2026-11-07-2343875171833831505",
+      "id": "sse-2026-11-12-3256075510226132257",
+      "companyId": "dosilicon",
+      "company": "Dosilicon",
+      "date": "2026-11-12",
+      "title": "关于控股股东及其一致行动人权益变动触及1%刻度的提示性公告",
+      "type": "공시",
+      "url": "https://www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-11-12/688110_20261112_2LAK.pdf",
+      "source": "SSE",
+      "isNew": true
+    },
+    {
+      "id": "sse-2026-11-07-4279097743522874784",
       "companyId": "dosilicon",
       "company": "Dosilicon",
       "date": "2026-11-07",
@@ -2215,7 +2217,7 @@
       "isNew": true
     },
     {
-      "id": "sse-2026-11-03-960640236428274200",
+      "id": "sse-2026-11-03-8886113104140514701",
       "companyId": "dosilicon",
       "company": "Dosilicon",
       "date": "2026-11-03",
@@ -2226,7 +2228,7 @@
       "isNew": true
     },
     {
-      "id": "sse-2026-10-31-8203059946122968105",
+      "id": "sse-2026-10-31-5191346406778325275",
       "companyId": "dosilicon",
       "company": "Dosilicon",
       "date": "2026-10-31",
@@ -2237,7 +2239,7 @@
       "isNew": true
     },
     {
-      "id": "sse-2026-10-31-3651820650918138394",
+      "id": "sse-2026-10-31-3374982191945628324",
       "companyId": "dosilicon",
       "company": "Dosilicon",
       "date": "2026-10-31",
@@ -2248,7 +2250,7 @@
       "isNew": true
     },
     {
-      "id": "sse-2026-10-31-3735426048634617000",
+      "id": "sse-2026-10-31-7317375079946889151",
       "companyId": "dosilicon",
       "company": "Dosilicon",
       "date": "2026-10-31",
@@ -2331,15 +2333,15 @@
       "name": "대만거래소 OpenAPI",
       "status": "live",
       "message": "대만 4사 월매출·분기실적 갱신 완료 (2026Q3)",
-      "checkedAt": "2026-11-15T20:25:49+09:00",
+      "checkedAt": "2026-11-16T02:57:28+09:00",
       "url": "https://openapi.twse.com.tw/"
     },
     {
       "id": "dart",
       "name": "OpenDART",
-      "status": "live",
-      "message": "국내 2개사 재무·공시 갱신 완료",
-      "checkedAt": "2026-11-15T20:24:20+09:00",
+      "status": "error",
+      "message": "데이터 요청 실패: <urlopen error timed out>",
+      "checkedAt": "2026-11-16T02:57:22+09:00",
       "url": "https://opendart.fss.or.kr/"
     },
     {
@@ -2347,7 +2349,7 @@
       "name": "상하이거래소",
       "status": "live",
       "message": "Dosilicon 최근 공시 6건 확인",
-      "checkedAt": "2026-11-15T20:23:58+09:00",
+      "checkedAt": "2026-11-16T02:55:53+09:00",
       "url": "https://www.sse.com.cn/"
     },
     {
@@ -2355,7 +2357,7 @@
       "name": "DRAMeXchange",
       "status": "live",
       "message": "DDR4/DDR5 현물가 2026-11-13 갱신 완료",
-      "checkedAt": "2026-11-15T20:24:00+09:00",
+      "checkedAt": "2026-11-16T02:55:55+09:00",
       "url": "https://www.dramexchange.com/"
     },
     {
@@ -2363,7 +2365,7 @@
       "name": "GDS 공식 IR",
       "status": "live",
       "message": "GDS 신규수주·백로그 갱신 완료",
-      "checkedAt": "2026-11-15T20:24:03+09:00",
+      "checkedAt": "2026-11-16T02:55:57+09:00",
       "url": "https://investors.gds-services.com/financial-information/quarterly-results/"
     },
     {
@@ -2371,12 +2373,12 @@
       "name": "VNET 공식 IR",
       "status": "live",
       "message": "VNET 신규수주·확약용량 갱신 완료",
-      "checkedAt": "2026-11-15T20:24:06+09:00",
+      "checkedAt": "2026-11-16T02:56:03+09:00",
       "url": "https://ir.vnet.com/financial-information/quarterly-results/"
     }
   ],
   "chinaServerOrders": {
-    "updatedAt": "2026-11-15T20:24:06+09:00",
+    "updatedAt": "2026-11-16T02:56:03+09:00",
     "note": "공식 IR 원문에서 확인되는 중국 IDC 신규수주와 백로그만 표시합니다.",
     "companies": [
       {
@@ -2384,7 +2386,7 @@
         "name": "GDS",
         "sourceLabel": "GDS 공식 IR · GDS 2Q26 Earnings Presentation",
         "sourceUrl": "https://investors.gds-services.com/system/files-encrypted/nasdaq_kms/assets/2026/08/13/9-41-50/GDS%202Q26%20Earnings%20Presentation%200813%20FINAL%284%29.pdf",
-        "updatedAt": "2026-11-15T20:24:03+09:00",
+        "updatedAt": "2026-11-16T02:55:57+09:00",
         "latest": {
           "label": "2Q26TD 신규수주",
           "value": 138,
@@ -2475,7 +2477,7 @@
         "name": "VNET",
         "sourceLabel": "VNET 공식 IR · Press Release",
         "sourceUrl": "https://ir.vnet.com/static-files/4e6384af-e95e-4838-9fa4-cad598c0dfef",
-        "updatedAt": "2026-11-15T20:24:06+09:00",
+        "updatedAt": "2026-11-16T02:56:03+09:00",
         "latest": {
           "label": "1Q26 YTD 신규수주",
           "value": 517,
@@ -2530,7 +2532,7 @@
     ]
   },
   "spotPrices": {
-    "updatedAt": "2026-11-15T20:24:00+09:00",
+    "updatedAt": "2026-11-16T02:55:55+09:00",
     "sourceLabel": "StockEasy / DRAMeXchange",
     "sourceUrl": "https://stockeasy.intellio.kr/market-analysis?tab=memory-prices",
     "note": "과거 90일은 StockEasy 메모리 화면 툴팁에서 수집했고, 이후 같은 DDR4 8Gb·DDR5 16Gb 품목의 공개 DRAMeXchange Session Average를 자동 누적합니다.",
